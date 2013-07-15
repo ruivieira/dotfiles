@@ -1,9 +1,12 @@
 #!/usr/bin/bash
 
+# ENV
+EDITOR=/usr/bin/sublime-text
+
 alias 'ls'='ls -a -1 -o --color -F -h -l'
 alias 'cd..'='cd ..'
 alias 'dir'='ls'
-alias 'eprofile'='vim ~/.bash_profile'
+alias 'eprofile'='$EDITOR ~/.bash_profile'
 alias 'rprofile'='source ~/.bash_profile'
 alias 'java'=$JAVA_HOME/bin/java
 alias tree="find . -print | sed -e 's;[^/]*/;|____;g;s;____|; |;g'"
