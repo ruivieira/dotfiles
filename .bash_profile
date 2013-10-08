@@ -2,8 +2,9 @@
 
 # ENV
 EDITOR=/usr/bin/sublime-text
+export JAVA_HOME=/usr/lib/jvm/java-1.7.0-openjdk-amd64
 
-alias 'ls'='ls -a -1 -o --color -F -h -l'
+alias 'ls'='ls --time-style=+"%Y-%m-%d %H:%M:%S" -a -1 -o --color -F -h -l'
 alias 'cd..'='cd ..'
 alias 'dir'='ls'
 alias 'eprofile'='$EDITOR ~/.bash_profile'
