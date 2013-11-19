@@ -27,3 +27,17 @@ export PYTHONSTARTUP=~/.pythonrc
 
 # ignore commands on the history that might contain passwords
 export HISTIGNORE="*schemasync*"
+
+export GRAILS_HOME=/opt/grails
+
+# adding grails to the path
+export PATH=$PATH:$GRAILS_HOME/bin
+
+# JAVA
+export JAVA_HOME=/usr/lib/jvm/java-7-oracle
+
+[ -s $HOME/.nvm/nvm.sh ] && . $HOME/.nvm/nvm.sh # This loads NVM
+
+# GOLAND variables
+export GOROOT=$HOME/golang
+export PATH=$PATH:$GOROOT/bin
