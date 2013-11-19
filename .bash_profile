@@ -2,8 +2,9 @@
 
 # ENV
 EDITOR=/usr/bin/sublime-text
+export JAVA_HOME=/usr/lib/jvm/java-1.7.0-openjdk-amd64
 
-alias 'ls'='ls -a -1 -o --color -F -h -l'
+alias 'ls'='ls --time-style=+"%Y-%m-%d %H:%M:%S" -a -1 -o --color -F -h -l'
 alias 'cd..'='cd ..'
 alias 'dir'='ls'
 alias 'eprofile'='$EDITOR ~/.bash_profile'
@@ -28,16 +29,7 @@ export PYTHONSTARTUP=~/.pythonrc
 # ignore commands on the history that might contain passwords
 export HISTIGNORE="*schemasync*"
 
-export GRAILS_HOME=/opt/grails
-
-# adding grails to the path
-export PATH=$PATH:$GRAILS_HOME/bin
-
-# JAVA
-export JAVA_HOME=/usr/lib/jvm/java-7-oracle
-
-[ -s $HOME/.nvm/nvm.sh ] && . $HOME/.nvm/nvm.sh # This loads NVM
-
-# GOLAND variables
+# Go language variables
 export GOROOT=$HOME/golang
 export PATH=$PATH:$GOROOT/bin
+
