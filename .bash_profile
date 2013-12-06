@@ -31,5 +31,9 @@ export HISTIGNORE="*schemasync*"
 
 # Go language variables
 export GOROOT=$HOME/golang
+export GOPATH=$HOME/gocode
 export PATH=$PATH:$GOROOT/bin
+
+# play framework
+export PATH=$PATH:/opt/play
 
