@@ -2,7 +2,7 @@
 
 # ENV
 EDITOR=/usr/bin/sublime-text
-export JAVA_HOME=/usr/lib/jvm/java-1.7.0-openjdk-amd64
+export JAVA_HOME=/usr/lib/jvm/java-1.7.0-openjdk
 
 alias 'ls'='ls --time-style=+"%Y-%m-%d %H:%M:%S" -a -1 -o --color -F -h -l'
 alias 'cd..'='cd ..'
@@ -27,7 +27,7 @@ cdp () {
 export PYTHONSTARTUP=~/.pythonrc
 
 # ignore commands on the history that might contain passwords
-export HISTIGNORE="*schemasync*"
+export HISTIGNORE="*schemasync*:clear:bg:fg:cd:cd -:exit:date:w:* --help" # Colon seperated list of exact commands 
 
 # Go language variables
 export GOROOT=$HOME/golang
