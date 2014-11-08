@@ -1,0 +1,27 @@
+#Add below lines in the profile
+export M2_HOME=/opt/apache-maven-3.2.3
+export PATH=$PATH:$M2_HOME/bin
+export JAVA_HOME=$(/usr/libexec/java_home -v 1.8)
+
+#TextMate LaTeX compiler
+export TM_LATEX_COMPILER=/usr/texbin/pdflatex
+
+#!/usr/bin/bash
+
+# ENV
+
+alias 'ls'='ls -a -1 -o -F -h -l'
+alias 'cd..'='cd ..'
+alias 'dir'='ls'
+alias 'eprofile'='$EDITOR ~/.bash_profile'
+alias 'rprofile'='source ~/.bash_profile'
+alias tree="find . -print | sed -e 's;[^/]*/;|____;g;s;____|; |;g'"
+alias '..'='cd ..'
+# LS_COLORS
+LS_COLORS='*.py=31:*.pyc=90:*.db=93:*.bat=31:*.txt=93'
+
+export LS_COLORS
+export CLICOLOR=1
+
+# ignore commands on the history that might contain passwords
+export HISTIGNORE="*schemasync*:clear:bg:fg:cd:cd -:exit:date:w:* --help" # Colon seperated list of exact commands 
