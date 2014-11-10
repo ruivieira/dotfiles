@@ -3,7 +3,7 @@ export M2_HOME=/opt/apache-maven-3.2.3
 export PATH=$PATH:$M2_HOME/bin
 export JAVA_HOME=$(/usr/libexec/java_home -v 1.8)
 # This hack is to work around an R/Java bug in OS X
-export LD_LIBRARY_PATH=/Library/Java/JavaVirtualMachines/jdk1.8.0_20.jdk/Contents/Home/jre/lib/server
+export LD_LIBRARY_PATH=$(/usr/libexec/java_home -v 1.8)/jre/lib/server
 
 #TextMate LaTeX compiler
 export TM_LATEX_COMPILER=/usr/texbin/pdflatex
