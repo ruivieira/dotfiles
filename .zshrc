@@ -29,4 +29,4 @@ plugins=(git osx mvn)
 source $ZSH/oh-my-zsh.sh
 
 # Customize to your needs...
-export PATH=/usr/local/bin:/usr/bin:/bin:/usr/sbin:/sbin:/opt/X11/bin:/usr/local/go/bin:/usr/texbin:/opt/apache-maven-3.2.3/bin:/opt/jruby/bin:/opt/apache-maven-3.2.3/bin:/opt/jruby/bin:/opt/apache-maven-3.2.3/bin:/opt/jruby/bin
+source $HOME/.bashrc

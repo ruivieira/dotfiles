@@ -1,6 +1,12 @@
 #Add below lines in the profile
 export M2_HOME=/opt/apache-maven-3.2.3
 export PATH=$PATH:$M2_HOME/bin
+
+# Kafka
+export KAFKA_HOME=/usr/local/kafka
+export KAFKA=$KAFKA_HOME/bin
+export KAFKA_CONFIG=$KAFKA_HOME/config
+
 export JAVA_HOME=$(/usr/libexec/java_home -v 1.8)
 # This hack is to work around an R/Java bug in OS X
 export LD_LIBRARY_PATH=$(/usr/libexec/java_home -v 1.8)/jre/lib/server
@@ -9,7 +15,7 @@ export LD_LIBRARY_PATH=$(/usr/libexec/java_home -v 1.8)/jre/lib/server
 export TM_LATEX_COMPILER=/usr/texbin/pdflatex
 
 # jRuby path
-export PATH=$PATH:/opt/jruby/bin
+export PATH=$PATH:/opt/jruby/bin:/opt/jython/bin
 
 # ENV
 
@@ -28,3 +34,14 @@ export CLICOLOR=1
 
 # ignore commands on the history that might contain passwords
 export HISTIGNORE="*schemasync*:clear:bg:fg:cd:cd -:exit:date:w:* --help" # Colon seperated list of exact commands 
+
+# Docker configuration
+export DOCKER_HOST=tcp://192.168.59.103:2376
+export DOCKER_CERT_PATH=$HOME/.boot2docker/certs/boot2docker-vm
+export DOCKER_TLS_VERIFY=1
+
+# For some reason /usr/local/bin is not on the path
+export PATH=$PATH:/usr/local/bin
+
+# call Archey!
+archey -c
