@@ -2,11 +2,6 @@
 export M2_HOME=/opt/apache-maven-3.2.3
 export PATH=$PATH:$M2_HOME/bin
 
-# Kafka
-export KAFKA_HOME=/usr/local/kafka
-export KAFKA=$KAFKA_HOME/bin
-export KAFKA_CONFIG=$KAFKA_HOME/config
-
 export JAVA_HOME=$(/usr/libexec/java_home -v 1.8)
 # This hack is to work around an R/Java bug in OS X
 export LD_LIBRARY_PATH=$(/usr/libexec/java_home -v 1.8)/jre/lib/server
@@ -18,7 +13,6 @@ export TM_LATEX_COMPILER=/usr/texbin/pdflatex
 export PATH=$PATH:/opt/jruby/bin:/opt/jython/bin
 
 # ENV
-
 alias 'ls'='ls -a -1 -o -F -h -l'
 alias 'cd..'='cd ..'
 alias 'dir'='ls'
