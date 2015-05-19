@@ -33,7 +33,3 @@ export HISTIGNORE="*schemasync*:clear:bg:fg:cd:cd -:exit:date:w:* --help" # Colo
 export GOROOT=$HOME/golang
 export GOPATH=$HOME/gocode
 export PATH=$PATH:$GOROOT/bin
-
-# play framework
-export PATH=$PATH:/opt/play
-
