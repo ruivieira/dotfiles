@@ -10,7 +10,7 @@ export LD_LIBRARY_PATH=$(/usr/libexec/java_home -v 1.8)/jre/lib/server
 export TM_LATEX_COMPILER=/usr/texbin/pdflatex
 
 # jRuby path
-export PATH=$PATH:/opt/jruby/bin:/opt/jython/bin
+export PATH=$PATH:/opt/jruby/bin
 
 # ENV
 alias 'ls'='ls -a -1 -o -F -h -l'
@@ -35,7 +35,8 @@ export DOCKER_CERT_PATH=$HOME/.boot2docker/certs/boot2docker-vm
 export DOCKER_TLS_VERIFY=1
 
 # For some reason /usr/local/bin is not on the path
-export PATH=$PATH:/usr/local/bin
+# also, it needs to be first due to brew
+export PATH=/usr/local/bin:$PATH
 
 # call Archey!
 archey -c
