@@ -2,7 +2,9 @@
 
 # ENV
 EDITOR=/usr/bin/sublime-text
-export JAVA_HOME=/usr/lib/jvm/java-1.7.0-openjdk
+export JAVA_HOME=/opt/jdk1.8.0_45
+export JRE_HOME=/opt/jdk1.8.0_45/jre
+export PATH=$PATH:/opt/jdk1.8.0_45/bin:/opt/jdk1.8.0_45/jre/bin
 
 alias 'ls'='ls --time-style=+"%Y-%m-%d %H:%M:%S" -a -1 -o --color -F -h -l'
 alias 'cd..'='cd ..'
