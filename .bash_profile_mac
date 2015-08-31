@@ -6,6 +6,12 @@ export JAVA_HOME=$(/usr/libexec/java_home -v 1.8)
 # This hack is to work around an R/Java bug in OS X
 export LD_LIBRARY_PATH=$(/usr/libexec/java_home -v 1.8)/jre/lib/server
 
+# Scala path
+export PATH=$PATH:/opt/scala/bin
+
+# scala.js
+export PATH=$PATH:/opt/scalajs/bin
+
 #TextMate LaTeX compiler
 export TM_LATEX_COMPILER=/usr/texbin/pdflatex
 
@@ -27,7 +33,7 @@ export LS_COLORS
 export CLICOLOR=1
 
 # ignore commands on the history that might contain passwords
-export HISTIGNORE="*schemasync*:clear:bg:fg:cd:cd -:exit:date:w:* --help" # Colon seperated list of exact commands 
+export HISTIGNORE="*schemasync*:clear:bg:fg:cd:cd -:exit:date:w:* --help" # Colon seperated list of exact commands
 
 # Docker configuration
 export DOCKER_HOST=tcp://192.168.59.103:2376
@@ -37,6 +43,12 @@ export DOCKER_TLS_VERIFY=1
 # For some reason /usr/local/bin is not on the path
 # also, it needs to be first due to brew
 export PATH=/usr/local/bin:$PATH
+
+# TeXLive for OS X
+export PATH=$PATH:/usr/local/texlive/2014/bin/x86_64-darwin
+
+# Octave path
+export PATH=$PATH:/usr/local/Cellar/octave/3.8.2_1/bin
 
 # call Archey!
 archey -c
