@@ -1,22 +1,32 @@
-#Add below lines in the profile
+##Add below lines in the profile
+
+# OSX specific paths
 export M2_HOME=/opt/apache-maven-3.2.3
 export PATH=$PATH:$M2_HOME/bin
-
 export JAVA_HOME=$(/usr/libexec/java_home -v 1.8)
+# Scala path
+export PATH=$PATH:/opt/scala/bin
+# scala.js
+export PATH=$PATH:/opt/scalajs/bin
+# jRuby path
+export PATH=$PATH:/opt/jruby/bin
+# For some reason /usr/local/bin is not on the path
+# also, it needs to be first due to brew
+export PATH=/usr/local/bin:$PATH
+# TeXLive for OS X
+export PATH=$PATH:/usr/local/texlive/2014/bin/x86_64-darwin
+# Octave path
+export PATH=$PATH:/usr/local/Cellar/octave/3.8.2_1/bin
+# add Anaconda to the path
+export PATH=$PATH:$HOME/anaconda/bin
+# Node.js weird path (sigh)
+export PATH=$PATH:/usr/local/Cellar/node/5.0.0/bin
+
 # This hack is to work around an R/Java bug in OS X
 export LD_LIBRARY_PATH=$(/usr/libexec/java_home -v 1.8)/jre/lib/server
 
-# Scala path
-export PATH=$PATH:/opt/scala/bin
-
-# scala.js
-export PATH=$PATH:/opt/scalajs/bin
-
 #TextMate LaTeX compiler
 export TM_LATEX_COMPILER=/usr/texbin/pdflatex
-
-# jRuby path
-export PATH=$PATH:/opt/jruby/bin
 
 # ENV
 alias 'ls'='ls -a -1 -o -F -h -l'
@@ -39,16 +49,6 @@ export HISTIGNORE="*schemasync*:clear:bg:fg:cd:cd -:exit:date:w:* --help" # Colo
 export DOCKER_HOST=tcp://192.168.59.103:2376
 export DOCKER_CERT_PATH=$HOME/.boot2docker/certs/boot2docker-vm
 export DOCKER_TLS_VERIFY=1
-
-# For some reason /usr/local/bin is not on the path
-# also, it needs to be first due to brew
-export PATH=/usr/local/bin:$PATH
-
-# TeXLive for OS X
-export PATH=$PATH:/usr/local/texlive/2014/bin/x86_64-darwin
-
-# Octave path
-export PATH=$PATH:/usr/local/Cellar/octave/3.8.2_1/bin
 
 # call Archey!
 archey -c
