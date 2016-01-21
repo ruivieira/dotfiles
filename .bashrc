@@ -5,7 +5,6 @@ alias 'cd..'='cd ..'
 alias 'dir'='ls'
 alias 'eprofile'='$EDITOR ~/.bash_profile'
 alias 'rprofile'='source ~/.bash_profile'
-alias 'java'=$JAVA_HOME/bin/java
 alias tree="find . -print | sed -e 's;[^/]*/;|____;g;s;____|; |;g'"
 alias '..'='cd ..'
 # LS_COLORS

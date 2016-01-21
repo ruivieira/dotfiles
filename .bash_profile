@@ -2,9 +2,9 @@
 
 # ENV
 EDITOR=/usr/bin/sublime-text
-export JAVA_HOME=/opt/jdk1.8.0_45
-export JRE_HOME=/opt/jdk1.8.0_45/jre
-export PATH=$PATH:/opt/jdk1.8.0_45/bin:/opt/jdk1.8.0_45/jre/bin
+export JAVA_HOME=/opt/jdk1.8
+export JRE_HOME=/opt/jdk1.8/jre
+export PATH=$PATH:$JAVA_HOME/bin:$JRE_HOME/bin
 
 # cd to a python module directory
 cdp () {
