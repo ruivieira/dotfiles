@@ -6,6 +6,8 @@ export PATH=$PATH:$M2_HOME/bin
 export JAVA_HOME=$(/usr/libexec/java_home -v 1.8)
 # Scala path
 export PATH=$PATH:/opt/scala/bin
+# npm path (grunt, etc)
+export PATH=$PATH:/usr/local/Cellar/node/5.5.0/libexec/npm/lib/node_modules/grunt-cli/bin
 # scala.js
 export PATH=$PATH:/opt/scalajs/bin
 # jRuby path
