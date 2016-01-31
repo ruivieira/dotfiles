@@ -8,12 +8,14 @@ export JAVA_HOME=$(/usr/libexec/java_home -v 1.8)
 export PATH=$PATH:/opt/scala/bin
 # node path
 export NODE_PATH=$(npm root -g)
-# npm grunt
-export PATH=$PATH:$NODE_PATH/grunt-cli/bin
-# npm coffeescript
-export PATH=$PATH:$NODE_PATH/coffee-script/bin
-# npm less
-export PATH=$PATH:$NODE_PATH/less/bin
+
+## declare an array variable
+declare -a node_libs=("grunt-cli" "coffee-script" "less")
+for i in "${node_libs[@]}"
+do
+   export PATH=$PATH:$NODE_PATH/$i/bin
+   # or do whatever with individual element of the array
+done
 # scala.js
 export PATH=$PATH:/opt/scalajs/bin
 # jRuby path
