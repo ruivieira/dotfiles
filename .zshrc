@@ -30,3 +30,5 @@ source $ZSH/oh-my-zsh.sh
 
 # Customize to your needs...
 source $HOME/.bashrc
+
+test -e ${HOME}/.iterm2_shell_integration.zsh && source ${HOME}/.iterm2_shell_integration.zsh
