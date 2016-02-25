@@ -23,7 +23,7 @@ def copy_scripts():
 def symlink(src, dst):
     os.symlink(src, dst)
     print "[" + green("symlink") + "] creating symlink from " + src + " to " + dst
-    
+
 if __name__ == "__main__":
     if not is_sudo():
         print red('This script needs sudo.')
