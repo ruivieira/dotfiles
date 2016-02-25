@@ -1,6 +1,17 @@
 (setq visible-bell 1) ;; Disable the (irritating audible bell)
+
+;; fix the mouse scroll in OS X
+
+(setq mouse-wheel-scroll-amount '(1 ((shift) . 1))) ;; one line at a time
+(setq mouse-wheel-progressive-speed nil) ;; don't accelerate scrolling
+(setq mouse-wheel-follow-mouse 't) ;; scroll window under mouse
+(setq scroll-step 1) ;; keyboard scroll one line at a time
 (set-keyboard-coding-system nil) ; OS X Meta key hack
-					; add providers for ELPA
+
+;; keep the current directory when opening files
+(cd (concat (getenv "HOME") "/"))
+
+;; add providers for ELPA
 (setq package-archives '(("gnu" . "https://elpa.gnu.org/packages/")
                          ("marmalade" . "https://marmalade-repo.org/packages/")
                          ("melpa" . "https://melpa.org/packages/")))
