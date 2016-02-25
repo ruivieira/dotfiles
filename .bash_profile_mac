@@ -7,7 +7,7 @@ export JAVA_HOME=$(/usr/libexec/java_home -v 1.8)
 # Scala path
 export PATH=$PATH:/opt/scala/bin
 # node path
-export NODE_PATH=$(npm root -g)
+export NODE_PATH=/usr/local/Cellar/node/5.0.0/lib/node_modules
 
 ## declare an array variable
 declare -a node_libs=("grunt-cli" "coffee-script" "less")

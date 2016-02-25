@@ -32,3 +32,6 @@ source $ZSH/oh-my-zsh.sh
 source $HOME/.bashrc
 
 test -e ${HOME}/.iterm2_shell_integration.zsh && source ${HOME}/.iterm2_shell_integration.zsh
+
+# start tmux (if not already inside a tmux)
+if [ "$TMUX" = "" ]; then tmux; fi
