@@ -20,8 +20,14 @@ def copy_scripts():
         destination = '/usr/local/bin',
         message = 'Copying scripts to /usr/local/bin')
 
+def symlink(src, dst):
+    os.symlink(src, dst)
+    print "[" + green("symlink") + "] creating symlink from " + src + " to " + dst
+    
 if __name__ == "__main__":
     if not is_sudo():
         print red('This script needs sudo.')
     else:
         copy_scripts()
+        # symlink emacs
+        symlink(os.path.join(CURRENT_DIR, ".emacs.d"), os.path.join(os.path.expanduser('~'), ".emacs.d"))
