@@ -38,6 +38,9 @@ export LD_LIBRARY_PATH=$(/usr/libexec/java_home -v 1.8)/jre/lib/server
 #TextMate LaTeX compiler
 export TM_LATEX_COMPILER=/usr/texbin/pdflatex
 
+# Skim's display line in path
+export PATH=$PATH:/Applications/Skim.app/Contents/SharedSupport
+
 # ENV
 alias 'ls'='ls -a -1 -o -F -h -l'
 alias 'cd..'='cd ..'
