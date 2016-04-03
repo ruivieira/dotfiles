@@ -3,7 +3,7 @@ options(prompt="R> ")
 # set the default CRAN mirror
 local({
   r <- getOption("repos")
-  r["CRAN"] <- "http://star-www.st-andrews.ac.uk/cran/"
+  r["CRAN"] <- "https://cran.opencpu.org"
   options(repos = r)
 })
 
