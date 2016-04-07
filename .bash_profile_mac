@@ -25,21 +25,18 @@ export PATH=$PATH:/opt/jruby/bin
 export PATH=/usr/local/bin:$PATH
 # TeXLive for OS X
 export PATH=$PATH:/usr/local/texlive/2014/bin/x86_64-darwin
-# Octave path
-export PATH=$PATH:/usr/local/Cellar/octave/3.8.2_1/bin
-# add Anaconda to the path
-export PATH=$PATH:$HOME/anaconda/bin
 # Node.js weird path (sigh)
 export PATH=$PATH:/usr/local/Cellar/node/5.0.0/bin
+# add sbin
+export PATH=/usr/local/sbin:$PATH
+# add nim to path
+export PATH=$PATH:/opt/nim/bin
 
 # This hack is to work around an R/Java bug in OS X
 export LD_LIBRARY_PATH=$(/usr/libexec/java_home -v 1.8)/jre/lib/server
 
 #TextMate LaTeX compiler
 export TM_LATEX_COMPILER=/usr/texbin/pdflatex
-
-# Skim's display line in path
-export PATH=$PATH:/Applications/Skim.app/Contents/SharedSupport
 
 # ENV
 alias 'ls'='ls -a -1 -o -F -h -l'
