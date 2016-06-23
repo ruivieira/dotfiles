@@ -7,7 +7,7 @@ export JAVA_HOME=$(/usr/libexec/java_home -v 1.8)
 # Scala path
 export PATH=$PATH:/opt/scala/bin
 # node path
-export NODE_PATH=/usr/local/Cellar/node/5.0.0/lib/node_modules
+export NODE_PATH=/usr/local/Cellar/node/6.2.2/lib/node_modules
 
 ## declare an array variable
 declare -a node_libs=("grunt-cli" "coffee-script" "less")
@@ -16,8 +16,8 @@ do
    export PATH=$PATH:$NODE_PATH/$i/bin
    # or do whatever with individual element of the array
 done
-# scala.js
-export PATH=$PATH:/opt/scalajs/bin
+# node bin
+export PATH=$PATH:/usr/local/Cellar/node/6.2.2/bin
 # jRuby path
 export PATH=$PATH:/opt/jruby/bin
 # For some reason /usr/local/bin is not on the path
@@ -29,8 +29,6 @@ export PATH=$PATH:/usr/local/texlive/2014/bin/x86_64-darwin
 export PATH=$PATH:/usr/local/Cellar/node/5.0.0/bin
 # add sbin
 export PATH=/usr/local/sbin:$PATH
-# add nim to path
-export PATH=$PATH:/opt/nim/bin
 
 # This hack is to work around an R/Java bug in OS X
 export LD_LIBRARY_PATH=$(/usr/libexec/java_home -v 1.8)/jre/lib/server
@@ -61,6 +59,9 @@ export HISTIGNORE="*schemasync*:clear:bg:fg:cd:cd -:exit:date:w:* --help" # Colo
 export DOCKER_HOST=tcp://192.168.59.103:2376
 export DOCKER_CERT_PATH=$HOME/.boot2docker/certs/boot2docker-vm
 export DOCKER_TLS_VERIFY=1
+
+# add the Swift toolchain to the path
+export PATH=/Library/Developer/Toolchains/swift-latest.xctoolchain/usr/bin:"${PATH}"
 
 # call Archey!
 archey -c
