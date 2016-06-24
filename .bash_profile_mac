@@ -18,8 +18,8 @@ do
 done
 # node bin
 export PATH=$PATH:/usr/local/Cellar/node/6.2.2/bin
-# jRuby path
-export PATH=$PATH:/opt/jruby/bin
+# Nim ath
+export PATH=$PATH:/opt/Nim/bin
 # For some reason /usr/local/bin is not on the path
 # also, it needs to be first due to brew
 export PATH=/usr/local/bin:$PATH
