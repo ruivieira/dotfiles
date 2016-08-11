@@ -77,7 +77,7 @@ export PATH=$MAVEN_HOME/bin:$PATH
 export PATH=$GRADLE_HOME/bin:$PATH
 export PATH=$ANDROID_HOME/tools:$PATH
 export PATH=$ANDROID_HOME/platform-tools:$PATH
-export PATH=$ANDROID_HOME/build-tools/19.1.0:$PATH
+export PATH=$ANDROID_HOME/build-tools/24.0.1:$PATH
 
 # call Archey!
 archey -c
