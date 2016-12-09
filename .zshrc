@@ -32,3 +32,21 @@ source $ZSH/oh-my-zsh.sh
 source $HOME/.bashrc
 
 test -e ${HOME}/.iterm2_shell_integration.zsh && source ${HOME}/.iterm2_shell_integration.zsh
+
+# OPAM configuration
+. /Users/rui/.opam/opam-init/init.zsh > /dev/null 2> /dev/null || true
+
+###-tns-completion-start-###
+if [ -f /Users/ruivieira/.tnsrc ]; then 
+    source /Users/ruivieira/.tnsrc 
+fi
+###-tns-completion-end-###
+
+# set a more comprehensive format for `time`
+TIMEFMT='%J   %U  user %S system %P cpu %*E total'$'\n'\
+'avg shared (code):         %X KB'$'\n'\
+'avg unshared (data/stack): %D KB'$'\n'\
+'total (sum):               %K KB'$'\n'\
+'max memory:                %M MB'$'\n'\
+'page faults from disk:     %F'$'\n'\
+'other page faults:         %R'
