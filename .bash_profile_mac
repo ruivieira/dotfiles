@@ -26,11 +26,13 @@ export PATH=$PATH:/opt/pixie
 # also, it needs to be first due to brew
 export PATH=/usr/local/bin:$PATH
 # TeXLive for OS X
-export PATH=$PATH:/usr/local/texlive/2014/bin/x86_64-darwin
+export PATH=$PATH:/usr/local/texlive/2016/bin/x86_64-darwin
 # Node.js weird path (sigh)
 export PATH=$PATH:/usr/local/Cellar/node/5.0.0/bin
 # add sbin
 export PATH=/usr/local/sbin:$PATH
+# OpenShift Origin tools (local)
+export PATH=/opt/oc/:$PATH
 
 # This hack is to work around an R/Java bug in OS X
 export LD_LIBRARY_PATH=$(/usr/libexec/java_home -v 1.8)/jre/lib/server
@@ -79,5 +81,14 @@ export PATH=$ANDROID_HOME/tools:$PATH
 export PATH=$ANDROID_HOME/platform-tools:$PATH
 export PATH=$ANDROID_HOME/build-tools/24.0.1:$PATH
 
+# path for npm et al.
+export PATH=$PATH:/usr/local/bin
+
 # call Archey!
 archey -c
+
+###-tns-completion-start-###
+if [ -f /Users/ruivieira/.tnsrc ]; then 
+    source /Users/ruivieira/.tnsrc 
+fi
+###-tns-completion-end-###
