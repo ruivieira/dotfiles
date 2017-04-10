@@ -20,8 +20,6 @@ done
 export PATH=$PATH:/usr/local/Cellar/node/6.2.2/bin
 # Nim path
 export PATH=$PATH:/opt/Nim/bin
-# Pixie lang path
-export PATH=$PATH:/opt/pixie
 # For some reason /usr/local/bin is not on the path
 # also, it needs to be first due to brew
 export PATH=/usr/local/bin:$PATH
@@ -33,6 +31,12 @@ export PATH=$PATH:/usr/local/Cellar/node/5.0.0/bin
 export PATH=/usr/local/sbin:$PATH
 # OpenShift Origin tools (local)
 export PATH=/opt/oc/:$PATH
+
+## Apache Spark
+export PATH=/usr/local/Cellar/apache-spark/2.1.0/bin:$PATH
+export PYTHON_PATH=/usr/local/Cellar/apache-spark/2.1.0/libexec/python
+export PYSPARK_DRIVER_PYTHON=ipython
+export PYSPARK_DRIVER_PYTHON_OPTS='notebook' pyspark
 
 # This hack is to work around an R/Java bug in OS X
 export LD_LIBRARY_PATH=$(/usr/libexec/java_home -v 1.8)/jre/lib/server
