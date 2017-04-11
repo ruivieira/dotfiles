@@ -12,4 +12,6 @@ LS_COLORS='*.py=31:*.pyc=90:*.db=93:*.bat=31:*.txt=93'
 
 export LS_COLORS
 
+export PS1='[\u@\h \W$(declare -F __git_ps1 &>/dev/null && __git_ps1 " (%s)")]\$ '
+
 source .bash_profile
