@@ -18,6 +18,9 @@ export PYTHONSTARTUP=~/.pythonrc
 # ignore commands on the history that might contain passwords
 export HISTIGNORE="*schemasync*:clear:bg:fg:cd:cd -:exit:date:w:* --help" # Colon seperated list of exact commands
 
+# OpenShift Origin
+export PATH=$HOME/openshift:$PATH
+
 # Go language variables
 export GOROOT=$HOME/golang
 export GOPATH=$HOME/gocode
