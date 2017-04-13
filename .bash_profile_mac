@@ -24,7 +24,9 @@ export PATH=$PATH:/opt/Nim/bin
 # also, it needs to be first due to brew
 export PATH=/usr/local/bin:$PATH
 # TeXLive for OS X
-export PATH=$PATH:/usr/local/texlive/2016/bin/x86_64-darwin
+export TEX=/usr/local/texlive/2016/bin/x86_64-darwin
+export PATH=$TEX:$PATH
+
 # Node.js weird path (sigh)
 export PATH=$PATH:/usr/local/Cellar/node/5.0.0/bin
 # add sbin
@@ -62,11 +64,6 @@ export CLICOLOR=1
 
 # ignore commands on the history that might contain passwords
 export HISTIGNORE="*schemasync*:clear:bg:fg:cd:cd -:exit:date:w:* --help" # Colon seperated list of exact commands
-
-# Docker configuration
-export DOCKER_HOST=tcp://192.168.59.103:2376
-export DOCKER_CERT_PATH=$HOME/.boot2docker/certs/boot2docker-vm
-export DOCKER_TLS_VERIFY=1
 
 # add the Swift toolchain to the path
 export PATH=/Library/Developer/Toolchains/swift-latest.xctoolchain/usr/bin:"${PATH}"
