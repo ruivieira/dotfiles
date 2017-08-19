@@ -54,10 +54,13 @@ alias 'eprofile'='$EDITOR ~/.bash_profile'
 alias 'rprofile'='source ~/.bash_profile'
 alias tree="find . -print | sed -e 's;[^/]*/;|____;g;s;____|; |;g'"
 alias '..'='cd ..'
+# emacs alias for brew
+alias emacs='/usr/local/Cellar/emacs-plus/25.2/bin/emacs'
+
 # Aquamacs command line alias
 alias 'xemacs'='/Applications/Emacs.app/Contents/MacOS/Emacs'
 # LS_COLORS
-LS_COLORS='*.py=31:*.pyc=90:*.db=93:*.bat=31:*.txt=93'
+LS_COLORS='*.py=31:*.pyc=1;30:*.db=93:*.bat=31:*.txt=93'
 
 export LS_COLORS
 export CLICOLOR=1
@@ -96,3 +99,5 @@ if [ -f /Users/ruivieira/.tnsrc ]; then
     source /Users/ruivieira/.tnsrc 
 fi
 ###-tns-completion-end-###
+
+export PATH="$HOME/.cargo/bin:$PATH"

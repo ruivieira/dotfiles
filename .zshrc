@@ -24,12 +24,15 @@ CASE_SENSITIVE="false"
 
 # Which plugins would you like to load? (plugins can be found in ~/.oh-my-zsh/plugins/*)
 # Example format: plugins=(rails git textmate ruby lighthouse)
-plugins=(git osx mvn)
+plugins=(git osx mvn oc)
 
 source $ZSH/oh-my-zsh.sh
 
 # Customize to your needs...
 source $HOME/.bashrc
+
+# load the rustup environment
+source $HOME/.cargo/env
 
 test -e ${HOME}/.iterm2_shell_integration.zsh && source ${HOME}/.iterm2_shell_integration.zsh
 
@@ -37,8 +40,8 @@ test -e ${HOME}/.iterm2_shell_integration.zsh && source ${HOME}/.iterm2_shell_in
 . /Users/rui/.opam/opam-init/init.zsh > /dev/null 2> /dev/null || true
 
 ###-tns-completion-start-###
-if [ -f /Users/ruivieira/.tnsrc ]; then 
-    source /Users/ruivieira/.tnsrc 
+if [ -f /Users/ruivieira/.tnsrc ]; then
+    source /Users/ruivieira/.tnsrc
 fi
 ###-tns-completion-end-###
 
