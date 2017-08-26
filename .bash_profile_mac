@@ -29,8 +29,6 @@ export PATH=$TEX:$PATH
 export PATH=$PATH:/usr/local/Cellar/node/5.0.0/bin
 # add sbin
 export PATH=/usr/local/sbin:$PATH
-# OpenShift Origin tools (local)
-export PATH=/opt/oc/:$PATH
 
 ## Apache Spark
 export PATH=/usr/local/Cellar/apache-spark/2.1.0/bin:$PATH
