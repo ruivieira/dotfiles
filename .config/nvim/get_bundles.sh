@@ -12,3 +12,5 @@ rm -Rf $BUNDLES/vim-fugitive
 git clone git://github.com/tpope/vim-fugitive.git $BUNDLES/vim-fugitive
 rm -Rf $BUNDLES/vim-gitgutter
 git clone git://github.com/airblade/vim-gitgutter.git $BUNDLES/vim-gitgutter
+rm -Rf $BUNDLES/vim-markdown
+git clone https://github.com/plasticboy/vim-markdown.git $BUNDLES/vim-markdown
