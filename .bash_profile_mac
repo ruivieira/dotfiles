@@ -1,32 +1,18 @@
 ##Add below lines in the profile
 
+export EDITOR=/usr/bin/nvim
+
 # OSX specific paths
 export M2_HOME=/opt/apache-maven-3.2.3
 export PATH=$PATH:$M2_HOME/bin
 export JAVA_HOME=$(/usr/libexec/java_home -v 1.8)
 # Scala path
 export PATH=$PATH:/opt/scala/bin
-# node path
-export NODE_PATH=/usr/local/Cellar/node/6.2.2/lib/node_modules
 
-## declare an array variable
-declare -a node_libs=("grunt-cli" "coffee-script" "less")
-for i in "${node_libs[@]}"
-do
-   export PATH=$PATH:$NODE_PATH/$i/bin
-   # or do whatever with individual element of the array
-done
-# node bin
-export PATH=$PATH:/usr/local/Cellar/node/6.2.2/bin
-# For some reason /usr/local/bin is not on the path
-# also, it needs to be first due to brew
-export PATH=/usr/local/bin:$PATH
 # TeXLive for OS X
 export TEX=/usr/local/texlive/2016/bin/x86_64-darwin
 export PATH=$TEX:$PATH
 
-# Node.js weird path (sigh)
-export PATH=$PATH:/usr/local/Cellar/node/5.0.0/bin
 # add sbin
 export PATH=/usr/local/sbin:$PATH
 
@@ -97,3 +83,6 @@ fi
 ###-tns-completion-end-###
 
 export PATH="$HOME/.cargo/bin:$PATH"
+# For some reason /usr/local/bin is not on the path
+# also, it needs to be first due to brew
+export PATH=/usr/local/bin:$PATH
