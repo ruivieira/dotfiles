@@ -36,8 +36,6 @@ alias 'eprofile'='$EDITOR ~/.bash_profile'
 alias 'rprofile'='source ~/.bash_profile'
 alias tree="find . -print | sed -e 's;[^/]*/;|____;g;s;____|; |;g'"
 alias '..'='cd ..'
-# emacs alias for brew
-alias emacs='/usr/local/Cellar/emacs-plus/25.2/bin/emacs'
 
 # Aquamacs command line alias
 alias 'xemacs'='/Applications/Emacs.app/Contents/MacOS/Emacs'
