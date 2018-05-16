@@ -2,6 +2,9 @@
 
 export EDITOR=/usr/bin/nvim
 
+# Python env
+eval "$(pyenv init -)"
+
 # OSX specific paths
 export M2_HOME=/opt/apache-maven-3.2.3
 export PATH=$PATH:$M2_HOME/bin
@@ -84,3 +87,5 @@ export PATH="$HOME/.cargo/bin:$PATH"
 # For some reason /usr/local/bin is not on the path
 # also, it needs to be first due to brew
 export PATH=/usr/local/bin:$PATH
+
+export PATH=$(pyenv root)/shims:$PATH

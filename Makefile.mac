@@ -1,0 +1,30 @@
+DOTFILES_ROOT := $(shell pwd)
+
+all: brew emacs spacemacs pyenv profile
+
+brew:
+	@echo "Updating brew"
+	brew update
+	export HOMEBREW_NO_AUTO_UPDATE=1
+
+emacs:
+	@echo "Installing emacs"
+	@brew install emacs-plus
+
+spacemacs:
+	@echo "Installing spacemacs"
+	@echo "== removing ~/.emacs.d"
+	@rm -Rf ~/.emacs.d
+	@echo "== cloning spacemacs repo"
+	@git clone https://github.com/syl20bnr/spacemacs ~/.emacs.d
+	@echo "== linking .spacemacs"
+	@ln -fs $(DOTFILES_ROOT)/.spacemacs ~/.spacemacs
+
+pyenv:
+	@echo "Installing pyenv"
+	brew install pyenv
+
+profile:
+	@echo "Linking bash profiles"
+	@ln -fs $(DOTFILES_ROOT)/.bashrc ~/.bashrc
+	@ln -fs $(DOTFILES_ROOT)/.bash_profile_mac ~/.bash_profile
