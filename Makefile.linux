@@ -1,19 +1,14 @@
 DOTFILES_ROOT := $(shell pwd)
 
-all: brew emacs spacemacs pyenv maven scala sbt profile
+all: emacs spacemacs pyenv maven scala sbt profile
 
 define upstall
-	brew link $(1) &>/dev/null || brew install $(1)
+	yum install -y $(1)
 endef
-
-brew:
-	@echo "Updating brew"
-	@brew update
-	@export HOMEBREW_NO_AUTO_UPDATE=1
 
 emacs:
 	@echo "Installing emacs"
-	@$(call upstall,emacs-plus)
+	@$(call upstall,emacs)
 
 spacemacs:
 	@echo "Installing spacemacs"
@@ -35,12 +30,15 @@ pyenv:
 profile:
 	@echo "Linking bash profiles"
 	@ln -fs $(DOTFILES_ROOT)/.bashrc ~/.bashrc
-	@ln -fs $(DOTFILES_ROOT)/.bash_profile_mac ~/.bash_profile
+	@ln -fs $(DOTFILES_ROOT)/.bash_profile_torg ~/.bash_profile
 
 sbt:
 	@echo "Installing sbt"
-	@$(call upstall,sbt@1)
+	@curl https://bintray.com/sbt/rpm/rpm | sudo tee /etc/yum.repos.d/bintray-sbt-rpm.repo
+	sudo yum install sbt
 
 scala:
 	@echo "Install scala"
-	@$(call upstall,scala)	
+	@wget http://downloads.lightbend.com/scala/2.11.8/scala-2.11.8.rpm
+	@sudo yum install scala-2.11.8.rpm
+	@rm scala-2.11.8.rpm
