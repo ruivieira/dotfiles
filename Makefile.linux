@@ -35,10 +35,10 @@ profile:
 sbt:
 	@echo "Installing sbt"
 	@curl https://bintray.com/sbt/rpm/rpm | sudo tee /etc/yum.repos.d/bintray-sbt-rpm.repo
-	sudo yum install sbt
+	sudo yum install -y sbt
 
 scala:
 	@echo "Install scala"
 	@wget http://downloads.lightbend.com/scala/2.11.8/scala-2.11.8.rpm
-	@sudo yum install scala-2.11.8.rpm
+	@sudo yum install -y scala-2.11.8.rpm
 	@rm scala-2.11.8.rpm
