@@ -1,6 +1,8 @@
-DOTFILES_ROOT := $(shell pwd)
+include Makefile.include
 
-all: brew emacs spacemacs pyenv maven scala sbt profile
+all: brew emacs fonts spacemacs pyenv maven scala sbt profile
+
+.PHONY: all fonts
 
 define upstall
 	brew link $(1) &>/dev/null || brew install $(1)
@@ -15,6 +17,12 @@ emacs:
 	@echo "Installing emacs"
 	@$(call upstall,emacs-plus)
 
+fonts:
+	@echo "Installing fonts"
+	@echo "== installing Computer Modern"
+	cp $(DOTFILES_ROOT)/fonts/cm-unicode-0.6.3a/*otf ~/Library/Fonts/
+
+
 spacemacs:
 	@echo "Installing spacemacs"
 	@echo "== removing ~/.emacs.d"
@@ -27,6 +35,16 @@ spacemacs:
 maven:
 	@echo "Installing maven"
 	@$(call upstall,maven)
+
+minishift:
+	@$(call log,Installing minishift)
+	@$(call upstall,--HEAD xhyve)
+	@brew cask install minishift
+	@$(call upstall,docker-machine-driver-xhyve)
+	# docker-machine-driver-xhyve need root owner and uid
+	@sudo chown root:wheel $(brew --prefix)/opt/docker-machine-driver-xhyve/bin/docker-machine-driver-xhyve
+	@sudo chmod u+s $(brew --prefix)/opt/docker-machine-driver-xhyve/bin/docker-machine-driver-xhyve
+	$(warning Remember to do 'eval \$(minishift oc-env)' after 'minishift start)
 
 pyenv:
 	@echo "Installing pyenv"
