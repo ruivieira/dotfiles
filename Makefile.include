@@ -1,0 +1,5 @@
+DOTFILES_ROOT := $(shell pwd)
+	
+define log
+	$(info $(1))
+endef

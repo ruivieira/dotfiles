@@ -11,7 +11,7 @@ emacs:
 	@$(call upstall,emacs)
 
 spacemacs:
-	@echo "Installing spacemacs"
+	@$(call info,"Installing spacemacs")
 	@echo "== removing ~/.emacs.d"
 	@rm -Rf ~/.emacs.d
 	@echo "== cloning spacemacs repo"
@@ -20,7 +20,7 @@ spacemacs:
 	@ln -fs $(DOTFILES_ROOT)/.spacemacs ~/.spacemacs
 
 maven:
-	@echo "Installing maven"
+	@$(call info,"Installing maven")
 	@$(call upstall,maven)
 
 pyenv:
