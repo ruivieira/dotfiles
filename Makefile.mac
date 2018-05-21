@@ -1,6 +1,6 @@
 include Makefile.include
 
-all: brew emacs fonts spacemacs pyenv maven scala sbt profile
+all: brew emacs fonts spacemacs sporth pyenv maven scala sbt profile
 
 .PHONY: all fonts
 
@@ -16,6 +16,26 @@ brew:
 emacs:
 	@echo "Installing emacs"
 	@$(call upstall,emacs-plus)
+
+libsndfile:
+	@echo "Installing libsndfile"
+	@$(call upstall,libsndfile)
+
+soundpipe: libsndfile
+	@echo "Installing SoundPipe"
+	rm -Rf ~/tmp/SoundPipe
+	git clone git@github.com:PaulBatchelor/Soundpipe.git ~/tmp/SoundPipe
+	cd ~/tmp/SoundPipe && $(MAKE) clean
+	sudo $(MAKE) install
+	cd $(DOTFILES_ROOT)
+
+sporth: soundpipe
+	echo "Installing sporth"
+	rm -Rf ~/tmp/Sporth
+	git clone git@github.com:PaulBatchelor/Sporth.git ~/tmp/Sporth
+	cd ~/tmp/Sporth && $(MAKE) clean
+	sudo $(MAKE) install
+	cd $(DOTFILES_ROOT)
 
 fonts:
 	@echo "Installing fonts"
