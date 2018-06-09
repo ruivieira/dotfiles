@@ -8,6 +8,12 @@ define upstall
 	brew link $(1) &>/dev/null || brew install $(1)
 endef
 
+clean:
+	@echo "Cleaning brew"
+	@brew prune
+	@echo "Cleaning Docker"
+	@docker volume prune
+
 brew:
 	@echo "Updating brew"
 	@brew update

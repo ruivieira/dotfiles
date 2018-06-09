@@ -6,6 +6,10 @@ define upstall
 	yum install -y $(1)
 endef
 
+clean:
+	@echo "Cleaning Docker"
+	@docker volume prune
+
 emacs:
 	@echo "Installing emacs"
 	@$(call upstall,emacs)
