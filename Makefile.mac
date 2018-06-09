@@ -40,8 +40,12 @@ sporth: soundpipe
 fonts:
 	@echo "Installing fonts"
 	@echo "== installing Computer Modern"
-	cp $(DOTFILES_ROOT)/fonts/cm-unicode-0.6.3a/*otf ~/Library/Fonts/
-
+	@cp $(DOTFILES_ROOT)/fonts/cm-unicode-0.6.3a/*otf ~/Library/Fonts/
+	@echo "== installing Overpass"
+	@cp $(DOTFILES_ROOT)/fonts/overpass/Overpass/*ttf ~/Library/Fonts/
+	@cp $(DOTFILES_ROOT)/fonts/overpass/Overpass_Mono/*ttf ~/Library/Fonts/
+	@echo "== installing Inconsolata"
+	@cp $(DOTFILES_ROOT)/fonts/inconsolata/*ttf ~/Library/Fonts/
 
 spacemacs:
 	@echo "Installing spacemacs"

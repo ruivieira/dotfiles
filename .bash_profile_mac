@@ -29,7 +29,7 @@ export LD_LIBRARY_PATH=$(/usr/libexec/java_home -v 1.8)/jre/lib/server
 #TextMate LaTeX compiler
 export TM_LATEX_COMPILER=/usr/texbin/pdflatex
 
-# ENV
+# Aliases
 alias 'ls'='ls -a -1 -o -F -h -l'
 alias 'cd..'='cd ..'
 alias 'dir'='ls'
@@ -37,6 +37,7 @@ alias 'eprofile'='$EDITOR ~/.bash_profile'
 alias 'rprofile'='source ~/.bash_profile'
 alias tree="find . -print | sed -e 's;[^/]*/;|____;g;s;____|; |;g'"
 alias '..'='cd ..'
+alias bu="brew update && brew upgrade && brew cleanup"
 
 # Aquamacs command line alias
 alias 'xemacs'='/Applications/Emacs.app/Contents/MacOS/Emacs'
@@ -87,3 +88,6 @@ export PATH="$HOME/.cargo/bin:$PATH"
 export PATH=/usr/local/bin:$PATH
 
 export PATH=$(pyenv root)/shims:$PATH
+
+# added by Anaconda3 5.2.0 installer
+export PATH="/anaconda3/bin:$PATH"
