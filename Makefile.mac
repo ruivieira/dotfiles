@@ -1,6 +1,6 @@
 include Makefile.include
 
-all: brew emacs fonts spacemacs sporth pyenv maven scala sbt profile
+all: brew go emacs fonts spacemacs sporth pyenv maven scala sbt profile
 
 .PHONY: all fonts
 
@@ -22,6 +22,10 @@ brew:
 chicken:
 	@echo "Installing Chicken Scheme"
 	@$(call upstall,chicken)
+
+go:
+	@echo "Installing Go"
+	@$(call upstall,go)
 
 emacs:
 	@echo "Installing emacs"

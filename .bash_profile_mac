@@ -55,6 +55,7 @@ export PATH=/Library/Developer/Toolchains/swift-latest.xctoolchain/usr/bin:"${PA
 
 # golang paths
 export PATH=/usr/local/go/bin:$PATH
+export GOPATH=$HOME/code/go
 
 # Android paths
 export ANT_HOME=/usr/local/opt/ant

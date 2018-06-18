@@ -31,9 +31,6 @@ source $ZSH/oh-my-zsh.sh
 # Customize to your needs...
 source $HOME/.bashrc
 
-# load the rustup environment
-source $HOME/.cargo/env
-
 test -e ${HOME}/.iterm2_shell_integration.zsh && source ${HOME}/.iterm2_shell_integration.zsh
 
 # OPAM configuration
