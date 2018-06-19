@@ -12,4 +12,7 @@ LS_COLORS='*.py=31:*.pyc=90:*.db=93:*.bat=31:*.txt=93'
 
 export LS_COLORS
 
+# pyenv
+export PYENV_VIRTUALENV_DISABLE_PROMPT=1
+
 source .bash_profile
