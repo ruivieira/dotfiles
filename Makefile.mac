@@ -1,6 +1,6 @@
 include Makefile.include
 
-all: brew go emacs fonts spacemacs sporth pyenv maven scala sbt profile
+all: brew curl go irc emacs fonts spacemacs sporth pyenv python maven scala sbt profile
 
 .PHONY: all fonts
 
@@ -13,6 +13,10 @@ clean:
 	@brew prune
 	@echo "Cleaning Docker"
 	@docker volume prune
+
+curl:
+	@echo "Installing curl"
+	@$(call upstall,curl)
 
 brew:
 	@echo "Updating brew"
@@ -27,6 +31,10 @@ go:
 	@echo "Installing Go"
 	@$(call upstall,go)
 
+irc:
+	@echo "Installing IRC (weechat)"
+	brew link weechat &>/dev/null || brew install weechat --with-perl --with-python
+
 emacs:
 	@echo "Installing emacs"
 	@$(call upstall,emacs-plus)
@@ -34,6 +42,11 @@ emacs:
 libsndfile:
 	@echo "Installing libsndfile"
 	@$(call upstall,libsndfile)
+
+python:
+	@echo "Config for Matplotlib"
+	mkdir -p ~/.matplotlib
+	cp $(DOTFILES_ROOT)/.matplotlib/matplotlibrc ~/.matplotlib/matplotlibrc
 
 soundpipe: libsndfile
 	@echo "Installing SoundPipe"
