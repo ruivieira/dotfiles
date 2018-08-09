@@ -22,3 +22,6 @@ source .bash_profile
 
 # go binaries
 export PATH=$PATH:$GOPATH/bin
+
+# GraalVM binaries
+export GRAALVM=/opt/graalvm
