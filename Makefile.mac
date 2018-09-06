@@ -1,6 +1,6 @@
 include Makefile.include
 
-all: brew curl go irc emacs fonts giter8 go spacemacs sporth pyenv python maven scala sbt profile
+all: asciicinema brew curl go irc emacs fonts giter8 go spacemacs sporth pyenv python maven scala sbt um profile
 
 .PHONY: all fonts
 
@@ -8,11 +8,32 @@ define upstall
 	brew link $(1) &>/dev/null || brew install $(1)
 endef
 
+define brewcheck
+	brew link $(1) &>/dev/null || echo "$(1) not installed"
+endef
+
+check:
+	@$(call brewcheck,curl)
+	@$(call brewcheck,giter8)
+	@$(call brewcheck,go)
+	@$(call brewcheck,emacs-plus)
+	@$(call brewcheck,libsndfile)
+	@$(call brewcheck,maven)
+	@$(call brewcheck,xhyve)
+	@$(call brewcheck,docker-machine-driver-xhyve)
+	@$(call brewcheck,pyenv)
+	@$(call brewcheck,sbt@1)
+	@$(call brewcheck,scala)
+
 clean:
 	@echo "Cleaning brew"
 	@brew prune
 	@echo "Cleaning Docker"
 	@docker volume prune
+
+asciicinema:
+	@echo "Installing asciicinema:
+	@$(call upstall,asciicinema)
 
 curl:
 	@echo "Installing curl"
@@ -77,6 +98,8 @@ fonts:
 	@cp $(DOTFILES_ROOT)/fonts/overpass/Overpass_Mono/*ttf ~/Library/Fonts/
 	@echo "== installing Inconsolata"
 	@cp $(DOTFILES_ROOT)/fonts/inconsolata/*ttf ~/Library/Fonts/
+	@echo "== installing FiraCode"
+	@cp $(DOTFILES_ROOT)/fonts/firacode/*ttf ~/Library/Fonts/
 
 spacemacs:
 	@echo "Installing spacemacs"
@@ -117,3 +140,11 @@ sbt:
 scala:
 	@echo "Install scala"
 	@$(call upstall,scala)	
+
+um:
+	@echo "Install um"
+	@$(call upstall,sinclairtarget/wst/um)
+	# create the configuration
+	@mkdir -p ~/.um
+	@echo "pages_directory = ~/code/umpages" > ~/.um/umconfig
+	@echo "editor = vim" >> ~/.um/umconfig

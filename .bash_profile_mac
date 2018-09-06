@@ -75,7 +75,7 @@ export PATH=$ANDROID_HOME/build-tools/24.0.1:$PATH
 export PATH=$PATH:/usr/local/bin
 
 # call Archey!
-archey -c
+archey -c -o
 
 ###-tns-completion-start-###
 if [ -f /Users/ruivieira/.tnsrc ]; then 
