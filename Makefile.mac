@@ -16,12 +16,17 @@ define brewcheck
 	brew link $(1) &>/dev/null || echo "$(1) not installed"
 endef
 
+define brewcaskcheck
+	brew cask ls --versions $(1) &>/dev/null || echo "$(1) not installed"
+endef
+
 check:
 	@$(call brewcheck,curl)
 	@$(call brewcheck,giter8)
 	@$(call brewcheck,go)
 	@$(call brewcheck,emacs-plus)
 	@$(call brewcheck,libsndfile)
+	@$(call brewcaskcheck,macdown)
 	@$(call brewcheck,maven)
 	@$(call brewcheck,xhyve)
 	@$(call brewcheck,docker-machine-driver-xhyve)

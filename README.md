@@ -17,3 +17,9 @@ On a Linux (currently only Fedora supported) machine simply run:
 ```
 make -f Makefile.linux all
 ``` 
+
+on macOS, to find out which packages/apps you're missing, run:
+
+```
+make -f Makefile.mac check
+```
