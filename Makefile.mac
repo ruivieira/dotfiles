@@ -1,11 +1,15 @@
 include Makefile.include
 
-all: asciicinema brew curl go irc emacs fonts giter8 go spacemacs sporth pyenv python maven scala sbt um profile
+all: asciicinema brew curl go irc emacs fonts giter8 go macdown spacemacs sporth pyenv python maven scala sbt um profile
 
 .PHONY: all fonts
 
 define upstall
 	brew link $(1) &>/dev/null || brew install $(1)
+endef
+
+define caskupstall
+	brew link $(1) &>/dev/null || brew cask install $(1) -f
 endef
 
 define brewcheck
@@ -59,6 +63,10 @@ go:
 irc:
 	@echo "Installing IRC (weechat)"
 	brew link weechat &>/dev/null || brew install weechat --with-perl --with-python
+
+macdown:
+	@echo "Installing Macdown"
+	@$(call caskupstall,macdown)
 
 emacs:
 	@echo "Installing emacs"
