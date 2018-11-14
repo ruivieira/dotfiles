@@ -1,6 +1,6 @@
 include Makefile.include
 
-all: asciicinema brew curl go irc emacs fonts giter8 go macdown spacemacs sporth pyenv python maven scala sbt um profile
+all: asciicinema brew curl go imagemagick irc emacs fonts giter8 go macdown spacemacs sporth pyenv python maven scala sbt um profile
 
 .PHONY: all fonts
 
@@ -64,6 +64,10 @@ giter8:
 go:
 	@echo "Installing Go"
 	@$(call upstall,go)
+
+imagemagick:
+	@echo "Installing Imagemagick"
+	@$(call upstall,imagemagick)
 
 irc:
 	@echo "Installing IRC (weechat)"
