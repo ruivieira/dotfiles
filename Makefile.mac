@@ -1,6 +1,6 @@
 include Makefile.include
 
-all: asciicinema brew curl go imagemagick irc emacs fonts giter8 go macdown spacemacs sporth pyenv python maven scala sbt um profile
+all: asciicinema brew chglog curl go imagemagick irc emacs fonts giter8 go macdown spacemacs sporth pyenv python maven scala sbt um profile
 
 .PHONY: all fonts
 
@@ -43,6 +43,11 @@ clean:
 asciicinema:
 	@echo "Installing asciicinema:
 	@$(call upstall,asciicinema)
+
+chglog:
+	@echo "Installing git-chglog"
+	@brew tap git-chglog/git-chglog
+	@$(call upstall,git-chglog)
 
 curl:
 	@echo "Installing curl"
