@@ -23,3 +23,7 @@ on macOS, to find out which packages/apps you're missing, run:
 ```
 make -f Makefile.mac check
 ```
+
+## Acknowledgements
+
+* The `Spleen` font is available [here](https://github.com/fcambus/spleen).
