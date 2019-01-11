@@ -1,6 +1,6 @@
 include Makefile.include
 
-all: asciicinema brew chglog curl go imagemagick irc emacs fonts giter8 go macdown spacemacs sporth pyenv python maven scala sbt um profile
+all: asciicinema brew chglog curl go imagemagick irc jenv emacs fonts giter8 go macdown spacemacs sporth pyenv python maven scala sbt um profile
 
 .PHONY: all fonts
 
@@ -24,6 +24,7 @@ check:
 	@$(call brewcheck,curl)
 	@$(call brewcheck,giter8)
 	@$(call brewcheck,go)
+	@$(call brewcheck,jenv)
 	@$(call brewcheck,emacs-plus)
 	@$(call brewcheck,libsndfile)
 	@$(call brewcaskcheck,macdown)
@@ -41,8 +42,14 @@ clean:
 	@docker volume prune
 
 asciicinema:
-	@echo "Installing asciicinema:
+	@echo "Installing asciicinema:"
 	@$(call upstall,asciicinema)
+
+brew:
+	@echo "Updating brew"
+	@brew update
+	@brew install brew-cask-completion
+	@export HOMEBREW_NO_AUTO_UPDATE=1
 
 chglog:
 	@echo "Installing git-chglog"
@@ -52,11 +59,6 @@ chglog:
 curl:
 	@echo "Installing curl"
 	@$(call upstall,curl)
-
-brew:
-	@echo "Updating brew"
-	@brew update
-	@export HOMEBREW_NO_AUTO_UPDATE=1
 
 chicken:
 	@echo "Installing Chicken Scheme"
@@ -77,6 +79,11 @@ imagemagick:
 irc:
 	@echo "Installing IRC (weechat)"
 	brew link weechat &>/dev/null || brew install weechat --with-perl --with-python
+
+jenv:
+	@echo "Installing jenv"
+	@$(call upstall,jenv)
+	# if which jenv > /dev/null; then eval "$(jenv init -)"; fi
 
 macdown:
 	@echo "Installing Macdown"
@@ -123,6 +130,8 @@ fonts:
 	@cp $(DOTFILES_ROOT)/fonts/inconsolata/*ttf ~/Library/Fonts/
 	@echo "== installing FiraCode"
 	@cp $(DOTFILES_ROOT)/fonts/firacode/*ttf ~/Library/Fonts/
+	@echo "== installing Spleen"
+	@cp $(DOTFILES_ROOT)/fonts/spleen/* ~/Library/Fonts/
 
 spacemacs:
 	@echo "Installing spacemacs"
