@@ -1,8 +1,8 @@
 include Makefile.include
 
-all: asciicinema brew chglog curl go imagemagick irc jenv emacs fonts giter8 go macdown spacemacs sporth pyenv python maven scala sbt um profile
+all: asciicinema brew chglog curl go imagemagick irc jenv emacs fonts giter8 go macdown spacemacs sporth pyenv python maven scala sbt um profile zsh
 
-.PHONY: all fonts
+.PHONY: all fonts fish
 
 define upstall
 	brew link $(1) &>/dev/null || brew install $(1)
@@ -22,6 +22,7 @@ endef
 
 check:
 	@$(call brewcheck,curl)
+	@$(call brewcheck,fish)
 	@$(call brewcheck,giter8)
 	@$(call brewcheck,go)
 	@$(call brewcheck,jenv)
@@ -34,6 +35,7 @@ check:
 	@$(call brewcheck,pyenv)
 	@$(call brewcheck,sbt@1)
 	@$(call brewcheck,scala)
+	@$(call brewcheck,zsh)
 
 clean:
 	@echo "Cleaning brew"
@@ -63,6 +65,14 @@ curl:
 chicken:
 	@echo "Installing Chicken Scheme"
 	@$(call upstall,chicken)
+
+fish:
+	@echo "Adding fish to /etc/shells"
+	@grep -q -x -F '/usr/local/bin/fish' /etc/shells || echo '/usr/local/bin/fish' >> /etc/shells
+	@echo "Making fish default"
+	@chsh -s /usr/local/bin/fish
+	@echo "Copying configuration"
+	@cp -R $(DOTFILES_ROOT)/.config/fish ~/.config/
 
 giter8:
 	@echo "Installing giter8"
@@ -180,3 +190,14 @@ um:
 	@mkdir -p ~/.um
 	@echo "pages_directory = ~/code/umpages" > ~/.um/umconfig
 	@echo "editor = vim" >> ~/.um/umconfig
+
+zsh:
+	@echo "Install zsh"
+	@$(call upstall,zsh)
+	@echo "Adding zsh to /etc/shells"
+	@grep -q -x -F '/usr/local/bin/zsh' /etc/shells || echo '/usr/local/bin/zsh' >> /etc/shells
+	@echo "Making zsh default"
+	@chsh -s /usr/local/bin/zsh
+	@echo "Copying configuration"
+	@git clone https://github.com/zsh-users/zsh-autosuggestions ~/.oh-my-zsh/custom/plugins/zsh-autosuggestions
+	@ln -s -f $(DOTFILES_ROOT)/.zshrc ~/.zshrc
