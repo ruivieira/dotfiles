@@ -47,6 +47,10 @@ asciicinema:
 	@echo "Installing asciicinema:"
 	@$(call upstall,asciicinema)
 
+borg: python
+	@echo "Installing borgbackup"
+	@$(call caskupstall,borgbackup)
+
 brew:
 	@echo "Updating brew"
 	@brew update
