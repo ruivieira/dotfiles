@@ -1,0 +1,5 @@
+#!/usr/bin/env zunit
+@test 'Check zsh install path' {
+  run which zsh
+  assert "$output" same_as "/usr/local/bin/zsh"
+}
