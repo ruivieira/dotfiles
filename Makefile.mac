@@ -205,5 +205,9 @@ zsh:
 	@echo "Making zsh default"
 	@chsh -s /bin/zsh
 	@echo "Copying configuration"
-	@git clone https://github.com/zsh-users/zsh-autosuggestions ~/.oh-my-zsh/custom/plugins/zsh-autosuggestions
+	if [ ! -d "$$HOME/.oh-my-zsh/custom/plugins/zsh-autosuggestions" ];then \
+    	git clone https://github.com/zsh-users/zsh-autosuggestions ~/.oh-my-zsh/custom/plugins/zsh-autosuggestions; \
+    fi
 	@ln -s -f $(DOTFILES_ROOT)/.zshrc ~/.zshrc
+	@echo "Install zunit"
+	@$(call upstall,zunit-zsh/zunit/zunit)
