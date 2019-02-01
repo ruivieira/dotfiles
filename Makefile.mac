@@ -1,6 +1,6 @@
 include Makefile.include
 
-all: asciicinema brew chglog curl go imagemagick irc jenv emacs fonts giter8 go macdown spacemacs sporth pyenv python maven scala sbt um profile zsh
+all: asciicinema brew chglog curl go imagemagick irc jenv emacs fonts giter8 go macdown neovim spacemacs sporth pyenv python maven scala sbt um profile zsh
 
 .PHONY: all fonts fish
 
@@ -102,6 +102,10 @@ jenv:
 macdown:
 	@echo "Installing Macdown"
 	@$(call caskupstall,macdown)
+
+neovim:
+	@echo "Installing Neovim"
+	@$(call upstall,neovim)
 
 emacs:
 	@echo "Installing emacs"
