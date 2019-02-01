@@ -24,6 +24,20 @@ on macOS, to find out which packages/apps you're missing, run:
 make -f Makefile.mac check
 ```
 
+## Testing
+
+On macOS to test the installation you first have to, at least, install the `zsh` target:
+
+```
+make -f Mafefile.mac zsh
+```
+
+then run the `zunit` test suite by simply calling:
+
+```
+zunit
+```
+
 ## Acknowledgements
 
 * The `Spleen` font is available [here](https://github.com/fcambus/spleen).
