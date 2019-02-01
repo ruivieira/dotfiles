@@ -198,10 +198,8 @@ um:
 zsh:
 	@echo "Install zsh"
 	@$(call upstall,zsh)
-	@echo "Adding zsh to /etc/shells"
-	@grep -q -x -F '/usr/local/bin/zsh' /etc/shells || echo '/usr/local/bin/zsh' >> /etc/shells
 	@echo "Making zsh default"
-	@chsh -s /usr/local/bin/zsh
+	@chsh -s /bin/zsh
 	@echo "Copying configuration"
 	@git clone https://github.com/zsh-users/zsh-autosuggestions ~/.oh-my-zsh/custom/plugins/zsh-autosuggestions
 	@ln -s -f $(DOTFILES_ROOT)/.zshrc ~/.zshrc
