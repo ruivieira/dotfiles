@@ -1,0 +1,118 @@
+---
+- hosts: localhost
+  gather_facts: yes
+  # become: True
+  # become_method: sudo
+  # become_user: root
+  tasks:
+  - name: Install git
+    # become: no
+    package:
+      name: git
+      state: present
+  - name: Install asciinema
+    # become: no
+    package:
+      name: asciinema
+      state: present
+  - name: Install bogbackup
+    # become: no
+    homebrew_cask:
+      name: borgbackup
+      state: present
+  - name: Install curl
+    # become: no
+    package:
+      name: curl
+      state: present
+  - name: Install chicken scheme
+    # become: no
+    package:
+      name: chicken
+      state: present
+  - name: Install giter8
+    # become: no
+    package:
+      name: giter8
+      state: present
+  - name: Install go
+    # become: no
+    package:
+      name: go
+      state: present
+  - name: Install Imagemagick
+    # become: no
+    package:
+      name: imagemagick
+      state: present
+  - name: Install jEnv
+    # become: no
+    package:
+      name: jenv
+      state: present
+  - name: Check if MacDown is installed
+    stat:
+      path: /Applications/MacDown.app
+    register: macdown_result
+  - name: Install Macdown
+    # become: no
+    homebrew_cask:
+      name: macdown
+      state: present
+    when: macdown_result.stat.exists == False 
+  - name: Install libsndfile
+    # become: no
+    package:
+      name: libsndfile
+      state: present
+  - name: Install maven
+    # become: no
+    package:
+      name: maven
+      state: present 
+  - name: Install pyenv
+    # become: no
+    package:
+      name: pyenv
+      state: present
+  - name: Install scala
+    # become: no
+    package:
+      name: scala
+      state: present
+  # - name: Install um
+  #   package:
+  #     name: sinclairtarget/wst/um
+  #     state: present
+  - name: Install zsh
+    package:
+      name: zsh
+      state: present
+  - name: Configure matplotlib
+    block:
+      - name: Create matplotlib config dir
+        file:
+          path: "{{ ansible_env.HOME }}/.matplotlib"
+          state: directory
+      - name: Copy .matplotlibrc
+        copy:
+          src: "{{ playbook_dir }}/.matplotlib/matplotlibrc"
+          dest: "{{ ansible_env.HOME }}/.matplotlib/matplotlibrc"
+  - name: Configure um
+    block:
+      - name: Create um config dir
+        file:
+          path: "{{ ansible_env.HOME }}/.um"
+          state: directory
+      - name: Create um config file
+        file:
+          path: "{{ ansible_env.HOME }}/.um/umconfig"
+          state: touch
+      - name: Add pages directory to um config file
+        lineinfile:
+          path: "{{ ansible_env.HOME }}/.um/umconfig"
+          line: "pages_directory = {{ ansible_env.HOME }}/code/umpages"
+      - name: Add editor to um config file
+        lineinfile:
+          path: "{{ ansible_env.HOME }}/.um/umconfig"
+          line: editor = vim
