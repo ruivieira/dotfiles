@@ -23,5 +23,8 @@ source .bash_profile
 # go binaries
 export PATH=$PATH:$GOPATH/bin
 
+# jEnv path
+export PATH=$PATH:$HOME/.jenv/bin
+
 # GraalVM binaries
 export GRAALVM=/opt/graalvm

@@ -40,48 +40,58 @@
     package:
       name: giter8
       state: present
+    when: ansible_distribution == 'MacOSX'
   - name: Install go
     # become: no
     package:
       name: go
       state: present
   - name: Install Imagemagick
-    # become: no
     package:
       name: imagemagick
       state: present
-  - name: Install jEnv
-    # become: no
+    when: ansible_distribution == 'MacOSX'
+  - name: Install Imagemagick
+    package:
+      name: ImageMagick
+      state: present
+    when: ansible_distribution == 'Fedora'
+  - name: Install jEnv (macOS)
     package:
       name: jenv
       state: present
+    when: ansible_distribution == 'MacOSX'
+  - name: Install jEnv (Linux)
+    command: git clone https://github.com/gcuisinier/jenv.git ~/.jenv
+    when: ansible_distribution == 'Fedora'
   - name: Check if MacDown is installed
     stat:
       path: /Applications/MacDown.app
     register: macdown_result
   - name: Install Macdown
-    # become: no
     homebrew_cask:
       name: macdown
       state: present
-    when: macdown_result.stat.exists == False 
+    when:
+      - macdown_result.stat.exists == False 
+      - ansible_distribution == 'MacOSX'
   - name: Install libsndfile
-    # become: no
     package:
       name: libsndfile
       state: present
   - name: Install maven
-    # become: no
     package:
       name: maven
       state: present 
-  - name: Install pyenv
-    # become: no
+  - name: Install pyenv (macOS)
     package:
       name: pyenv
       state: present
+    when: ansible_distribution == 'MacOSX'
+  - name: Install pyenv (Linux)
+    command: git clone https://github.com/pyenv/pyenv.git ~/.pyenv
+    when: ansible_distribution == 'Fedora'
   - name: Install scala
-    # become: no
     package:
       name: scala
       state: present

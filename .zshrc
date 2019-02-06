@@ -36,6 +36,9 @@ test -e ${HOME}/.iterm2_shell_integration.zsh && source ${HOME}/.iterm2_shell_in
 # OPAM configuration
 . /Users/rui/.opam/opam-init/init.zsh > /dev/null 2> /dev/null || true
 
+# jEnv configuration
+eval "$(jenv init -)"
+
 ###-tns-completion-start-###
 if [ -f /Users/ruivieira/.tnsrc ]; then
     source /Users/ruivieira/.tnsrc
