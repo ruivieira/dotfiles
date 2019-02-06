@@ -16,10 +16,15 @@
       name: asciinema
       state: present
   - name: Install bogbackup
-    # become: no
     homebrew_cask:
       name: borgbackup
       state: present
+    when: ansible_distribution == 'MacOSX'
+  - name: Install bogbackup
+    package:
+      name: borgbackup
+      state: present
+    when: ansible_distribution == 'Fedora'
   - name: Install curl
     # become: no
     package:
