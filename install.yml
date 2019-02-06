@@ -80,13 +80,39 @@
     package:
       name: scala
       state: present
-  - name: Install um
-      # become: no
-      package:
-        name: sinclairtarget/wst/um
-        state: present
+  # - name: Install um
+  #   package:
+  #     name: sinclairtarget/wst/um
+  #     state: present
   - name: Install zsh
-      # become: no
-      package:
-        name: sinclairtarget/wst/um
-        state: present
+    package:
+      name: zsh
+      state: present
+  - name: Configure matplotlib
+    block:
+      - name: Create matplotlib config dir
+        file:
+          path: "{{ ansible_env.HOME }}/.matplotlib"
+          state: directory
+      - name: Copy .matplotlibrc
+        copy:
+          src: "{{ playbook_dir }}/.matplotlib/matplotlibrc"
+          dest: "{{ ansible_env.HOME }}/.matplotlib/matplotlibrc"
+  - name: Configure um
+    block:
+      - name: Create um config dir
+        file:
+          path: "{{ ansible_env.HOME }}/.um"
+          state: directory
+      - name: Create um config file
+        file:
+          path: "{{ ansible_env.HOME }}/.um/umconfig"
+          state: touch
+      - name: Add pages directory to um config file
+        lineinfile:
+          path: "{{ ansible_env.HOME }}/.um/umconfig"
+          line: "pages_directory = {{ ansible_env.HOME }}/code/umpages"
+      - name: Add editor to um config file
+        lineinfile:
+          path: "{{ ansible_env.HOME }}/.um/umconfig"
+          line: editor = vim
