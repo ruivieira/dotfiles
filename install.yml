@@ -131,3 +131,12 @@
         lineinfile:
           path: "{{ ansible_env.HOME }}/.um/umconfig"
           line: editor = vim
+  - name: Install oh-my-zsh
+    command: git clone https://github.com/robbyrussell/oh-my-zsh ~/.oh-my-zsh
+  - name: Check if oh-my-zsh auto-completions are installed
+    stat:
+      path: "{ ansible_env.HOME }}/.oh-my-zsh/custom/plugins/zsh-autosuggestions"
+    register: ohmyzshcompletion_result  
+  - name: Install oh-my-zsh auto-completions
+    command: git clone https://github.com/zsh-users/zsh-autosuggestions ~/.oh-my-zsh/custom/plugins/zsh-autosuggestions
+    when: ohmyzshcompletion_result.stat.exists == False 
