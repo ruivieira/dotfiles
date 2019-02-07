@@ -14,4 +14,4 @@ RUN git clone https://github.com/ruivieira/dotfiles
 ADD install.yml dotfiles/install.yml
 ADD .bash_profile dotfiles/.bash_profile
 WORKDIR /dotfiles
-RUN ansible-playbook install.yml
+RUN ansible-playbook install.yml --tags "core,editors"
