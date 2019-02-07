@@ -201,6 +201,7 @@
         package:
           name: emacs
           state: present
+        become: true
         when: ansible_distribution == 'Fedora'
       - name: Clone spacemacs config
         git:
@@ -226,14 +227,13 @@
       args:
         chdir: /usr/bin
       when: ansible_distribution == 'Fedora'
-    tags:
-      - editors
   - name: Install NeoVim
     block:
       - name: Install NeoVim package
         package:
           name: neovim
           state: present
+        become: true
         register: neovim_result
       - name: Delete current NeoVim config
         file:
