@@ -6,16 +6,18 @@
     package:
       name: git
       state: present
+    tags:
+      - core
   - name: Install asciinema
     package:
       name: asciinema
       state: present
-  - name: Install bogbackup
+  - name: Install borgbackup (macOS)
     homebrew_cask:
       name: borgbackup
       state: present
     when: ansible_distribution == 'MacOSX'
-  - name: Install bogbackup
+  - name: Install borgbackup (Linux)
     package:
       name: borgbackup
       state: present
@@ -24,6 +26,8 @@
     package:
       name: curl
       state: present
+    tags:
+      - core
   - name: Install chicken scheme
     package:
       name: chicken
@@ -90,10 +94,6 @@
   #   package:
   #     name: sinclairtarget/wst/um
   #     state: present
-  - name: Install zsh
-    package:
-      name: zsh
-      state: present
   - name: Configure matplotlib
     block:
       - name: Create matplotlib config dir
@@ -122,8 +122,12 @@
         lineinfile:
           path: "{{ ansible_env.HOME }}/.um/umconfig"
           line: editor = vim
-  - name: Configure zsh
+  - name: zsh
     block:
+      - name: Install zsh
+        package:
+          name: zsh
+          state: present
       - name: Install bash-completion
         package:
           name: bash-completion
@@ -169,3 +173,34 @@
           src: "{{playbook_dir}}/.zshrc"
           dest: "{{ansible_env.HOME}}/.zshrc"
           state: link
+    tags:
+      - core
+  - name: Install spacemacs
+    block:
+      - name: Tap emacs-plus (macOS)
+        homebrew_tap:
+          name: d12frosted/emacs-plus
+          state: absent
+        when: ansible_distribution == 'MacOSX'
+      - name: Install emacs-plus (macOS)
+        package:
+          name: emacs-plus
+          install_options: --HEAD --with-natural-title-bars
+          state: present
+        when: ansible_distribution == 'MacOSX'
+      - name: Link emacs-plus (macOS)
+        package:
+          name: emacs-plus
+          state: linked
+        when: ansible_distribution == 'MacOSX'
+      - name: Install emacs (Linux)
+        package:
+          name: emacs
+          state: present
+        when: ansible_distribution == 'Fedora'
+      - name: Clone spacemacs config
+        git:
+          repo: https://github.com/syl20bnr/spacemacs.git
+          dest: ~/.emacs.d
+    tags:
+      - spacemacs
