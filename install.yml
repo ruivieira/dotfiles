@@ -203,4 +203,42 @@
           repo: https://github.com/syl20bnr/spacemacs.git
           dest: ~/.emacs.d
     tags:
-      - spacemacs
+      - editors
+  - name: Create .config directory
+    file:
+      path: ~/.config
+      state: directory
+    tags:
+        - core
+  - name: Install micro editor
+    block:
+    - name: Install micro editor (macOS)
+      package:
+        name: micro
+        state: present
+      when: ansible_distribution == 'MacOSX'
+    - name: Install micro editor (Linux)
+      shell: curl https://getmic.ro | bash
+      args:
+        chdir: /usr/bin
+      when: ansible_distribution == 'Fedora'
+    tags:
+      - editors
+  - name: Install NeoVim
+    block:
+      - name: Install NeoVim package
+        package:
+          name: neovim
+          state: present
+      - name: Delete current NeoVim config
+        file:
+          path: ~/.config/nvim
+          state: absent
+      - name: Link NeoVim config
+        file:
+          src: "{{playbook_dir}}/.config/nvim"
+          dest: "{{ansible_env.HOME}}/.config/nvim"
+          force: yes
+          state: link
+    tags:
+      - editors
