@@ -284,3 +284,11 @@
           - curl -LSso ~/.config/nvim/autoload/pathogen.vim https://tpo.pe/pathogen.vim
     tags:
       - editors
+  - name: Install rust
+    block:
+      - name: Install rustup.sh
+        shell: curl https://sh.rustup.rs -sSf | sh -s -- -y
+        become: true
+    tags:
+      - code
+      - rust

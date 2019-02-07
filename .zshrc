@@ -24,7 +24,7 @@ CASE_SENSITIVE="false"
 
 # Which plugins would you like to load? (plugins can be found in ~/.oh-my-zsh/plugins/*)
 # Example format: plugins=(rails git textmate ruby lighthouse)
-plugins=(git osx mvn oc zsh-autosuggestions)
+plugins=(emoji git osx mvn oc zsh-autosuggestions)
 
 source $ZSH/oh-my-zsh.sh
 
@@ -54,3 +54,10 @@ TIMEFMT='%J   %U  user %S system %P cpu %*E total'$'\n'\
 'page faults from disk:     %F'$'\n'\
 'other page faults:         %R'
 export PATH="/usr/local/opt/imagemagick@6/bin:$PATH"
+
+PROMPT='$(random_emoji animals) %{$fg_bold[cyan]%}%~%{$fg_bold[red]%} $(git_prompt_info)%{$reset_color%} '
+
+ZSH_THEME_GIT_PROMPT_PREFIX="("
+ZSH_THEME_GIT_PROMPT_SUFFIX=")"
+ZSH_THEME_GIT_PROMPT_DIRTY=" ✗"
+ZSH_THEME_GIT_PROMPT_CLEAN=" ✔"
