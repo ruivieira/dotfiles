@@ -6,6 +6,7 @@
     package:
       name: git
       state: present
+    become: true
     tags:
       - core
   - name: Install asciinema
@@ -26,6 +27,7 @@
     package:
       name: curl
       state: present
+    become: true
     tags:
       - core
   - name: Install chicken scheme
@@ -128,10 +130,12 @@
         package:
           name: zsh
           state: present
+        become: true
       - name: Install bash-completion
         package:
           name: bash-completion
           state: present
+        become: true
       - name: Install oh-my-zsh
         git:
           repo: https://github.com/robbyrussell/oh-my-zsh.git
