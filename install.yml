@@ -1,17 +1,12 @@
 ---
 - hosts: localhost
   gather_facts: yes
-  # become: True
-  # become_method: sudo
-  # become_user: root
   tasks:
   - name: Install git
-    # become: no
     package:
       name: git
       state: present
   - name: Install asciinema
-    # become: no
     package:
       name: asciinema
       state: present
@@ -26,23 +21,19 @@
       state: present
     when: ansible_distribution == 'Fedora'
   - name: Install curl
-    # become: no
     package:
       name: curl
       state: present
   - name: Install chicken scheme
-    # become: no
     package:
       name: chicken
       state: present
   - name: Install giter8
-    # become: no
     package:
       name: giter8
       state: present
     when: ansible_distribution == 'MacOSX'
   - name: Install go
-    # become: no
     package:
       name: go
       state: present
@@ -133,8 +124,14 @@
           line: editor = vim
   - name: Configure zsh
     block:
+      - name: Install bash-completion
+        package:
+          name: bash-completion
+          state: present
       - name: Install oh-my-zsh
-        command: git clone https://github.com/robbyrussell/oh-my-zsh ~/.oh-my-zsh
+        git:
+          repo: https://github.com/robbyrussell/oh-my-zsh.git
+          dest: ~/.oh-my-zsh
       - name: Check if oh-my-zsh auto-completions are installed
         stat:
           path: "{ ansible_env.HOME }}/.oh-my-zsh/custom/plugins/zsh-autosuggestions"
@@ -142,24 +139,31 @@
       - name: Install oh-my-zsh auto-completions
         command: git clone https://github.com/zsh-users/zsh-autosuggestions ~/.oh-my-zsh/custom/plugins/zsh-autosuggestions
         when: ohmyzshcompletion_result.stat.exists == False 
+      - name: Delete current .bash_profile
+        file:
+          path: "{{ansible_env.HOME}}/.bash_profile"
+          state: absent
       - name: Symlink .bashprofile (macOS)
         file:
-          src: "{{playbook_dir}}/.bashprofile_mac"
-          dest: "{{ansible_env.HOME}}/.bashprofile"
+          src: "{{playbook_dir}}/.bash_profile_mac"
+          dest: "{{ansible_env.HOME}}/.bash_profile"
           state: link
         when: ansible_distribution == 'MacOSX'
       - name: Symlink .bashprofile (Linux)
         file:
-          src: "{{playbook_dir}}/.bashprofile_linux"
-          dest: "{{ansible_env.HOME}}/.bashprofile"
+          src: "{{playbook_dir}}/.bash_profile_linux"
+          dest: "{{ansible_env.HOME}}/.bash_profile"
           state: link
         when: ansible_distribution == 'Fedora'
+      - name: Delete current .bashrc
+        file:
+          path: "{{ansible_env.HOME}}/.bashrc"
+          state: absent
       - name: Symlink .bashrc
         file:
           src: "{{playbook_dir}}/.bashrc"
           dest: "{{ansible_env.HOME}}/.bashrc"
           state: link
-        when: ansible_distribution == 'Fedora'
       - name: Symlink .zshrc
         file:
           src: "{{playbook_dir}}/.zshrc"

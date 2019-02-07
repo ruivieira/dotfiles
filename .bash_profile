@@ -26,4 +26,4 @@ export GOROOT=$HOME/golang
 export GOPATH=$HOME/gocode
 export PATH=$PATH:$GOROOT/bin
 
-export PS1='[\u@\h \W$(declare -F __git_ps1 &>/dev/null && __git_ps1 " (%s)")]\$ '
+# export PS1='[\u@\h \W$(declare -F __git_ps1 &>/dev/null && __git_ps1 " (%s)")]\$ '

@@ -2,9 +2,6 @@
 
 export EDITOR=/usr/bin/nvim
 
-# Python env
-eval "$(pyenv init -)"
-
 # OSX specific paths
 export JAVA_8_HOME=$(/usr/libexec/java_home -v1.8)
 export JAVA_9_HOME=$(/usr/libexec/java_home -v9)

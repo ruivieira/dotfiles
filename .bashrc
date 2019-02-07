@@ -1,3 +1,5 @@
+## Common configuration for all systems (macOS, Linux, etc...)
+
 # aliases
 
 alias 'ls'='ls -a -1 -o --color -F -h -l'
@@ -17,6 +19,8 @@ export GOPATH=$HOME/code/go
 
 # pyenv
 export PYENV_VIRTUALENV_DISABLE_PROMPT=1
+eval "$(pyenv init -)"
+
 
 source .bash_profile
 

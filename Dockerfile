@@ -12,5 +12,6 @@ RUN echo "localhost ansible_connection=local" >> /etc/ansible/hosts
 
 RUN git clone https://github.com/ruivieira/dotfiles
 ADD install.yml dotfiles/install.yml
+ADD .bash_profile dotfiles/.bash_profile
 WORKDIR /dotfiles
 RUN ansible-playbook install.yml
