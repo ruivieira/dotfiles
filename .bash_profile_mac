@@ -82,9 +82,6 @@ export PATH=$ANDROID_HOME/build-tools/24.0.1:$PATH
 # path for npm et al.
 export PATH=$PATH:/usr/local/bin
 
-# call Archey!
-archey -c -o
-
 ###-tns-completion-start-###
 if [ -f /Users/ruivieira/.tnsrc ]; then 
     source /Users/ruivieira/.tnsrc 

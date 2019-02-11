@@ -24,7 +24,7 @@ CASE_SENSITIVE="false"
 
 # Which plugins would you like to load? (plugins can be found in ~/.oh-my-zsh/plugins/*)
 # Example format: plugins=(rails git textmate ruby lighthouse)
-plugins=(emoji git osx mvn oc zsh-autosuggestions)
+plugins=(emoji git osx mvn rust oc zsh-autosuggestions)
 
 source $ZSH/oh-my-zsh.sh
 
@@ -57,3 +57,6 @@ ZSH_THEME_GIT_PROMPT_PREFIX="("
 ZSH_THEME_GIT_PROMPT_SUFFIX=")"
 ZSH_THEME_GIT_PROMPT_DIRTY=" ✗"
 ZSH_THEME_GIT_PROMPT_CLEAN=" ✔"
+
+# call neofetch
+neofetch
