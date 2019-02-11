@@ -6,7 +6,7 @@
     package:
       name: git
       state: present
-    become: true
+    become: false if ansible_distribution == 'MacOSX' else true
     tags:
       - core
   - name: Install asciinema
@@ -27,7 +27,7 @@
     package:
       name: curl
       state: present
-    become: true
+    become: false if ansible_distribution == 'MacOSX' else true
     tags:
       - core
   - name: Install chicken scheme
@@ -130,12 +130,12 @@
         package:
           name: zsh
           state: present
-        become: true
+        become: false if ansible_distribution == 'MacOSX' else true
       - name: Install bash-completion
         package:
           name: bash-completion
           state: present
-        become: true
+        become: false if ansible_distribution == 'MacOSX' else true
       - name: Install oh-my-zsh
         git:
           repo: https://github.com/robbyrussell/oh-my-zsh.git
@@ -201,7 +201,7 @@
         package:
           name: emacs
           state: present
-        become: true
+        become: false if ansible_distribution == 'MacOSX' else true
         when: ansible_distribution == 'Fedora'
       - name: Clone spacemacs config
         git:
@@ -233,7 +233,7 @@
         package:
           name: neovim
           state: present
-        become: true
+        become: false if ansible_distribution == 'MacOSX' else true
         register: neovim_result
       - name: Delete current NeoVim config
         file:
@@ -292,3 +292,11 @@
     tags:
       - code
       - rust
+  - name: Install neofetch (macOS)
+    package:
+      name: neofetch
+      state: present
+    become: false if ansible_distribution == 'MacOSX' else true
+    tags:
+      - core
+
