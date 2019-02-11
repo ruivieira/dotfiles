@@ -299,4 +299,21 @@
     become: false if ansible_distribution == 'MacOSX' else true
     tags:
       - core
-
+  - name: Copy images
+    shell: "{{item}}"
+    with_items:
+      - rm -Rf ~/.images
+      - mkdir ~/.images
+      - cp {{playbook_dir}}/images/* ~/.images
+    tags:
+      - core
+  - name: Copy iTerm2 settings (macOS)
+    shell: "{{item}}"
+    with_items:
+      - mkdir -p ~/.config/iterm2 
+      - cp -R {{playbook_dir}}/iterm2/* ~/.config/iterm2
+    when: ansible_distribution == 'MacOSX'
+    tags:
+      - core
+    
+        

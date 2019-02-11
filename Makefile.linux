@@ -2,40 +2,6 @@ DOTFILES_ROOT := $(shell pwd)
 
 all: emacs spacemacs pyenv maven scala sbt profile
 
-define upstall
-	yum install -y $(1)
-endef
-
-clean:
-	@echo "Cleaning Docker"
-	@docker volume prune
-
-emacs:
-	@echo "Installing emacs"
-	@$(call upstall,emacs)
-
-spacemacs:
-	@$(call info,"Installing spacemacs")
-	@echo "== removing ~/.emacs.d"
-	@rm -Rf ~/.emacs.d
-	@echo "== cloning spacemacs repo"
-	@git clone https://github.com/syl20bnr/spacemacs ~/.emacs.d
-	@echo "== linking .spacemacs"
-	@ln -fs $(DOTFILES_ROOT)/.spacemacs ~/.spacemacs
-
-maven:
-	@$(call info,"Installing maven")
-	@$(call upstall,maven)
-
-pyenv:
-	@echo "Installing pyenv"
-	@curl -L https://github.com/pyenv/pyenv-installer/raw/master/bin/pyenv-installer | bash
-
-profile:
-	@echo "Linking bash profiles"
-	@ln -fs $(DOTFILES_ROOT)/.bashrc ~/.bashrc
-	@ln -fs $(DOTFILES_ROOT)/.bash_profile_torg ~/.bash_profile
-
 sbt:
 	@echo "Installing sbt"
 	@curl https://bintray.com/sbt/rpm/rpm | sudo tee /etc/yum.repos.d/bintray-sbt-rpm.repo

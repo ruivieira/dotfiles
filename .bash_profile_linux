@@ -15,4 +15,5 @@ export PYTHONSTARTUP=~/.pythonrc
 # ignore commands on the history that might contain passwords
 export HISTIGNORE="*schemasync*:clear:bg:fg:cd:cd -:exit:date:w:* --help" # Colon seperated list of exact commands
 
-export PS1='[\u@\h \W$(declare -F __git_ps1 &>/dev/null && __git_ps1 " (%s)")]\$ '
+# call neofetch
+neofetch

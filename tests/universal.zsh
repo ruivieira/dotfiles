@@ -7,4 +7,6 @@
 	pyenvcreate
 	assert ~/.pyenv/versions/3.6.5/envs/zsh_tmp_pyenv_test exists
 	rm -Rf ~/.pyenv/versions/3.6.5/envs/zsh_tmp_pyenv_test
+	rm -Rf ~/.pyenv/versions/zsh_tmp_pyenv_test
 }
+

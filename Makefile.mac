@@ -4,137 +4,11 @@ all: asciicinema brew chglog curl go imagemagick irc jenv emacs fonts giter8 go 
 
 .PHONY: all fonts fish
 
-define upstall
-	brew link $(1) &>/dev/null || brew install $(1)
-endef
-
-define caskupstall
-	brew link $(1) &>/dev/null || brew cask install $(1) -f
-endef
-
-define brewcheck
-	brew link $(1) &>/dev/null || echo "$(1) not installed"
-endef
-
-define brewcaskcheck
-	brew cask ls --versions $(1) &>/dev/null || echo "$(1) not installed"
-endef
-
-check:
-	@$(call brewcheck,curl)
-	@$(call brewcheck,fish)
-	@$(call brewcheck,giter8)
-	@$(call brewcheck,go)
-	@$(call brewcheck,jenv)
-	@$(call brewcheck,emacs-plus)
-	@$(call brewcheck,libsndfile)
-	@$(call brewcaskcheck,macdown)
-	@$(call brewcheck,maven)
-	@$(call brewcheck,xhyve)
-	@$(call brewcheck,docker-machine-driver-xhyve)
-	@$(call brewcheck,pyenv)
-	@$(call brewcheck,sbt@1)
-	@$(call brewcheck,scala)
-	@$(call brewcheck,zsh)
-
-clean:
-	@echo "Cleaning brew"
-	@brew prune
-	@echo "Cleaning Docker"
-	@docker volume prune
-
-asciicinema:
-	@echo "Installing asciicinema:"
-	@$(call upstall,asciicinema)
-
-borg: python
-	@echo "Installing borgbackup"
-	@$(call caskupstall,borgbackup)
-
-brew:
-	@echo "Updating brew"
-	@brew update
-	@brew install brew-cask-completion
-	@export HOMEBREW_NO_AUTO_UPDATE=1
-
 chglog:
 	@echo "Installing git-chglog"
 	@brew tap git-chglog/git-chglog
 	@$(call upstall,git-chglog)
 
-curl:
-	@echo "Installing curl"
-	@$(call upstall,curl)
-
-chicken:
-	@echo "Installing Chicken Scheme"
-	@$(call upstall,chicken)
-
-fish:
-	@echo "Adding fish to /etc/shells"
-	@grep -q -x -F '/usr/local/bin/fish' /etc/shells || echo '/usr/local/bin/fish' >> /etc/shells
-	@echo "Making fish default"
-	@chsh -s /usr/local/bin/fish
-	@echo "Copying configuration"
-	@cp -R $(DOTFILES_ROOT)/.config/fish ~/.config/
-
-giter8:
-	@echo "Installing giter8"
-	@$(call upstall,giter8)
-
-go:
-	@echo "Installing Go"
-	@$(call upstall,go)
-
-imagemagick:
-	@echo "Installing Imagemagick"
-	@$(call upstall,imagemagick)
-
-irc:
-	@echo "Installing IRC (weechat)"
-	brew link weechat &>/dev/null || brew install weechat --with-perl --with-python
-
-jenv:
-	@echo "Installing jenv"
-	@$(call upstall,jenv)
-	# if which jenv > /dev/null; then eval "$(jenv init -)"; fi
-
-macdown:
-	@echo "Installing Macdown"
-	@$(call caskupstall,macdown)
-
-neovim:
-	@echo "Installing Neovim"
-	@$(call upstall,neovim)
-
-emacs:
-	@echo "Installing emacs"
-	@$(call upstall,emacs-plus)
-
-libsndfile:
-	@echo "Installing libsndfile"
-	@$(call upstall,libsndfile)
-
-python:
-	@echo "Config for Matplotlib"
-	mkdir -p ~/.matplotlib
-	cp $(DOTFILES_ROOT)/.matplotlib/matplotlibrc ~/.matplotlib/matplotlibrc
-
-soundpipe: libsndfile
-	@echo "Installing SoundPipe"
-	rm -Rf ~/tmp/SoundPipe
-	git clone git@github.com:PaulBatchelor/Soundpipe.git ~/tmp/SoundPipe
-	cd ~/tmp/SoundPipe && $(MAKE) clean
-	sudo $(MAKE) install
-	cd $(DOTFILES_ROOT)
-
-sporth: soundpipe
-	echo "Installing sporth"
-	rm -Rf ~/tmp/Sporth
-	git clone git@github.com:PaulBatchelor/Sporth.git ~/tmp/Sporth
-	cd ~/tmp/Sporth && $(MAKE) clean
-	sudo $(MAKE) install
-	cd $(DOTFILES_ROOT)
 
 fonts:
 	@echo "Installing fonts"
@@ -151,19 +25,6 @@ fonts:
 	@echo "== installing Spleen"
 	@cp $(DOTFILES_ROOT)/fonts/spleen/* ~/Library/Fonts/
 
-spacemacs:
-	@echo "Installing spacemacs"
-	@echo "== removing ~/.emacs.d"
-	@rm -Rf ~/.emacs.d
-	@echo "== cloning spacemacs repo"
-	@git clone https://github.com/syl20bnr/spacemacs ~/.emacs.d
-	@echo "== linking .spacemacs"
-	@ln -fs $(DOTFILES_ROOT)/.spacemacs ~/.spacemacs
-
-maven:
-	@echo "Installing maven"
-	@$(call upstall,maven)
-
 minishift:
 	@$(call log,Installing minishift)
 	@$(call upstall,--HEAD xhyve)
@@ -174,40 +35,9 @@ minishift:
 	@sudo chmod u+s $(brew --prefix)/opt/docker-machine-driver-xhyve/bin/docker-machine-driver-xhyve
 	$(warning Remember to do 'eval \$(minishift oc-env)' after 'minishift start)
 
-pyenv:
-	@echo "Installing pyenv"
-	@$(call upstall,pyenv)
-
-profile:
-	@echo "Linking bash profiles"
-	@ln -fs $(DOTFILES_ROOT)/.bashrc ~/.bashrc
-	@ln -fs $(DOTFILES_ROOT)/.bash_profile_mac ~/.bash_profile
-
 sbt:
 	@echo "Installing sbt"
 	@$(call upstall,sbt@1)
 
-scala:
-	@echo "Install scala"
-	@$(call upstall,scala)	
 
-um:
-	@echo "Install um"
-	@$(call upstall,sinclairtarget/wst/um)
-	# create the configuration
-	@mkdir -p ~/.um
-	@echo "pages_directory = ~/code/umpages" > ~/.um/umconfig
-	@echo "editor = vim" >> ~/.um/umconfig
 
-zsh:
-	@echo "Install zsh"
-	@$(call upstall,zsh)
-	@echo "Making zsh default"
-	@chsh -s /bin/zsh
-	@echo "Copying configuration"
-	if [ ! -d "$$HOME/.oh-my-zsh/custom/plugins/zsh-autosuggestions" ];then \
-    	git clone https://github.com/zsh-users/zsh-autosuggestions ~/.oh-my-zsh/custom/plugins/zsh-autosuggestions; \
-    fi
-	@ln -s -f $(DOTFILES_ROOT)/.zshrc ~/.zshrc
-	@echo "Install zunit"
-	@$(call upstall,zunit-zsh/zunit/zunit)

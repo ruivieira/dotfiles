@@ -9,3 +9,12 @@ function pyenvactivate () {
 	echo activating pyenv: $fg[green]$PROJ_DIR $reset_color
 	pyenv activate $PROJ_DIR
 }
+
+function jvm_exists() {
+	/usr/libexec/java_home -v$1 >& /dev/null
+	if [ $? -eq 0 ]; then
+  		return 0
+	else
+  		return 1
+	fi
+}
