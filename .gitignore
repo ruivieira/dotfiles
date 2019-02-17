@@ -4,3 +4,4 @@
 .vim
 .hyper_plugins
 dotfiles.code-workspace
+*.retry
