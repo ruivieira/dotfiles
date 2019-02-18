@@ -5,3 +5,6 @@
 .hyper_plugins
 dotfiles.code-workspace
 *.retry
+.vscode
+tests/_output
+tests/_support
