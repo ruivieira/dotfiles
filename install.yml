@@ -344,5 +344,15 @@
         when: ansible_distribution == 'MacOSX'
     tags:
       - gitea
+  - name: Install iJava (Jupyter kernel)
+    become: 
+    shell: "{{item}}"
+    with_items:
+      - wget -O /tmp/ijava-1.2.0.zip https://github.com/SpencerPark/IJava/releases/download/v1.2.0/ijava-1.2.0.zip
+      - unzip /tmp/ijava-1.2.0.zip -d /tmp/ijava-1.2.0
+      - python3 /tmp/ijava-1.2.0/install.py --sys-prefix
+    become: false if ansible_distribution == 'MacOSX' else true
+    tags:
+      - jupyter
     
         
