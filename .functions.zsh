@@ -18,3 +18,7 @@ function jvm_exists() {
   		return 1
 	fi
 }
+
+function syncdropbox() {
+	rsync -va --exclude 'target' --exclude '.tox' --exclude '.ipynb_checkpoints' --exclude '.mypy_cache' ~/Sync ~/Dropbox/Sync --delete
+}
