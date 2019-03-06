@@ -354,5 +354,12 @@
     become: false if ansible_distribution == 'MacOSX' else true
     tags:
       - jupyter
-    
+  - name: Install byobu
+    package:
+      name: byobu
+      state: present
+    become: false if ansible_distribution == 'MacOSX' else true
+    tags:
+      - core
+
         
