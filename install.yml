@@ -361,5 +361,10 @@
     become: false if ansible_distribution == 'MacOSX' else true
     tags:
       - core
+  - name: Install beets
+    pip:
+      name: beets
+    tags:
+      - sound
 
         
