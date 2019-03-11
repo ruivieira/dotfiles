@@ -1,6 +1,10 @@
 ---
 - hosts: localhost
   gather_facts: yes
+
+  roles:
+    - { role: zsh, tags: [ 'core', 'zsh' ] }
+
   tasks:
   - name: Install git
     package:
@@ -124,70 +128,6 @@
         lineinfile:
           path: "{{ ansible_env.HOME }}/.um/umconfig"
           line: editor = vim
-  - name: zsh
-    block:
-      - name: Install zsh
-        package:
-          name: zsh
-          state: present
-        become: false if ansible_distribution == 'MacOSX' else true
-      - name: Install bash-completion
-        package:
-          name: bash-completion
-          state: present
-        become: false if ansible_distribution == 'MacOSX' else true
-      - name: Check if oh-my-zsh is installed
-        stat:
-          path: ~/.oh-my-zsh/
-        register: ohmyzsh_result  
-      - name: Delete oh-my-zsh if installed
-        file:
-          path: ~/.oh-my-zsh/
-          state: absent
-        when: ohmyzsh_result.stat.exists == True
-      - name: Install oh-my-zsh
-        git:
-          repo: https://github.com/robbyrussell/oh-my-zsh.git
-          dest: ~/.oh-my-zsh
-      - name: Install oh-my-zsh auto-completions
-        command: git clone https://github.com/zsh-users/zsh-autosuggestions ~/.oh-my-zsh/custom/plugins/zsh-autosuggestions
-      - name: Delete current .bash_profile
-        file:
-          path: "{{ansible_env.HOME}}/.bash_profile"
-          state: absent
-      - name: Symlink .bashprofile (macOS)
-        file:
-          src: "{{playbook_dir}}/.bash_profile_mac"
-          dest: "{{ansible_env.HOME}}/.bash_profile"
-          state: link
-        when: ansible_distribution == 'MacOSX'
-      - name: Symlink .bashprofile (Linux)
-        file:
-          src: "{{playbook_dir}}/.bash_profile_linux"
-          dest: "{{ansible_env.HOME}}/.bash_profile"
-          state: link
-        when: ansible_distribution == 'Fedora'
-      - name: Delete current .bashrc
-        file:
-          path: "{{ansible_env.HOME}}/.bashrc"
-          state: absent
-      - name: Symlink .bashrc
-        file:
-          src: "{{playbook_dir}}/.bashrc"
-          dest: "{{ansible_env.HOME}}/.bashrc"
-          state: link
-      - name: Symlink .zshrc
-        file:
-          src: "{{playbook_dir}}/.zshrc"
-          dest: "{{ansible_env.HOME}}/.zshrc"
-          state: link
-      - name: Symlink .functions.zsh
-        file:
-          src: "{{playbook_dir}}/.functions.zsh"
-          dest: ~/.functions.zsh
-          state: link
-    tags:
-      - core
   - name: Install spacemacs
     block:
       - name: Tap emacs-plus (macOS)
