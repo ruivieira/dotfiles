@@ -3,9 +3,9 @@
   gather_facts: yes
 
   roles:
-    - {role: zsh, tags: ['core', 'zsh']}
-    - {role: spacemacs, tags: ['editors']}
-    - {role: neovim, tags: ['editors']}
+    - { role: zsh, tags: [ core, zsh ] }
+    - { role: spacemacs, tags: [ editors ] }
+    - { role: neovim, tags: [ editors ] }
 
   tasks:
   - name: Install git
@@ -200,7 +200,7 @@
     tags:
       - gitea
   - name: Install iJava (Jupyter kernel)
-    become: 
+    become: true
     shell: "{{item}}"
     with_items:
       - wget -O /tmp/ijava-1.2.0.zip https://github.com/SpencerPark/IJava/releases/download/v1.2.0/ijava-1.2.0.zip

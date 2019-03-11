@@ -4,24 +4,34 @@
     name: d12frosted/emacs-plus
     state: absent
   when: ansible_distribution == 'MacOSX'
+  tags:
+    - editors
 - name: Install emacs-plus (macOS)
   package:
     name: emacs-plus
     install_options: --HEAD --with-natural-title-bars
     state: present
   when: ansible_distribution == 'MacOSX'
+  tags:
+    - editors
 - name: Link emacs-plus (macOS)
   package:
     name: emacs-plus
     state: linked
   when: ansible_distribution == 'MacOSX'
+  tags:
+    - editors
 - name: Install emacs (Linux)
   package:
     name: emacs
     state: present
   become: false if ansible_distribution == 'MacOSX' else true
   when: ansible_distribution == 'Fedora'
+  tags:
+    - editors
 - name: Clone spacemacs config
   git:
     repo: https://github.com/syl20bnr/spacemacs.git
     dest: ~/.emacs.d
+  tags:
+    - editors
