@@ -1,0 +1,50 @@
+---
+- name: Install NeoVim package
+  package:
+    name: neovim
+    state: present
+  become: false if ansible_distribution == 'MacOSX' else true
+  register: neovim_result
+- name: Delete current NeoVim config
+  file:
+    path: ~/.config/nvim
+    state: absent
+- name: Create NeoVim config dir
+  file:
+    path: ~/.config/nvim
+    state: directory
+- name: Link init.vim
+  file:
+    src: "{{playbook_dir}}/.config/nvim/init.vim"
+    dest: ~/.config/nvim/init.vim
+    state: link
+- name: Check if NeoVim bundle folder exists
+  stat:
+    path: "{{ansible_env.HOME}}/.config/nvim/bundle"
+  register: neovim_bundle_dir_result
+- name: Delete current NeoVim bundle folder
+  shell: "rm -Rf {{ansible_env.HOME}}/.config/nvim/bundle"
+  when: neovim_bundle_dir_result.stat.exists == True 
+- name: Create NeoVim bundle folder
+  file:
+    path: "{{ansible_env.HOME}}/.config/nvim/bundle"
+    state: directory
+- name: Install NeoVim Bundles
+  git:
+    repo: "git://github.com/{{item.url}}"
+    dest: "{{ansible_env.HOME}}/.config/nvim/bundle/{{item.name}}"
+  with_items:
+    - { url: "scrooloose/nerdtree.git", name: "nerdtree" }
+    - { url: "zah/nim.vim.git", name: "nim.vim" }
+    - { url: "scrooloose/syntastic.git", name: "syntastic" }
+    - { url: "vim-airline/vim-airline.git", name: "vim-airline" }
+    - { url: "tpope/vim-fugitive.git", name: "vim-fugitive" }
+    - { url: "airblade/vim-gitgutter.git", name: "vim-gitgutter" }
+    - { url: "plasticboy/vim-markdown.git", name: "vim-markdown" }
+    - { url: "rust-lang/rust.vim.git", name: "rust.vim" }
+- name: Install pathogen
+  shell: "{{item}}"
+  with_items:
+    - rm -Rf ~/.config/nvim/autoload
+    - mkdir -p ~/.config/nvim/autoload
+    - curl -LSso ~/.config/nvim/autoload/pathogen.vim https://tpo.pe/pathogen.vim
