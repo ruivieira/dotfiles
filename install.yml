@@ -3,7 +3,8 @@
   gather_facts: yes
 
   roles:
-    - { role: zsh, tags: [ 'core', 'zsh' ] }
+    - {role: zsh, tags: ['core', 'zsh']}
+    - {role: spacemacs, tags: ['editors']}
 
   tasks:
   - name: Install git
@@ -128,36 +129,6 @@
         lineinfile:
           path: "{{ ansible_env.HOME }}/.um/umconfig"
           line: editor = vim
-  - name: Install spacemacs
-    block:
-      - name: Tap emacs-plus (macOS)
-        homebrew_tap:
-          name: d12frosted/emacs-plus
-          state: absent
-        when: ansible_distribution == 'MacOSX'
-      - name: Install emacs-plus (macOS)
-        package:
-          name: emacs-plus
-          install_options: --HEAD --with-natural-title-bars
-          state: present
-        when: ansible_distribution == 'MacOSX'
-      - name: Link emacs-plus (macOS)
-        package:
-          name: emacs-plus
-          state: linked
-        when: ansible_distribution == 'MacOSX'
-      - name: Install emacs (Linux)
-        package:
-          name: emacs
-          state: present
-        become: false if ansible_distribution == 'MacOSX' else true
-        when: ansible_distribution == 'Fedora'
-      - name: Clone spacemacs config
-        git:
-          repo: https://github.com/syl20bnr/spacemacs.git
-          dest: ~/.emacs.d
-    tags:
-      - editors
   - name: Create .config directory
     file:
       path: ~/.config
