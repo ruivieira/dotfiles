@@ -7,6 +7,7 @@
     - { role: spacemacs, tags: [ editors ] }
     - { role: neovim, tags: [ editors ] }
     - { role: jdk, tags: [ jdk, code ] }
+    - { role: python, tags: [ python, code ] }
 
   tasks:
   - name: Install git
@@ -70,24 +71,6 @@
     package:
       name: libsndfile
       state: present
-  - name: Install pyenv (macOS)
-    package:
-      name: pyenv
-      state: present
-    when: ansible_distribution == 'MacOSX'
-  - name: Install pyenv (Linux)
-    command: git clone https://github.com/pyenv/pyenv.git ~/.pyenv
-    when: ansible_distribution == 'Fedora'
-  - name: Configure matplotlib
-    block:
-      - name: Create matplotlib config dir
-        file:
-          path: "{{ ansible_env.HOME }}/.matplotlib"
-          state: directory
-      - name: Copy .matplotlibrc
-        copy:
-          src: "{{ playbook_dir }}/.matplotlib/matplotlibrc"
-          dest: "{{ ansible_env.HOME }}/.matplotlib/matplotlibrc"
   - name: Configure um
     block:
       - name: Create um config dir
@@ -175,16 +158,6 @@
         when: ansible_distribution == 'MacOSX'
     tags:
       - gitea
-  - name: Install iJava (Jupyter kernel)
-    become: true
-    shell: "{{item}}"
-    with_items:
-      - wget -O /tmp/ijava-1.2.0.zip https://github.com/SpencerPark/IJava/releases/download/v1.2.0/ijava-1.2.0.zip
-      - unzip /tmp/ijava-1.2.0.zip -d /tmp/ijava-1.2.0
-      - python3 /tmp/ijava-1.2.0/install.py --sys-prefix
-    become: false if ansible_distribution == 'MacOSX' else true
-    tags:
-      - jupyter
   - name: Install byobu
     package:
       name: byobu
@@ -197,5 +170,3 @@
       name: beets
     tags:
       - sound
-
-        
