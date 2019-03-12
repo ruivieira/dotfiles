@@ -1,0 +1,45 @@
+---
+- name: define OpenJDK variables
+  set_fact:
+    download_url: https://download.java.net/java/GA/jdk11/9/GPL
+    download_dest: /tmp/openjdk11.tgz
+    macos_jdk_dest: /Library/Java/JavaVirtualMachines/
+- name: Install giter8
+  package:
+    name: giter8
+    state: present
+  when: ansible_distribution == 'MacOSX'
+- name: Install jEnv (macOS)
+  package:
+    name: jenv
+    state: present
+  when: ansible_distribution == 'MacOSX'
+- name: Install jEnv (Linux)
+  command: git clone https://github.com/gcuisinier/jenv.git ~/.jenv
+  when: ansible_distribution == 'Fedora'
+- name: Install maven
+  package:
+    name: maven
+    state: present 
+- name: Install scala
+  package:
+    name: scala
+    state: present
+- name: Install OpenJDK 11
+  block:
+    - name: Download OpenJDK 11 (macOS)
+      shell: "{{item}}"
+      with_items:
+        - wget -O {{download_dest}} {{download_url}}/openjdk-11.0.2_osx-x64_bin.tar.gz
+      when: ansible_distribution == 'MacOSX'
+    - name: Download OpenJDK 11 (Fedora)
+      shell: "{{item}}"
+      with_items:
+        - wget -O {{download_dest}} {{download_url}}/openjdk-11.0.2_linux-x64_bin.tar.gz
+      when: ansible_distribution == 'Fedora'
+    - name: Extract OpenJDK11 archive
+      shell: "{{item}}"
+      with_items:
+        - tar xvf /tmp/openjdk11.tgz -C {{macos_jdk_dest}}
+      when: ansible_distribution == 'MacOSX'
+      become: true
