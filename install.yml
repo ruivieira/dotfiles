@@ -6,6 +6,7 @@
     - { role: zsh, tags: [ core, zsh ] }
     - { role: spacemacs, tags: [ editors ] }
     - { role: neovim, tags: [ editors ] }
+    - { role: jdk, tags: [ jdk, code ] }
 
   tasks:
   - name: Install git
@@ -40,11 +41,6 @@
     package:
       name: chicken
       state: present
-  - name: Install giter8
-    package:
-      name: giter8
-      state: present
-    when: ansible_distribution == 'MacOSX'
   - name: Install go
     package:
       name: go
@@ -58,14 +54,6 @@
     package:
       name: ImageMagick
       state: present
-    when: ansible_distribution == 'Fedora'
-  - name: Install jEnv (macOS)
-    package:
-      name: jenv
-      state: present
-    when: ansible_distribution == 'MacOSX'
-  - name: Install jEnv (Linux)
-    command: git clone https://github.com/gcuisinier/jenv.git ~/.jenv
     when: ansible_distribution == 'Fedora'
   - name: Check if MacDown is installed
     stat:
@@ -82,10 +70,6 @@
     package:
       name: libsndfile
       state: present
-  - name: Install maven
-    package:
-      name: maven
-      state: present 
   - name: Install pyenv (macOS)
     package:
       name: pyenv
@@ -94,14 +78,6 @@
   - name: Install pyenv (Linux)
     command: git clone https://github.com/pyenv/pyenv.git ~/.pyenv
     when: ansible_distribution == 'Fedora'
-  - name: Install scala
-    package:
-      name: scala
-      state: present
-  # - name: Install um
-  #   package:
-  #     name: sinclairtarget/wst/um
-  #     state: present
   - name: Configure matplotlib
     block:
       - name: Create matplotlib config dir
