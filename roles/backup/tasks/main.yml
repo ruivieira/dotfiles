@@ -1,0 +1,15 @@
+---
+- name: Install borgbackup (macOS)
+  homebrew_cask:
+    name: borgbackup
+    state: present
+  when: ansible_distribution == 'MacOSX'
+- name: Install borgbackup (Linux)
+  package:
+    name: borgbackup
+    state: present
+  when: ansible_distribution == 'Fedora'
+- name: Install restic
+  package:
+    name: restic
+    state: present

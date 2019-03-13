@@ -8,6 +8,7 @@
     - { role: neovim, tags: [ editors ] }
     - { role: jdk, tags: [ jdk, code ] }
     - { role: python, tags: [ python, code ] }
+    - { role: backup, tags: [ backup ] }
 
   tasks:
   - name: Install git
@@ -21,16 +22,6 @@
     package:
       name: asciinema
       state: present
-  - name: Install borgbackup (macOS)
-    homebrew_cask:
-      name: borgbackup
-      state: present
-    when: ansible_distribution == 'MacOSX'
-  - name: Install borgbackup (Linux)
-    package:
-      name: borgbackup
-      state: present
-    when: ansible_distribution == 'Fedora'
   - name: Install curl
     package:
       name: curl
