@@ -13,9 +13,9 @@ function pyenvactivate () {
 function jvm_exists() {
 	/usr/libexec/java_home -v$1 >& /dev/null
 	if [ $? -eq 0 ]; then
-  		return 0
+		return 0
 	else
-  		return 1
+		return 1
 	fi
 }
 
@@ -25,4 +25,9 @@ function syncdropbox() {
 	--exclude 'out' \
 	--exclude '.mypy_cache' --exclude 'frames' \
 	~/Sync ~/Dropbox --delete
+}
+
+function backup() {
+	source ~/.config/restic/credentials.txt
+	restic -r $RESTIC_REPOSITORY:$1 --verbose backup $2
 }
