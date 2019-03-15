@@ -49,3 +49,6 @@ EDITOR=/usr/local/bin/nvim
 
 # gitea custom templates location
 export GITEA_CUSTOM=/opt/gitea/custom
+
+# set GOPATH
+export GOPATH=$HOME/Sync/code/go
