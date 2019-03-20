@@ -52,3 +52,6 @@ export GITEA_CUSTOM=/opt/gitea/custom
 
 # set GOPATH
 export GOPATH=$HOME/Sync/code/go
+
+# GraalVM binaries path
+export PATH=$PATH:/opt/graalvm/Contents/Home/bin

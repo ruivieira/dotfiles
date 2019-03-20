@@ -43,3 +43,11 @@
         - tar xvf /tmp/openjdk11.tgz -C {{macos_jdk_dest}}
       when: ansible_distribution == 'MacOSX'
       become: true
+- name: Install GraalVM
+  shell: "{{item}}"
+  with_items:
+    - wget -O /tmp/graalvm.tar.gz https://github.com/oracle/graal/releases/download/vm-1.0.0-rc14/graalvm-ce-1.0.0-rc14-macos-amd64.tar.gz
+    - tar xvf /tmp/graalvm.tar.gz -C /opt/
+    - ln -s /opt/graalvm-ce-1.0.0-rc14 /opt/graalvm
+  become: true
+  when: ansible_distribution == 'MacOSX'

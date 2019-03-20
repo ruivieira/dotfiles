@@ -94,7 +94,5 @@ export PATH=$(pyenv root)/shims:$PATH
 # added by Anaconda3 5.2.0 installer
 #export PATH="/anaconda3/bin:$PATH"
 
-# GraalVM binaries
-export PATH=$PATH:$GRAALVM/Contents/Home/bin
-
 # call neofetch
+neofetch --iterm2 ~/.images/hexley.png --size 300px
