@@ -24,7 +24,7 @@ function syncdropbox() {
 	--exclude '.tox' --exclude '.ipynb_checkpoints' \
 	--exclude 'out' \
 	--exclude '.mypy_cache' --exclude 'frames' \
-	--exclude 'bin' --exclude 'pkg' --exclude '*go/src*' \
+	--exclude 'bin' --exclude 'pkg' \
 	~/Sync ~/Dropbox --delete
 }
 
