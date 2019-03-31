@@ -32,3 +32,10 @@ function backup() {
 	source ~/.config/restic/credentials.txt
 	restic -r $RESTIC_REPOSITORY:$1 --verbose backup $2
 }
+
+function docker_nuke() {
+	# Delete all containers
+	docker rm $(docker ps -a -q)
+	# Delete all images
+	docker rmi $(docker images -q)
+}
