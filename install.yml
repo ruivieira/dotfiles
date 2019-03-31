@@ -9,6 +9,7 @@
     - { role: jdk, tags: [ jdk, code ] }
     - { role: python, tags: [ python, code ] }
     - { role: backup, tags: [ backup ] }
+    - { role: vscode, tags: [ editors, vscode ] }
 
   tasks:
   - name: Install git

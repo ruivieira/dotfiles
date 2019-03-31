@@ -1,0 +1,10 @@
+---
+- name: Define vscode variables
+  set_fact:
+    settings_dir: ~/Library/Application\ Support/Code/User/
+- name: Install vscode settings
+  shell: "{{item}}"
+  with_items:
+    - mkdir -p {{settings_dir}}
+    - cp  {{role_path}}/files/settings.json {{settings_dir}}
+  when: ansible_distribution == 'MacOSX'
