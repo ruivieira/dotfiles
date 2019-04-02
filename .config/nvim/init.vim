@@ -3,6 +3,8 @@ syntax on
 " associate *.erc with html filetype
 au BufRead,BufNewFile *.erc setfiletype html
 
+call plug#begin('~/.vim/plugged')
+
 " sane shift-arrow to select and copy/paste
 " shift+arrow selection
 nmap <S-Up> v<Up>
