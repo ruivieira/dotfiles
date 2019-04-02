@@ -1,0 +1,20 @@
+---
+- name: install Crystal
+  package:
+    name: crystal
+    state: present
+  when: ansible_distribution == 'MacOSX'
+- name: clone Scry
+  git:
+    repo: "https://github.com/crystal-lang-tools/scry.git"
+    dest: "/tmp/scry"
+- name: build Scry
+  command: shards build -v
+  args:
+    chdir: /tmp/scry
+- name: copy Scry binary
+  copy:
+    src: /tmp/scry/bin/scry
+    dest: /usr/local/bin/
+    mode: a+x
+  become: true

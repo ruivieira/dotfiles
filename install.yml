@@ -10,6 +10,7 @@
     - { role: python, tags: [ python, code ] }
     - { role: backup, tags: [ backup ] }
     - { role: vscode, tags: [ editors, vscode ] }
+    - { role: crystal, tags: [ crystal ] }
 
   tasks:
   - name: Install git
