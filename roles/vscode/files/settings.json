@@ -7,14 +7,19 @@
     "gitlens.historyExplorer.enabled": true,
     "explorer.confirmDragAndDrop": false,
     "workbench.statusBar.feedback.visible": false,
+    // Editor
     "editor.fontFamily": "'Fira Code', Monaco, 'Courier New', monospace",
+    "editor.fontSize": 13,
     "editor.fontLigatures": true,
-    "crystal-ide.backend": "custom",
-    "crystal-ide.customCommand": "/usr/local/bin/scry",
     "gitlens.views.fileHistory.enabled": true,
     "gitlens.views.lineHistory.enabled": true,
-    "workbench.colorTheme": "Monokai",
+    "workbench.colorTheme": "Visual Studio Dark",
     "editor.cursorStyle": "block",
     "editor.multiCursorModifier": "ctrlCmd",
-    "editor.minimap.enabled": false
+    "editor.minimap.enabled": false,
+    // Crystal settings
+    "crystal-lang.completion": true,
+    "crystal-lang.server": "/urs/local/bin/scry",
+    "crystal-ide.backend": "custom",
+    "crystal-ide.customCommand": "/usr/local/bin/scry"
 }
