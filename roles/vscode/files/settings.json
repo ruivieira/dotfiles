@@ -13,8 +13,11 @@
     "crystal-ide.customCommand": "/usr/local/bin/scry",
     "gitlens.views.fileHistory.enabled": true,
     "gitlens.views.lineHistory.enabled": true,
-    "workbench.colorTheme": "Monokai",
+    "workbench.colorTheme": "Visual Studio Dark",
     "editor.cursorStyle": "block",
     "editor.multiCursorModifier": "ctrlCmd",
-    "editor.minimap.enabled": false
+    "editor.minimap.enabled": false,
+    // Crystal settings
+    "crystal-lang.completion": true,
+    "crystal-lang.server": "/urs/local/bin/scry"
 }
