@@ -3,8 +3,6 @@
   set_fact:
     ijava_dest: /tmp/ijava-1.2.0
     java_version: jdk-11.0.2.jdk
-
-
 - name: Install pyenv (macOS)
   package:
     name: pyenv
@@ -37,11 +35,14 @@
 - name: Install scipy
   pip:
     name: scipy
-- name: Install iJava (Jupyter kernel)
-  shell: "{{item}}"
-  with_items:
-    - wget -O {{ijava_dest}}.zip https://github.com/SpencerPark/IJava/releases/download/v1.2.0/ijava-1.2.0.zip
-    - unzip -o {{ijava_dest}}.zip -d {{ijava_dest}}
+- name: Download iJava
+  get_url:
+    url: https://github.com/SpencerPark/IJava/releases/download/v1.2.0/ijava-1.2.0.zip
+    dest: "{{ijava_dest}}.zip"
+- name: unarchive iJava
+  unarchive:
+    src: "{{ijava_dest}}.zip"
+    dest: "{{ijava_dest}}"
   become: true
   tags:
     - jupyter
