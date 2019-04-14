@@ -29,13 +29,13 @@
   block:
     - name: Download OpenJDK 11 (macOS)
       get_url:
-        url: {{download_url}}/openjdk-11.0.2_osx-x64_bin.tar.gz
-        dest: {{download_dest}}
+        url: "{{download_url}}/openjdk-11.0.2_osx-x64_bin.tar.gz"
+        dest: "{{download_dest}}"
       when: ansible_distribution == 'MacOSX'
     - name: Download OpenJDK 11 (Fedora)
       get_url:
-        url: {{download_url}}/openjdk-11.0.2_linux-x64_bin.tar.gz
-        dest: {{download_dest}} 
+        url: "{{download_url}}/openjdk-11.0.2_linux-x64_bin.tar.gz"
+        dest: "{{download_dest}}"
       when: ansible_distribution == 'Fedora'
     - name: Extract OpenJDK11 archive
       shell: "{{item}}"
