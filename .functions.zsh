@@ -25,7 +25,7 @@ function syncdropbox() {
 	--exclude 'out' \
 	--exclude '.mypy_cache' --exclude 'frames' \
 	--exclude 'bin' --exclude 'pkg' \
-	~/Sync ~/Dropbox --delete
+	~/Sync/code ~/Dropbox/Sync --delete
 }
 
 function backup() {
