@@ -1,6 +1,9 @@
 # Path to your oh-my-zsh configuration.
 ZSH=$HOME/.oh-my-zsh
 
+# aliases
+ alias del="mv -t ~/.Trash/"
+
 export ZSH_THEME="sunrise"
 
 # Set to this to use case-sensitive completion
