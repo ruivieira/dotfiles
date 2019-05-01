@@ -131,26 +131,6 @@
     when: ansible_distribution == 'MacOSX'
     tags:
       - core
-  - name: Install gitea
-    block:
-      - name: Install package (Linux)
-        shell: "{{item}}"
-        with_items:
-          - wget -O gitea https://dl.gitea.io/gitea/1.7.0/gitea-1.7.0-linux-amd64
-          - chmod +x gitea
-          - cp gitea /usr/local/bin/gitea
-        become: true
-        when: ansible_distribution == 'Fedora'
-      - name: Install package (macOS)
-        shell: "{{item}}"
-        with_items:
-          - wget -O gitea https://dl.gitea.io/gitea/1.7.0/gitea-1.7.0-darwin-10.6-amd64
-          - chmod +x gitea
-          - cp gitea /usr/local/bin/gitea
-        become: true
-        when: ansible_distribution == 'MacOSX'
-    tags:
-      - gitea
   - name: Install byobu
     package:
       name: byobu

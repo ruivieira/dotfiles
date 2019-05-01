@@ -25,6 +25,7 @@ function syncdropbox() {
 	--exclude 'out' \
 	--exclude '.mypy_cache' --exclude 'frames' \
 	--exclude 'bin' --exclude 'pkg' \
+	--exclude 'ml-junkyard/data' \
 	~/Sync/code ~/Dropbox/Sync --delete
 }
 
