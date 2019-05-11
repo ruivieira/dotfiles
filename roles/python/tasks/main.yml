@@ -1,8 +1,4 @@
 ---
-- name: define Python variables
-  set_fact:
-    ijava_dest: /tmp/ijava-1.2.0
-    java_version: jdk-11.0.2.jdk
 - name: Install pyenv (macOS)
   package:
     name: pyenv
@@ -21,11 +17,6 @@
       copy:
         src: "{{ playbook_dir }}/.matplotlib/matplotlibrc"
         dest: "{{ ansible_env.HOME }}/.matplotlib/matplotlibrc"
-- name: Install Jupyter
-  pip:
-    name: jupyter
-  tags:
-    - jupyter
 - name: Install numpy
   pip:
     name: numpy
@@ -35,23 +26,3 @@
 - name: Install scipy
   pip:
     name: scipy
-- name: Download iJava
-  get_url:
-    url: https://github.com/SpencerPark/IJava/releases/download/v1.2.0/ijava-1.2.0.zip
-    dest: "{{ijava_dest}}.zip"
-- name: unarchive iJava
-  unarchive:
-    src: "{{ijava_dest}}.zip"
-    dest: "{{ijava_dest}}"
-  become: true
-  tags:
-    - jupyter
-- name: Run iJava script
-  shell: 
-    cmd: "python3 {{ijava_dest}}/install.py --sys-prefix"
-    chdir: "{{ijava_dest}}"
-  environment:
-      JAVA_HOME: /Library/Java/JavaVirtualMachines/{{java_version}}
-  tags:
-  - jupyter
-

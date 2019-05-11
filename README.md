@@ -34,6 +34,17 @@ The `ansible` playbook includes the following tags:
 
 * `core`, essential CLI tools
 * `editors`, a collection of text editors (spacemacs, NeoVim, micro, etc.)
+* `jupyter` install jupyter notebooks along with a Java and R kernels
+
+## troubleshooting
+
+### `libreadline`
+
+On macOS the installation of R might fail with the message `dyld: Library not loaded: /usr/local/opt/readline/lib/libreadline.7.dylib`. If this is the case, just symlink the `readline` version you have to v7. _e.g._, if have v8:
+
+```
+$ ln -s /usr/local/opt/readline/lib/libreadline.8.0.dylib /usr/local/opt/readline/lib/libreadline.7.dylib
+```
 
 ## Acknowledgements
 

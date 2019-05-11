@@ -21,6 +21,7 @@ function jvm_exists() {
 
 function syncdropbox() {
 	rsync -var --exclude 'target' \
+	--exclude 'build' \
 	--exclude '.tox' --exclude '.ipynb_checkpoints' \
 	--exclude 'out' \
 	--exclude '.mypy_cache' --exclude 'frames' \
