@@ -8,10 +8,14 @@
     name: jupyter
   tags:
     - jupyter
-- name: Download iJava
+- name: download iJava
   get_url:
     url: https://github.com/SpencerPark/IJava/releases/download/v1.2.0/ijava-1.2.0.zip
     dest: "{{ijava_dest}}.zip"
+- name: create iJava directory
+  file:
+    path: "{{ijava_dest}}"
+    state: directory
 - name: unarchive iJava
   unarchive:
     src: "{{ijava_dest}}.zip"
@@ -19,7 +23,7 @@
   become: true
   tags:
     - jupyter
-- name: Run iJava script
+- name: run iJava script
   shell: 
     cmd: "python3 {{ijava_dest}}/install.py --sys-prefix"
     chdir: "{{ijava_dest}}"
