@@ -23,7 +23,7 @@ source $HOME/.bashrc
 test -e ${HOME}/.iterm2_shell_integration.zsh && source ${HOME}/.iterm2_shell_integration.zsh
 
 # jEnv configuration
-eval "$(jenv init -)"
+# eval "$(jenv init -)"
 
 ###-tns-completion-start-###
 if [ -f /Users/ruivieira/.tnsrc ]; then

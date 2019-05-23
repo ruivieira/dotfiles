@@ -51,12 +51,20 @@
   when: ansible_distribution == 'MacOSX'
   tags:
     - core
-- name: Symlink .bashprofile (Linux)
+- name: Symlink .bashprofile (Fedora)
   file:
     src: "{{playbook_dir}}/.bash_profile_linux"
     dest: "{{ansible_env.HOME}}/.bash_profile"
     state: link
   when: ansible_distribution == 'Fedora'
+  tags:
+    - core
+- name: Symlink .bashprofile (Alpine)
+  file:
+    src: "{{playbook_dir}}/.bash_profile_alpine"
+    dest: "{{ansible_env.HOME}}/.bash_profile"
+    state: link
+  when: ansible_distribution == 'Alpine'
   tags:
     - core
 - name: Delete current .bashrc
