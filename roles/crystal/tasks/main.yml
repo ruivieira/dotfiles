@@ -1,0 +1,31 @@
+---
+- name: import Crystal RPM GPG key
+  shell: rpm --import https://dist.crystal-lang.org/rpm/RPM-GPG-KEY
+  become: true
+  when: ansible_distribution == 'Fedora'
+- name: create Crystal repo
+  copy:
+    dest: /etc/yum.repos.d/crystal.repo
+    content: |
+      [crystal]
+      name = Crystal
+      baseurl = https://dist.crystal-lang.org/rpm/
+  become: true
+- name: install Crystal
+  package:
+    name: crystal
+    state: present
+- name: clone Scry
+  git:
+    repo: "https://github.com/crystal-lang-tools/scry.git"
+    dest: "/tmp/scry"
+- name: build Scry
+  command: shards build -v
+  args:
+    chdir: /tmp/scry
+- name: copy Scry binary
+  copy:
+    src: /tmp/scry/bin/scry
+    dest: /usr/local/bin/
+    mode: a+x
+  become: true

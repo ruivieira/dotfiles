@@ -1,0 +1,36 @@
+---
+- name: Install pyenv (macOS)
+  package:
+    name: pyenv
+    state: present
+  when: ansible_distribution == 'MacOSX'
+- name: Install pyenv (Linux)
+  command: git clone https://github.com/pyenv/pyenv.git ~/.pyenv
+  when: ansible_distribution == 'Fedora' or ansible_distribution == 'Alpine' 
+- name: Configure matplotlib
+  block:
+    - name: Create matplotlib config dir
+      file:
+        path: "{{ ansible_env.HOME }}/.matplotlib"
+        state: directory
+    - name: Copy .matplotlibrc
+      copy:
+        src: "{{ playbook_dir }}/.matplotlib/matplotlibrc"
+        dest: "{{ ansible_env.HOME }}/.matplotlib/matplotlibrc"
+- name: Install numpy (non-Alpine)
+  pip:
+    name: numpy
+  # when: ansible_distribution != 'Alpine'
+# - name: Install numpy (Alpine)
+#   apk:
+#     name: py-numpy
+#     state: present
+#     update_cache: yes
+#     repository: http://dl-cdn.alpinelinux.org/alpine/edge/community
+#     when: ansible_distribution == 'Alpine'
+- name: Install matplotlib
+  pip:
+    name: matplotlib
+- name: Install scipy
+  pip:
+    name: scipy

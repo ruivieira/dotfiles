@@ -19,9 +19,9 @@ function pyenvdelete () {
 function jvm_exists() {
 	/usr/libexec/java_home -v$1 >& /dev/null
 	if [ $? -eq 0 ]; then
-  		return 0
+		return 0
 	else
-  		return 1
+		return 1
 	fi
 }
 

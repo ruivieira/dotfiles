@@ -1,0 +1,96 @@
+---
+# Install and configure zshell.
+- name: Install zsh
+  package:
+    name: zsh
+    state: present
+  become: false if ansible_distribution == 'MacOSX' else true
+  tags:
+    - core
+- name: Install bash-completion
+  package:
+    name: bash-completion
+    state: present
+  become: false if ansible_distribution == 'MacOSX' else true
+  tags:
+    - core
+- name: Check if oh-my-zsh is installed
+  stat:
+    path: ~/.oh-my-zsh/
+  register: ohmyzsh_result  
+  tags:
+    - core
+- name: Delete oh-my-zsh if installed
+  file:
+    path: ~/.oh-my-zsh/
+    state: absent
+  when: ohmyzsh_result.stat.exists == True
+  tags:
+    - core
+- name: Install oh-my-zsh
+  git:
+    repo: https://github.com/robbyrussell/oh-my-zsh.git
+    dest: ~/.oh-my-zsh
+  tags:
+    - core
+- name: Install oh-my-zsh auto-completions
+  command: git clone https://github.com/zsh-users/zsh-autosuggestions ~/.oh-my-zsh/custom/plugins/zsh-autosuggestions
+  tags:
+    - core
+- name: Delete current .bash_profile
+  file:
+    path: "{{ansible_env.HOME}}/.bash_profile"
+    state: absent
+  tags:
+    - core
+- name: Symlink .bashprofile (macOS)
+  file:
+    src: "{{playbook_dir}}/.bash_profile_mac"
+    dest: "{{ansible_env.HOME}}/.bash_profile"
+    state: link
+  when: ansible_distribution == 'MacOSX'
+  tags:
+    - core
+- name: Symlink .bashprofile (Fedora)
+  file:
+    src: "{{playbook_dir}}/.bash_profile_linux"
+    dest: "{{ansible_env.HOME}}/.bash_profile"
+    state: link
+  when: ansible_distribution == 'Fedora'
+  tags:
+    - core
+- name: Symlink .bashprofile (Alpine)
+  file:
+    src: "{{playbook_dir}}/.bash_profile_alpine"
+    dest: "{{ansible_env.HOME}}/.bash_profile"
+    state: link
+  when: ansible_distribution == 'Alpine'
+  tags:
+    - core
+- name: Delete current .bashrc
+  file:
+    path: "{{ansible_env.HOME}}/.bashrc"
+    state: absent
+  tags:
+    - core
+- name: Symlink .bashrc
+  file:
+    src: "{{playbook_dir}}/.bashrc"
+    dest: "{{ansible_env.HOME}}/.bashrc"
+    state: link
+  tags:
+    - core
+- name: Symlink .zshrc
+  file:
+    src: "{{playbook_dir}}/.zshrc"
+    dest: "{{ansible_env.HOME}}/.zshrc"
+    state: link
+  tags:
+    - core
+- name: Symlink .functions.zsh
+  file:
+    src: "{{playbook_dir}}/.functions.zsh"
+    dest: ~/.functions.zsh
+    state: link
+  tags:
+    - core

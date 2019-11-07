@@ -1,6 +1,9 @@
 # Path to your oh-my-zsh configuration.
 ZSH=$HOME/.oh-my-zsh
 
+# aliases
+ alias del="mv -t ~/.Trash/"
+
 export ZSH_THEME="sunrise"
 
 # Set to this to use case-sensitive completion
@@ -20,7 +23,7 @@ source $HOME/.bashrc
 test -e ${HOME}/.iterm2_shell_integration.zsh && source ${HOME}/.iterm2_shell_integration.zsh
 
 # jEnv configuration
-eval "$(jenv init -)"
+# eval "$(jenv init -)"
 
 # pyenv configuration
 eval "$(pyenv init -)"
@@ -50,5 +53,8 @@ ZSH_THEME_GIT_PROMPT_CLEAN=" ✔"
 # git editor
 EDITOR=/usr/local/bin/nvim
 
-# gitea custom templates location
-export GITEA_CUSTOM=/opt/gitea/custom
+# set GOPATH
+export GOPATH=$HOME/Sync/code/go
+
+# GraalVM binaries path
+export PATH=$PATH:/opt/graalvm/Contents/Home/bin

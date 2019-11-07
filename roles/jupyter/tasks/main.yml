@@ -1,0 +1,57 @@
+---
+- name: define Python variables
+  set_fact:
+    ijava_dest: /tmp/ijava-1.2.0
+    java_version: jdk-11.0.2.jdk
+- name: Install Jupyter
+  pip:
+    name: jupyter
+  tags:
+    - jupyter
+- name: download iJava
+  get_url:
+    url: https://github.com/SpencerPark/IJava/releases/download/v1.2.0/ijava-1.2.0.zip
+    dest: "{{ijava_dest}}.zip"
+  when: ansible_distribution != 'Alpine'
+- name: create iJava directory
+  file:
+    path: "{{ijava_dest}}"
+    state: directory
+  when: ansible_distribution != 'Alpine'
+- name: unarchive iJava
+  unarchive:
+    src: "{{ijava_dest}}.zip"
+    dest: "{{ijava_dest}}"
+  become: true
+  when: ansible_distribution != 'Alpine'
+  tags:
+    - jupyter
+- name: run iJava script
+  shell: 
+    cmd: "python3 {{ijava_dest}}/install.py --sys-prefix"
+    chdir: "{{ijava_dest}}"
+  environment:
+      JAVA_HOME: /Library/Java/JavaVirtualMachines/{{java_version}}
+  when: ansible_distribution != 'Alpine'
+  tags:
+  - jupyter
+- name: Install R
+  package:
+    name: r
+    state: present
+  become: false if ansible_distribution == 'MacOSX' else true
+  when: ansible_distribution != 'Alpine'
+  tags:
+  - R
+  - jupyter
+- name: Install the R jupyter kernel
+  command: >
+    Rscript --slave --no-save --no-restore-history -e "if (! ('IRkernel' %in% installed.packages()[,'Package'])) { install.packages('IRkernel'); IRkernel::installspec(); } else { print('Already installed'); }"
+  register: r_result
+  failed_when: "r_result.rc != 0 or 'had non-zero exit status' in r_result.stderr"
+  changed_when: "'Added' in r_result.stdout"
+  when: ansible_distribution != 'Alpine'
+  tags:
+  - R
+  - jupyter
+  
