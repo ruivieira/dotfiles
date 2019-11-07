@@ -22,6 +22,9 @@ test -e ${HOME}/.iterm2_shell_integration.zsh && source ${HOME}/.iterm2_shell_in
 # jEnv configuration
 eval "$(jenv init -)"
 
+# pyenv configuration
+eval "$(pyenv init -)"
+
 ###-tns-completion-start-###
 if [ -f /Users/ruivieira/.tnsrc ]; then
     source /Users/ruivieira/.tnsrc

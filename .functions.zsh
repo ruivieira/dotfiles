@@ -1,13 +1,19 @@
 function pyenvcreate () {
 	local PROJ_DIR=$(basename $(pwd))
 	echo creating pyenv: $fg[green]$PROJ_DIR $reset_color
-	pyenv virtualenv 3.6.5 $PROJ_DIR
+	pyenv virtualenv 3.7.3 $PROJ_DIR
 }
 
 function pyenvactivate () {
 	local PROJ_DIR=$(basename $(pwd))
 	echo activating pyenv: $fg[green]$PROJ_DIR $reset_color
 	pyenv activate $PROJ_DIR
+}
+
+function pyenvdelete () {
+	local PROJ_DIR=$(basename $(pwd))
+	echo deleting pyenv: $fg[green]$PROJ_DIR $reset_color
+	pyenv virtualenv-delete $PROJ_DIR
 }
 
 function jvm_exists() {
@@ -17,4 +23,11 @@ function jvm_exists() {
 	else
   		return 1
 	fi
+}
+
+function docker_nuke() {
+	# Delete all containers
+	docker rm $(docker ps -a -q)
+	# Delete all images
+	docker rmi $(docker images -q)
 }
