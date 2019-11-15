@@ -1,13 +1,17 @@
-addons:
-  apt:
-    packages:
-      zsh
+---
+language: python
+python: "3.7"
+
+before_install:
+  # Make sure everything's up to date.
+  - sudo apt-get update -qq
+
 install:
-  - mkdir .bin
-  - curl -L https://github.com/zunit-zsh/zunit/releases/download/v0.8.2/zunit > .bin/zunit
-  - curl -L https://raw.githubusercontent.com/molovo/revolver/master/revolver > .bin/revolver
-  - curl -L https://raw.githubusercontent.com/molovo/color/master/color.zsh > .bin/color
-before_script:
-  - chmod u+x .bin/{color,revolver,zunit}
-  - export PATH="$PWD/.bin:$PATH"
-script: zunit
+  # Install Ansible.
+  - pip install ansible
+
+  # Add ansible.cfg to pick up roles path.
+  - "printf '[defaults]\nroles_path = ../' > ansible.cfg"
+
+script:
+  # We'll add some commands to test the role here.
