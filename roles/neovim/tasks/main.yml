@@ -3,7 +3,7 @@
   package:
     name: neovim
     state: present
-  become: false if ansible_distribution == 'MacOSX' else true
+  become: "{{linux}}"
   register: neovim_result
   tags:
     - editors
