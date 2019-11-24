@@ -56,3 +56,11 @@
     - ln -s /opt/graalvm-ce-1.0.0-rc14 /opt/graalvm
   become: yes
   when: ansible_distribution == 'MacOSX'
+- name: Clean up GraalVM tmp files
+  file:
+    path: /tmp/graalvm.tar.gz
+    state: absent
+- name: Clean up OpenJDK tmp files
+  file:
+    path: "{{download_dest}}"
+    state: absent
