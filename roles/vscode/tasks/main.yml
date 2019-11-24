@@ -40,3 +40,53 @@
     - mkdir -p {{settings_dir_linux}}
     - cp  {{role_path}}/files/settings.json {{settings_dir_linux}}
   when: ansible_distribution == 'Fedora'
+- name: Install VSCode extensions
+  shell: "code --install-extension {{item}}"
+  with_items:
+    - 0x9ef.vscode-vlang
+    - aeschli.vscode-css-formatter
+    - bungcip.better-toml
+    - DavidAnson.vscode-markdownlint
+    - dawhite.mustache
+    - daylerees.rainglow
+    - dunstontc.viml
+    - eamodio.gitlens
+    - faustinoaq.crystal-lang
+    - glen-anderson.vscode-faust
+    - hbenl.vscode-test-explorer
+    - iampeterbanjo.elixirlinter
+    - jithurjacob.nbpreviewer
+    - justusadam.language-haskell
+    - kosz78.nim
+    - kunstmusik.csound-vscode-plugin
+    - lightbend.vscode-sbt-scala
+    - mactkg.sonic-pi
+    - mattn.Lisp
+    - mjmcloug.vscode-elixir
+    - ms-azuretools.vscode-docker
+    - ms-python.python
+    - ms-vscode.cpptools
+    - ms-vscode.Go
+    - npruehs.pony
+    - pepri.subtitles-editor
+    - redhat.java
+    - ritwickdey.LiveServer
+    - rust-lang.rust
+    - scala-lang.scala
+    - scalameta.metals
+    - scriplit.perl6-lsp
+    - serayuzgur.crates
+    - Sir2B.lispbeautifier
+    - sjhuangx.vscode-scheme
+    - stayfool.vscode-asciidoc
+    - stiansivertsen.visualclojure
+    - Swellaby.vscode-rust-test-adapter
+    - tiehuis.zig
+    - UCL.haskelly
+    - VisualStudioExptTeam.vscodeintellicode
+    - vscjava.vscode-java-debug
+    - vscjava.vscode-java-dependency
+    - vscjava.vscode-java-pack
+    - vscjava.vscode-java-test
+    - vscjava.vscode-maven
+    - yzhang.markdown-all-in-one
