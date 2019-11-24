@@ -2,7 +2,7 @@
 - name: Define vscode variables
   set_fact:
     settings_dir_mac: ~/Library/Application\ Support/Code/User/
-    settings_dir_linux: /.config/Code/User/
+    settings_dir_linux: ~/.config/Code/User/
 - name: Install VSCode (Linux)
   block:
     - name: Import RPM keys
