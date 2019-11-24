@@ -38,12 +38,20 @@
   when: ansible_distribution != 'Alpine'
   tags:
   - jupyter
-- name: Install R
+- name: Install R (macOS)
   package:
     name: r
     state: present
-  become: "{{linux}}"
-  when: ansible_distribution != 'Alpine'
+  when: ansible_distribution == 'MacOSX'
+  tags:
+  - R
+  - jupyter
+- name: Install R (Linux)
+  package:
+    name: R-core
+    state: present
+  become: yes
+  when: ansible_distribution == 'Fedora'
   tags:
   - R
   - jupyter
