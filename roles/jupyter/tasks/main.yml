@@ -55,15 +55,15 @@
   tags:
   - R
   - jupyter
-- name: Install the R jupyter kernel
-  command: >
-    Rscript --slave --no-save --no-restore-history -e "if (! ('IRkernel' %in% installed.packages()[,'Package'])) { install.packages('IRkernel'); IRkernel::installspec(); } else { print('Already installed'); }"
-  register: r_result
-  failed_when: "r_result.rc != 0 or 'had non-zero exit status' in r_result.stderr"
-  changed_when: "'Added' in r_result.stdout"
-  when: ansible_distribution != 'Alpine'
-  become: "{{linux}}"
-  tags:
-  - R
-  - jupyter
+# - name: Install the R jupyter kernel
+#   command: >
+#     Rscript --slave --no-save --no-restore-history -e "if (! ('IRkernel' %in% installed.packages()[,'Package'])) { install.packages('IRkernel'); IRkernel::installspec(); } else { print('Already installed'); }"
+#   register: r_result
+#   failed_when: "r_result.rc != 0 or 'had non-zero exit status' in r_result.stderr"
+#   changed_when: "'Added' in r_result.stdout"
+#   when: ansible_distribution != 'Alpine'
+#   become: "{{linux}}"
+#   tags:
+#   - R
+#   - jupyter
   
