@@ -10,6 +10,8 @@
   with_items:
     - gsettings set org.gnome.desktop.background picture-uri file:///$HOME/.wallpapers/vw.png
   when: ansible_distribution == 'Fedora'
+- name: Create fonts dir (Linux)
+  shell: mkdir -p ~/.fonts
 - name: Copy fonts (Linux)
   shell: cp {{playbook_dir}}/fonts/{{item}} ~/.fonts
   with_items:
