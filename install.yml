@@ -17,6 +17,7 @@
     - { role: vscode, tags: [ editors, vscode ] }
     - { role: crystal, tags: [ crystal ] }
     - { role: jupyter, tags: [ jupyter, R ] }
+    - { role: config, tags: [ config ] }
 
   tasks:
   - name: Install git
