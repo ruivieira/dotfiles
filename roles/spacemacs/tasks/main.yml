@@ -25,7 +25,7 @@
   package:
     name: emacs
     state: present
-  become: false if ansible_distribution == 'MacOSX' else true
+  become: "{{linux}}"
   when: ansible_distribution == 'Fedora'
   tags:
     - editors
