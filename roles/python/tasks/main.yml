@@ -5,8 +5,9 @@
     state: present
   when: ansible_distribution == 'MacOSX'
 - name: Install pyenv (Linux)
-  command: git clone https://github.com/pyenv/pyenv.git ~/.pyenv
+  command: curl https://pyenv.run | bash
   when: ansible_distribution == 'Fedora' or ansible_distribution == 'Alpine' 
+  become: yes
 - name: Configure matplotlib
   block:
     - name: Create matplotlib config dir
