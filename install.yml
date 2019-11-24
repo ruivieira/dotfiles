@@ -23,38 +23,52 @@
     package:
       name: git
       state: present
-    become: false if ansible_distribution == 'MacOSX' else true
+    become: "{{linux}}"
     tags:
       - core
   - name: Install asciinema
     package:
       name: asciinema
       state: present
+    become: "{{linux}}"
+    tags:
+      - core
   - name: Install curl
     package:
       name: curl
       state: present
-    become: false if ansible_distribution == 'MacOSX' else true
+    become: "{{linux}}"
     tags:
       - core
   - name: Install chicken scheme
     package:
       name: chicken
       state: present
+    become: "{{linux}}"
+    tags:
+      - code
   - name: Install go
     package:
       name: go
       state: present
+    become: "{{linux}}"
+    tags:
+      - code
   - name: Install Imagemagick
     package:
       name: imagemagick
       state: present
     when: ansible_distribution == 'MacOSX'
+    tags:
+      - core
   - name: Install Imagemagick
     package:
       name: ImageMagick
       state: present
     when: ansible_distribution == 'Fedora'
+    become: yes
+    tags:
+      - core
   - name: Check if MacDown is installed
     stat:
       path: /Applications/MacDown.app
@@ -70,6 +84,7 @@
     package:
       name: libsndfile
       state: present
+    become: "{{linux}}"
   - name: Configure um
     block:
       - name: Create um config dir
@@ -106,19 +121,20 @@
       args:
         chdir: /usr/bin
       when: ansible_distribution == 'Fedora'
+      become: "{{linux}}"
   - name: Install rust
     block:
       - name: Install rustup.sh
         shell: curl https://sh.rustup.rs -sSf | sh -s -- -y
-        become: true
+        become: yes
     tags:
       - code
       - rust
-  - name: Install neofetch (macOS)
+  - name: Install neofetch
     package:
       name: neofetch
       state: present
-    become: false if ansible_distribution == 'MacOSX' else true
+    become: "{{linux}}"
     tags:
       - core
   - name: Copy images
@@ -141,11 +157,12 @@
     package:
       name: byobu
       state: present
-    become: false if ansible_distribution == 'MacOSX' else true
+    become: "{{linux}}"
     tags:
       - core
   - name: Install beets
     pip:
       name: beets
+    become: "{{linux}}"
     tags:
       - sound
