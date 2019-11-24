@@ -10,3 +10,14 @@
   with_items:
     - gsettings set org.gnome.desktop.background picture-uri file:///$HOME/.wallpapers/vw.png
   when: ansible_distribution == 'Fedora'
+- name: Copy fonts (Linux)
+  shell: cp ../../fonts/{{item}} ~/.fonts
+  with_items:
+    - firacode/FiraCode-Bold.ttf
+    - firacode/FiraCode-Light.ttf
+    - firacode/FiraCode-Medium.ttf
+    - firacode/FiraCode-Regular.ttf
+    - firacode/FiraCode-Retina.ttf
+  when: ansible_distribution == 'Fedora'
+- name: Rebuild font cache (Linux)
+  shell: fc-cache
