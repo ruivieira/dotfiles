@@ -2,7 +2,32 @@
 - name: Define vscode variables
   set_fact:
     settings_dir: ~/Library/Application\ Support/Code/User/
-- name: Install vscode settings
+- name: Install VSCode (Linux)
+  block:
+    - name: Import RPM keys
+      shell: "rpm --import https://packages.microsoft.com/keys/microsoft.asc"
+      become: yes
+    - name: Create VSCode RPM repo file
+      copy:
+        dest: "/etc/yum.repos.d/vscode.repo"
+        content: |
+          [code]
+          name=Visual Studio Code
+          baseurl=https://packages.microsoft.com/yumrepos/vscode
+          enabled=1
+          gpgcheck=1
+          gpgkey=https://packages.microsoft.com/keys/microsoft.asc
+      become: yes
+    - name: Install VSCode package
+      package:
+        name: code
+        state: present
+      become: yes
+  when: ansible_distribution == 'Fedora'
+  tags:
+    - code
+    - editors
+- name: Install vscode settings (macOS)
   shell: "{{item}}"
   with_items:
     - mkdir -p {{settings_dir}}
