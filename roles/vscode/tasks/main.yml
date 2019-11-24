@@ -1,7 +1,8 @@
 ---
 - name: Define vscode variables
   set_fact:
-    settings_dir: ~/Library/Application\ Support/Code/User/
+    settings_dir_mac: ~/Library/Application\ Support/Code/User/
+    settings_dir_linux: /.config/Code/User/
 - name: Install VSCode (Linux)
   block:
     - name: Import RPM keys
@@ -30,6 +31,12 @@
 - name: Install vscode settings (macOS)
   shell: "{{item}}"
   with_items:
-    - mkdir -p {{settings_dir}}
-    - cp  {{role_path}}/files/settings.json {{settings_dir}}
+    - mkdir -p {{settings_dir_mac}}
+    - cp  {{role_path}}/files/settings.json {{settings_dir_mac}}
   when: ansible_distribution == 'MacOSX'
+- name: Install vscode settings (Linux)
+  shell: "{{item}}"
+  with_items:
+    - mkdir -p {{settings_dir_linux}}
+    - cp  {{role_path}}/files/settings.json {{settings_dir_linux}}
+  when: ansible_distribution == 'Fedora'
