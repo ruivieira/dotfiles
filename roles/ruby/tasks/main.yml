@@ -3,7 +3,7 @@
   package:
     name: ruby
     state: present
-    become: "{{linux}}"
+  become: "{{linux}}"
 - gem:
     name: nanoc
     state: latest
