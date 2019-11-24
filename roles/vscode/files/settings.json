@@ -1,18 +1,19 @@
 {
     "workbench.startupEditor": "newUntitledFile",
+    // Gitlends
     "gitlens.advanced.messages": {
         "suppressLineUncommittedWarning": true,
         "suppressShowKeyBindingsNotice": true
     },
     "gitlens.historyExplorer.enabled": true,
+    "gitlens.views.fileHistory.enabled": true,
+    "gitlens.views.lineHistory.enabled": true,
     "explorer.confirmDragAndDrop": false,
     "workbench.statusBar.feedback.visible": false,
     // Editor
     "editor.fontFamily": "'Fira Code', Monaco, 'Courier New', monospace",
     "editor.fontSize": 13,
     "editor.fontLigatures": true,
-    "gitlens.views.fileHistory.enabled": true,
-    "gitlens.views.lineHistory.enabled": true,
     "workbench.colorTheme": "Visual Studio Dark",
     "editor.cursorStyle": "block",
     "editor.multiCursorModifier": "ctrlCmd",
@@ -21,5 +22,14 @@
     "crystal-lang.completion": true,
     "crystal-lang.server": "/urs/local/bin/scry",
     "crystal-ide.backend": "custom",
-    "crystal-ide.customCommand": "/usr/local/bin/scry"
+    "crystal-ide.customCommand": "/usr/local/bin/scry",
+    // Python
+    "python.dataScience.askForKernelRestart": false,
+    "python.jediEnabled": false,
+    "files.exclude": {
+        "**/.classpath": true,
+        "**/.project": true,
+        "**/.settings": true,
+        "**/.factorypath": true
+    }
 }
