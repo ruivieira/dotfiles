@@ -8,7 +8,7 @@
     - core
     - python
 - name: Install pyenv (Linux)
-  command: curl https://pyenv.run | bash
+  command: curl https://pyenv.run | sh
   when: ansible_distribution == 'Fedora' or ansible_distribution == 'Alpine' 
   become: yes
   tags:
