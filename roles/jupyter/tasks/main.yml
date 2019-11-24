@@ -6,6 +6,7 @@
 - name: Install Jupyter
   pip:
     name: jupyter
+  become: "{{linux}}"
   tags:
     - jupyter
 - name: download iJava
@@ -17,6 +18,7 @@
   file:
     path: "{{ijava_dest}}"
     state: directory
+  become: "{{linux}}"
   when: ansible_distribution != 'Alpine'
 - name: unarchive iJava
   unarchive:
@@ -30,6 +32,7 @@
   shell: 
     cmd: "python3 {{ijava_dest}}/install.py --sys-prefix"
     chdir: "{{ijava_dest}}"
+  become: "{{linux}}"
   environment:
       JAVA_HOME: /Library/Java/JavaVirtualMachines/{{java_version}}
   when: ansible_distribution != 'Alpine'
@@ -51,6 +54,7 @@
   failed_when: "r_result.rc != 0 or 'had non-zero exit status' in r_result.stderr"
   changed_when: "'Added' in r_result.stdout"
   when: ansible_distribution != 'Alpine'
+  become: "{{linux}}"
   tags:
   - R
   - jupyter
