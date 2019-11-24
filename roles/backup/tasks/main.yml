@@ -9,11 +9,13 @@
     name: borgbackup
     state: present
   when: ansible_distribution == 'Fedora'
+  become: "{{linux}}"
 - name: enable Fedora COPR for restic
   command: "dnf copr enable -y copart/restic"
-  become: true
+  become: yes
   when: ansible_distribution == 'Fedora'
 - name: Install restic
   package:
     name: restic
     state: present
+  become: "{{linux}}"
