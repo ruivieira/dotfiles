@@ -22,7 +22,7 @@
   unarchive:
     src: "{{ijava_dest}}.zip"
     dest: "{{ijava_dest}}"
-  become: true
+  become: yes
   when: ansible_distribution != 'Alpine'
   tags:
     - jupyter
@@ -39,7 +39,7 @@
   package:
     name: r
     state: present
-  become: false if ansible_distribution == 'MacOSX' else true
+  become: "{{linux}}"
   when: ansible_distribution != 'Alpine'
   tags:
   - R
