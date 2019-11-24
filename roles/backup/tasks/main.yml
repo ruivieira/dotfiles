@@ -10,10 +10,10 @@
     state: present
   when: ansible_distribution == 'Fedora'
   become: "{{linux}}"
-- name: enable Fedora COPR for restic
-  command: "dnf copr enable -y copart/restic"
-  become: yes
-  when: ansible_distribution == 'Fedora'
+# - name: enable Fedora COPR for restic
+#   command: "dnf copr enable -y copart/restic"
+#   become: yes
+#   when: ansible_distribution == 'Fedora'
 # - name: Install restic
 #   package:
 #     name: restic
