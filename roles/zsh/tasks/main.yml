@@ -4,14 +4,14 @@
   package:
     name: zsh
     state: present
-  become: false if ansible_distribution == 'MacOSX' else true
+  become: "{{linux}}"
   tags:
     - core
 - name: Install bash-completion
   package:
     name: bash-completion
     state: present
-  become: false if ansible_distribution == 'MacOSX' else true
+  become: "{{linux}}"
   tags:
     - core
 - name: Check if oh-my-zsh is installed

@@ -1,0 +1,14 @@
+---
+- name: install Ruby
+  package:
+    name: ruby
+    state: present
+- gem:
+    name: nanoc
+    state: latest
+- gem:
+    name: adsf
+    state: latest
+- gem:
+    name: kramdown
+    state: latest

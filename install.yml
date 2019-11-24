@@ -1,6 +1,10 @@
 ---
 - hosts: localhost
   gather_facts: yes
+  vars:
+    linux: "{{ 'no' if ansible_distribution == 'MacOSX' else 'yes'}}"
+
+
 
   roles:
     - { role: zsh, tags: [ core, zsh ] }
@@ -8,6 +12,7 @@
     - { role: neovim, tags: [ editors, vim ] }
     - { role: jdk, tags: [ jdk, code ] }
     - { role: python, tags: [ python, code ] }
+    - { role: ruby, tags: [ ruby, code, blog ] }
     - { role: backup, tags: [ backup ] }
     - { role: vscode, tags: [ editors, vscode ] }
     - { role: crystal, tags: [ crystal ] }
