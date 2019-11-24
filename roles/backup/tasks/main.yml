@@ -14,8 +14,8 @@
   command: "dnf copr enable -y copart/restic"
   become: yes
   when: ansible_distribution == 'Fedora'
-- name: Install restic
-  package:
-    name: restic
-    state: present
-  become: "{{linux}}"
+# - name: Install restic
+#   package:
+#     name: restic
+#     state: present
+#   become: "{{linux}}"
