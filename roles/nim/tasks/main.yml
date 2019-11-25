@@ -1,0 +1,8 @@
+---
+- name: Install nim (Linux)
+  shell: curl https://nim-lang.org/choosenim/init.sh -sSf | sh
+  become: yes
+  when: ansible_distribution == 'Fedora'
+  tags:
+    - code
+    - nim

@@ -15,6 +15,7 @@
     - { role: ruby, tags: [ ruby, code, blog ] }
     - { role: backup, tags: [ backup ] }
     - { role: vscode, tags: [ editors, vscode ] }
+    - { role: nim, tags: [ code, nim ] }
     - { role: crystal, tags: [ crystal ] }
     - { role: jupyter, tags: [ jupyter, R ] }
     - { role: config, tags: [ config ] }
