@@ -7,13 +7,13 @@
   tags:
     - core
     - python
-- name: Install pyenv (Linux)
-  command: curl -L https://github.com/pyenv/pyenv-installer/raw/master/bin/pyenv-installer | sh
-  when: ansible_distribution == 'Fedora' or ansible_distribution == 'Alpine' 
-  become: yes
-  tags:
-    - core
-    - python
+# - name: Install pyenv (Linux)
+#   command: curl -L https://github.com/pyenv/pyenv-installer/raw/master/bin/pyenv-installer | sh
+#   when: ansible_distribution == 'Fedora' or ansible_distribution == 'Alpine' 
+#   become: yes
+#   tags:
+#     - core
+#     - python
 - name: Configure matplotlib
   block:
     - name: Create matplotlib config dir
