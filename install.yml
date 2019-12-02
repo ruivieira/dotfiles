@@ -19,6 +19,7 @@
     - { role: crystal, tags: [ crystal ] }
     - { role: jupyter, tags: [ jupyter, R ] }
     - { role: config, tags: [ config ] }
+    - { role: swift, tags: [ code, swift ] }
 
   tasks:
   - name: Install git

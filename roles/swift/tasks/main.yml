@@ -1,0 +1,11 @@
+---
+# Install and configure zshell.
+- name: Install Swift
+  package:
+    name: swift-lang
+    state: present
+  become: "{{linux}}"
+  tags:
+    - code
+    - swift
+  when: ansible_distribution == 'Fedora'
