@@ -1,0 +1,21 @@
+---
+- name: Enable libvirtd (Linux)
+systemd:
+    name: libvirtd
+    enabled: yes
+    masked: no
+    state: started
+when: ansible_distribution == 'Fedora'
+tags:
+    - config
+- name: Enable tinyproxy (Linux)
+systemd:
+    name: tinyproxy
+    enabled: yes
+    masked: no
+    state: started
+when: ansible_distribution == 'Fedora'
+tags:
+    - config
+        
+    
