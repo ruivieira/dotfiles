@@ -23,3 +23,13 @@
   when: ansible_distribution == 'Fedora'
 - name: Rebuild font cache (Linux)
   shell: fc-cache
+- name: Enable sshd (Linux)
+  systemd:
+      name: sshd
+      enabled: yes
+      masked: no
+      state: started
+  when: ansible_distribution == 'Fedora'
+  tags:
+      - config
+    
