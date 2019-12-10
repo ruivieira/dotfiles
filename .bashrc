@@ -14,18 +14,12 @@ LS_COLORS='*.py=31:*.pyc=90:*.db=93:*.bat=31:*.txt=93'
 
 export LS_COLORS
 
-# go path
-export GOPATH=$HOME/code/go
-
 # pyenv
 export PYENV_VIRTUALENV_DISABLE_PROMPT=1
 eval "$(pyenv init -)"
 
 
 source .bash_profile
-
-# go binaries
-export PATH=$PATH:$GOPATH/bin
 
 # jEnv path
 export PATH=$PATH:$HOME/.jenv/bin

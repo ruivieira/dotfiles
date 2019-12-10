@@ -1,4 +1,11 @@
 ---
+- name: Instal libvirtd (Linux)
+  package:
+    name: libvirtd
+    states: present
+  when: ansible_distribution == 'Fedora'
+  tags:
+    - core
 - name: Enable libvirtd (Linux)
   systemd:
     name: libvirtd
@@ -8,6 +15,13 @@
   when: ansible_distribution == 'Fedora'
   tags:
     - config
+- name: Instal tinyproxy (Linux)
+  package:
+    name: tinyproxy
+    states: present
+  when: ansible_distribution == 'Fedora'
+  tags:
+    - core  
 - name: Enable tinyproxy (Linux)
   systemd:
     name: tinyproxy

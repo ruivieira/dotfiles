@@ -18,8 +18,3 @@ export HISTIGNORE="*schemasync*:clear:bg:fg:cd:cd -:exit:date:w:* --help" # Colo
 
 # OpenShift Origin
 export PATH=$HOME/openshift:$PATH
-
-# Go language variables
-export GOROOT=$HOME/golang
-export GOPATH=$HOME/gocode
-export PATH=$PATH:$GOROOT/bin

@@ -53,8 +53,10 @@ ZSH_THEME_GIT_PROMPT_CLEAN=" ✔"
 # git editor
 EDITOR=/usr/local/bin/nvim
 
-# set GOPATH
-export GOPATH=$HOME/Sync/code/go
+# Go language variables
+export GOROOT=$HOME/golang
+export GOPATH=$HOME/gocode
+export PATH=$PATH:$GOROOT/bin
 
 # GraalVM binaries path
 export PATH=$PATH:/opt/graalvm/Contents/Home/bin

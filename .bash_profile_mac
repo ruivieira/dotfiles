@@ -57,10 +57,6 @@ export HISTIGNORE="*schemasync*:clear:bg:fg:cd:cd -:exit:date:w:* --help" # Colo
 # add the Swift toolchain to the path
 export PATH=/Library/Developer/Toolchains/swift-latest.xctoolchain/usr/bin:"${PATH}"
 
-# golang paths
-export PATH=/usr/local/go/bin:$PATH
-export GOPATH=$HOME/code/go
-
 # Android paths
 export ANT_HOME=/usr/local/opt/ant
 export MAVEN_HOME=/usr/local/opt/maven
