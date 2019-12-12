@@ -32,4 +32,25 @@
   when: ansible_distribution == 'Fedora'
   tags:
       - config
-    
+- name: Install fzf (macOS)
+  package:
+    name: fzf
+    state: present
+  when: ansible_distribution == 'MacOSX'
+  tags:
+    - core
+- name: Install pet (macOS)
+  package:
+    name: knqyf263/pet/pet
+    state: present
+  when: ansible_distribution == 'MacOSX'
+  tags:
+    - core    
+- name: Install pet (Linux)
+  package: https://github.com/knqyf263/pet/releases/download/v0.3.0/pet_0.3.0_linux_amd64.rpm
+    name: knqyf263/pet/pet
+    state: present
+  when: ansible_distribution == 'Fedora'
+  tags:
+    - core
+  
