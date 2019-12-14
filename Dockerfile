@@ -18,10 +18,10 @@ COPY . /home/root/dotfiles
 
 WORKDIR /home/root/dotfiles
 
-RUN apk --no-cache add ansible git
+RUN apk --no-cache add ansible git ttyd
 
 RUN ln -s /usr/bin/python3 /usr/bin/python
 
 RUN ansible-playbook install.yml --tags "core"
 
-ENTRYPOINT ["/bin/zsh"]
+CMD ["/usr/bin/ttyd", "-p", "8080", "/bin/zsh"]
