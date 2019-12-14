@@ -14,9 +14,9 @@ RUN mkdir -p /home/root/dotfiles
 
 # USER ruivieira
 
-COPY . /home/root/dotfiles
+COPY . /root/dotfiles
 
-WORKDIR /home/root/dotfiles
+WORKDIR /root/dotfiles
 
 RUN apk --no-cache add ansible git ttyd
 
