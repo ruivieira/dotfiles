@@ -1,6 +1,6 @@
 html body {
-  font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, Oxygen, Ubuntu, Cantarell, 'Open Sans', 'Helvetica Neue', sans-serif;
-  font-size: 12px; /* Overridden by responsive font sizing */
+  font-family: "Fira Code", BlinkMacSystemFont, 'Segoe UI', Roboto, Oxygen, Ubuntu, Cantarell, 'Open Sans', 'Helvetica Neue', sans-serif;
+  font-size: 13px; /* Overridden by responsive font sizing */
   font-variant: medium;
   line-height: 1.5; /* 1.6316 = 31px @ font-size: 19px */
   width: 90%;
@@ -143,13 +143,19 @@ hr + h6 {
 
 /* Use custom bullet for unordered lists */
 ul {
-  list-style: none;
+  list-style-position: inside
+}
+
+li.md-checkbox {
+  list-style-position: inside;
+  list-style-type: square !important;
 }
 
 ul > li:before {
   content: "• ";
   float: left; /* Take out of flow to avoid changing left edge alignment or pushing child paragraph down */
   margin-left: calc((21 / 19) * -1em); /* -1.1053em = 21px @ font-size: 19px. em works better for RWD than % */
+  list-style-position: inside;
 }
 
 /* Use custom table of contents */
@@ -165,13 +171,13 @@ nav.table-of-contents {
   }
 
 nav.table-of-contents ul {
-  list-style-type: none;
+  list-style-position: inside;
 }
   
 nav.table-of-contents ul>li {
   margin: 0 0 .6em 0;
-  list-style-type: none;
   padding-left: 10px;
+  list-style-position: inside;
 }
   
 nav.table-of-contents a {
@@ -179,12 +185,12 @@ nav.table-of-contents a {
 }
 
 nav.table-of-contents > ul > li > ul > li {
-  list-style-type: none;
+  list-style-position: inside;
   padding-left: 20px;
 }
 
 nav.table-of-contents > ul > li > ul > li > ul > li {
-  list-style-type: none;
+  list-style-position: inside;
   padding-left: 30px;
   font-style: italic;
 }

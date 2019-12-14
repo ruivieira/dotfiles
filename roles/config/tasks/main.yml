@@ -47,8 +47,8 @@
   tags:
     - core    
 - name: Install pet (Linux)
-  package: https://github.com/knqyf263/pet/releases/download/v0.3.0/pet_0.3.0_linux_amd64.rpm
-    name: knqyf263/pet/pet
+  package: 
+    name: https://github.com/knqyf263/pet/releases/download/v0.3.0/pet_0.3.0_linux_amd64.rpm
     state: present
   when: ansible_distribution == 'Fedora'
   tags:

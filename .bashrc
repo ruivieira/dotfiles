@@ -2,7 +2,7 @@
 
 # aliases
 
-alias 'ls'='ls -a -1 -o --color -F -h -l'
+alias 'ls'='ls -a -1 --color -F -h -l'
 alias 'cd..'='cd ..'
 alias 'dir'='ls'
 alias 'eprofile'='$EDITOR ~/.bash_profile'

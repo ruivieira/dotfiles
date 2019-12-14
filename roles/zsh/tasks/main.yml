@@ -83,7 +83,7 @@
 - name: Symlink .zshrc
   file:
     src: "{{playbook_dir}}/.zshrc"
-    dest: "{{ansible_env.HOME}}/.zshrc"
+    dest: ~/.zshrc
     state: link
   tags:
     - core
