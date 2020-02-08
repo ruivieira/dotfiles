@@ -20,9 +20,18 @@
     - firacode/FiraCode-Medium.ttf
     - firacode/FiraCode-Regular.ttf
     - firacode/FiraCode-Retina.ttf
+    - jetbrains/JetBrainsMono-Bold-Italic.ttf
+    - jetbrains/JetBrainsMono-Bold.ttf
+    - jetbrains/JetBrainsMono-ExtraBold-Italic.ttf
+    - jetbrains/JetBrainsMono-ExtraBold.ttf
+    - jetbrains/JetBrainsMono-Italic.ttf
+    - jetbrains/JetBrainsMono-Medium-Italic.ttf
+    - jetbrains/JetBrainsMono-Medium.ttf
+    - jetbrains/JetBrainsMono-Regular.ttf
   when: ansible_distribution == 'Fedora'
 - name: Rebuild font cache (Linux)
   shell: fc-cache
+  when: ansible_distribution == 'Fedora'
 - name: Enable sshd (Linux)
   systemd:
       name: sshd
