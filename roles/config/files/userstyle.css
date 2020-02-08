@@ -1,7 +1,6 @@
 html body {
-  font-family: "Fira Code", BlinkMacSystemFont, 'Segoe UI', Roboto, Oxygen, Ubuntu, Cantarell, 'Open Sans', 'Helvetica Neue', sans-serif;
+  font-family: "Georgia", BlinkMacSystemFont, 'Segoe UI', Roboto, Oxygen, Ubuntu, Cantarell, 'Open Sans', 'Helvetica Neue', sans-serif;
   font-size: 13px; /* Overridden by responsive font sizing */
-  font-variant: medium;
   line-height: 1.5; /* 1.6316 = 31px @ font-size: 19px */
   width: 90%;
   margin: auto;

@@ -1,0 +1,4 @@
+[[snippets]]
+  description = "Clone a specific git Git branch"
+  command = "git clone --single-branch --branch <branchname> <remote-repo>"
+  output = ""

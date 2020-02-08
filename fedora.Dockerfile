@@ -9,6 +9,8 @@ RUN touch /etc/ansible/hosts
 RUN chmod 777 /etc/ansible/hosts
 RUN echo "localhost ansible_connection=local" >> /etc/ansible/hosts
 
+
+
 ARG CACHEBUST=1
 RUN git clone https://github.com/ruivieira/dotfiles
 WORKDIR /dotfiles
