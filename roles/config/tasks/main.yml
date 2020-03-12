@@ -48,18 +48,38 @@
   when: ansible_distribution == 'MacOSX'
   tags:
     - core
-- name: Install pet (macOS)
+- name: Remove pet (macOS)
   package:
     name: knqyf263/pet/pet
-    state: present
+    state: absent
   when: ansible_distribution == 'MacOSX'
   tags:
     - core    
-- name: Install pet (Linux)
+- name: Remove pet (Linux)
   package: 
     name: https://github.com/knqyf263/pet/releases/download/v0.3.0/pet_0.3.0_linux_amd64.rpm
-    state: present
+    state: absent
   when: ansible_distribution == 'Fedora'
   tags:
     - core
-  
+# Install navi snippet completion
+- name: Install navi (macOS)
+  package:
+    name: denisidoro/tools/navi
+    state: present
+  when: ansible_distribution == 'MacOSX'
+  tags:
+    - core
+    - navi
+- name: Create navi config dir
+  file:
+    path: ~/.config/navi
+    state: directory
+  tags:
+    - core
+    - navi
+- name: Copy navi cheats
+  shell: cp {{role_path}}/files/navi/*.cheat ~/.config/navi
+  tags:
+    - core
+    - navi

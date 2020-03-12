@@ -2,7 +2,7 @@
 ZSH=$HOME/.oh-my-zsh
 
 # aliases
- alias del="mv -t ~/.Trash/"
+alias del="mv -t ~/.Trash/"
 
 export ZSH_THEME="sunrise"
 
@@ -59,3 +59,6 @@ export PATH=$PATH:$GOPATH/bin
 
 # GraalVM binaries path
 export PATH=$PATH:/opt/graalvm/Contents/Home/bin
+
+# navi snippet editor
+export NAVI_PATH="$HOME/.config/navi"
