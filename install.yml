@@ -21,6 +21,7 @@
     - { role: config, tags: [ config ] }
     - { role: swift, tags: [ code, swift ] }
     - { role: openshift, tags: [ openshift ] }
+    - { role: zig, tags: [ zig ] }
 
   tasks:
   - name: Install git

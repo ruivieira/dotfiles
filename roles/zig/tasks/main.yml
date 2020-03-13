@@ -1,0 +1,9 @@
+---
+    - name: Install zig
+      package:
+        name: zig
+        state: present
+      become: "{{linux}}"
+      tags:
+        - code
+        - zig
