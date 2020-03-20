@@ -1,7 +1,7 @@
 /* Styling for Dark Theme */
 
 /* Change the font size to 13px */
-body, th, td, .inline-code {
+body, th, td, .inline-code, .tox-tiny-mce {
 	font-size: 13px;
 }
 
