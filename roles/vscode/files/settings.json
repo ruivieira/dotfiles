@@ -1,35 +1,41 @@
 {
     "workbench.startupEditor": "newUntitledFile",
-    // Gitlends
     "gitlens.advanced.messages": {
         "suppressLineUncommittedWarning": true,
         "suppressShowKeyBindingsNotice": true
     },
     "gitlens.historyExplorer.enabled": true,
-    "gitlens.views.fileHistory.enabled": true,
-    "gitlens.views.lineHistory.enabled": true,
     "explorer.confirmDragAndDrop": false,
     "workbench.statusBar.feedback.visible": false,
-    // Editor
-    "editor.fontFamily": "'Fira Code', Monaco, 'Courier New', monospace",
-    "editor.fontSize": 13,
+    "editor.fontFamily": "'JetBrains Mono', 'Fira Code', Monaco, 'Courier New', monospace",
     "editor.fontLigatures": true,
-    "workbench.colorTheme": "Visual Studio Dark",
+    "crystal-ide.backend": "custom",
+    "crystal-ide.customCommand": "/usr/local/bin/scry",
+    "gitlens.views.fileHistory.enabled": true,
+    "gitlens.views.lineHistory.enabled": true,
+    "workbench.colorTheme": "Remedy - Dark (Straight)",
     "editor.cursorStyle": "block",
     "editor.multiCursorModifier": "ctrlCmd",
     "editor.minimap.enabled": false,
-    // Crystal settings
-    "crystal-lang.completion": true,
-    "crystal-lang.server": "/urs/local/bin/scry",
-    "crystal-ide.backend": "custom",
-    "crystal-ide.customCommand": "/usr/local/bin/scry",
-    // Python
+    "liveServer.settings.donotShowInfoMsg": true,
     "python.dataScience.askForKernelRestart": false,
+    "git.suggestSmartCommit": false,
+    "editor.suggestSelection": "first",
+    "vsintellicode.modify.editor.suggestSelection": "automaticallyOverrodeDefaultValue",
     "python.jediEnabled": false,
     "files.exclude": {
         "**/.classpath": true,
         "**/.project": true,
         "**/.settings": true,
         "**/.factorypath": true
-    }
+    },
+    "crystal-lang.server": "/usr/local/bin/scry",
+    "crystal-lang.completion": true,
+    "crystal-lang.hover": true,
+    "crystal-lang.implementations": true,
+    "crystal-lang.shards": "/usr/local/bin/shards",
+    "swift.languageServerPath": "/usr/local/bin/sourcekite",
+    "swift.path.sourcekite": "/usr/local/bin/sourcekite",
+    "[glsl]": {},
+    "liveServer.settings.donotVerifyTags": true
 }
