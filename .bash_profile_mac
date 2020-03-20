@@ -92,3 +92,4 @@ export PATH=$(pyenv root)/shims:$PATH
 
 # call neofetch
 neofetch --iterm2 ~/.images/hexley.png --size 300px
+export PATH="$HOME/.poetry/bin:$PATH"
