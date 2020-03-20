@@ -1,0 +1,5 @@
+# CFLAGS for macOS
+export CFLAGS="-I$(brew --prefix <lib>)/include"
+
+# LDFLAGS
+export LDFLAGS="-L$(brew --prefix <lib>)/lib"
