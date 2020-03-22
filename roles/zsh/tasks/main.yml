@@ -94,3 +94,10 @@
     state: link
   tags:
     - core
+- name: Symlink .builders.zsh
+  file:
+    src: "{{playbook_dir}}/.builders.zsh"
+    dest: ~/.builders.zsh
+    state: link
+  tags:
+    - core

@@ -48,6 +48,13 @@ The `ansible` playbook includes the following tags:
 * `jupyter` install jupyter notebooks along with a Java and R kernels
 * `vscode`, setup for VSCode (config, extensions)
 
+### Shell functions
+
+The following shell functions are provided:
+
+* `.functions.zsh`, general environment management (Docker, pyenv, *etc*)
+* `.builders.zsh`, general project template builders (Quarkus, *etc*)
+
 ## troubleshooting
 
 ### `libreadline`

@@ -16,6 +16,7 @@ plugins=(emoji git osx mvn rust oc zsh-autosuggestions)
 
 source $ZSH/oh-my-zsh.sh
 source ~/.functions.zsh
+source ~/.builders.zsh
 
 # Customize to your needs...
 source $HOME/.bashrc
