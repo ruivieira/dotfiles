@@ -12,7 +12,7 @@ CASE_SENSITIVE="false"
 # Comment this out to disable weekly auto-update checks
 # DISABLE_AUTO_UPDATE="true"
 
-plugins=(emoji git osx mvn rust oc zsh-autosuggestions)
+plugins=(emoji git osx mvn rust oc zsh-autosuggestions history-substring-search zsh-syntax-highlighting)
 
 source $ZSH/oh-my-zsh.sh
 source ~/.functions.zsh
