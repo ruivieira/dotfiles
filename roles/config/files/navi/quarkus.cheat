@@ -1,0 +1,8 @@
+% quarkus
+
+# Create Quarkus project
+mvn io.quarkus:quarkus-maven-plugin:1.3.0.Final:create -DprojectGroupId=dev.ruivieira -DprojectArtifactId=<project> -Dextensions="kafka"
+
+# Add extension to existing Quarkus project
+mvn quarkus:add-extension -Dextensions="<extension>"
+

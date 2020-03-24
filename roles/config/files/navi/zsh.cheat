@@ -1,0 +1,4 @@
+% zsh
+
+# Get a function's definition
+whence -f <function>
