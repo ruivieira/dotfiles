@@ -12,7 +12,7 @@ CASE_SENSITIVE="false"
 # Comment this out to disable weekly auto-update checks
 # DISABLE_AUTO_UPDATE="true"
 
-plugins=(emoji git osx mvn rust oc zsh-autosuggestions history-substring-search zsh-syntax-highlighting)
+plugins=(emoji git osx mvn rust zsh-autosuggestions history-substring-search zsh-syntax-highlighting)
 
 source $ZSH/oh-my-zsh.sh
 source ~/.functions.zsh
@@ -60,6 +60,3 @@ export PATH=$PATH:$GOPATH/bin
 
 # GraalVM binaries path
 export PATH=$PATH:/opt/graalvm/Contents/Home/bin
-
-# navi snippet editor
-export NAVI_PATH="$HOME/.config/navi"

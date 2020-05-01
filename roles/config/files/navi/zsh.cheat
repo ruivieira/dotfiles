@@ -2,3 +2,9 @@
 
 # Get a function's definition
 whence -f <function>
+
+# List empty sub-directories
+ls -ld *(/^F)
+
+# List all files without an extension
+ls *~*.*(.)

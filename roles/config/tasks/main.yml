@@ -62,7 +62,9 @@
   when: ansible_distribution == 'Fedora'
   tags:
     - core
-# Install navi snippet completion
+
+### Install navi snippet completion
+
 - name: Install navi (macOS)
   package:
     name: denisidoro/tools/navi
@@ -71,15 +73,11 @@
   tags:
     - core
     - navi
-- name: Create navi config dir
-  file:
-    path: ~/.config/navi
-    state: directory
-  tags:
-    - core
-    - navi
-- name: Copy navi cheats
-  shell: cp {{role_path}}/files/navi/*.cheat ~/.config/navi
+- name: Install navi cheats
+  shell: navi repo add {{item}}
+  with_items:
+    - https://github.com/geometricfirs/openshift.cheat
+    - https://github.com/geometricfirs/zsh.cheat
   tags:
     - core
     - navi

@@ -45,7 +45,12 @@
   with_items:
     - 0x9ef.vscode-vlang
     - aeschli.vscode-css-formatter
+    - alexcvzz.vscode-sqlite
+    - bpruitt-goddard.mermaid-markdown-syntax-highlighting
     - bungcip.better-toml
+    - CADENAS.vscode-glsllint
+    - christopherstyles.html-entities
+    - circledev.glsl-canvas
     - DavidAnson.vscode-markdownlint
     - dawhite.mustache
     - daylerees.rainglow
@@ -53,24 +58,38 @@
     - eamodio.gitlens
     - faustinoaq.crystal-lang
     - glen-anderson.vscode-faust
+    - guyskk.language-cython
     - hbenl.vscode-test-explorer
     - iampeterbanjo.elixirlinter
     - jithurjacob.nbpreviewer
+    - joaompinto.asciidoctor-vscode
     - justusadam.language-haskell
+    - kevinglasson.cornflakes-linter
+    - kiegroup.vscode-extension-pack-kogito-kie-editors
     - kosz78.nim
     - kunstmusik.csound-vscode-plugin
     - lightbend.vscode-sbt-scala
     - mactkg.sonic-pi
     - mattn.Lisp
+    - mechatroner.rainbow-csv
     - mjmcloug.vscode-elixir
     - ms-azuretools.vscode-docker
     - ms-python.python
+    - ms-vscode-remote.remote-containers
+    - ms-vscode-remote.remote-ssh
+    - ms-vscode-remote.remote-ssh-edit
+    - ms-vscode-remote.remote-wsl
+    - ms-vscode-remote.vscode-remote-extensionpack
     - ms-vscode.cpptools
     - ms-vscode.Go
     - npruehs.pony
+    - octref.vetur
     - pepri.subtitles-editor
+    - raczzalan.webgl-glsl-editor
     - redhat.java
+    - redhat.vscode-yaml
     - ritwickdey.LiveServer
+    - robertrossmann.remedy
     - rust-lang.rust
     - scala-lang.scala
     - scalameta.metals
@@ -78,17 +97,18 @@
     - serayuzgur.crates
     - Sir2B.lispbeautifier
     - sjhuangx.vscode-scheme
+    - slevesque.shader
     - stayfool.vscode-asciidoc
     - stiansivertsen.visualclojure
     - Swellaby.vscode-rust-test-adapter
     - tiehuis.zig
     - UCL.haskelly
     - VisualStudioExptTeam.vscodeintellicode
+    - vknabel.vscode-swift-development-environment
     - vscjava.vscode-java-debug
     - vscjava.vscode-java-dependency
     - vscjava.vscode-java-pack
     - vscjava.vscode-java-test
     - vscjava.vscode-maven
+    - vstirbu.vscode-mermaid-preview
     - yzhang.markdown-all-in-one
-    - kevinglasson.cornflakes-linter
-    - robertrossmann.remedy
