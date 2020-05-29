@@ -55,6 +55,25 @@ The following shell functions are provided:
 * `.functions.zsh`, general environment management (Docker, pyenv, *etc*)
 * `.builders.zsh`, general project template builders (Quarkus, *etc*)
 
+### Editor
+
+Theia is provided as an editor. The `Dockerfile`s are available under `/theia`.
+To build an image (say, `theia-java`), run:
+
+```shell
+$ cd theia/java
+$ docker build -t ruivieira/theia-java:latest .
+```
+
+To run it, go to the folder you want to use as the workplace and run:
+
+```shell
+$ cd $PROJECT
+$ docker run -it --init -p 3000:3000 -p 8080:8080 -v "$(pwd):/home/project:cached" ruivieira/theia-java:latest
+```
+
+Here, Theia will be available on port `3000`. Port `8080` is reserved in case you want to test some service on that port.
+
 ## troubleshooting
 
 ### `libreadline`
