@@ -9,3 +9,4 @@ dotfiles.code-workspace
 tests/_output
 tests/_support
 node_modules
+pyinfra-debug.log
