@@ -4,14 +4,20 @@ A collection of configuration and setup files I am currently using across severa
 
 ## setup
 
-There are two approaches to install these configurations, with Ansible or pyinfra.
+There are two approaches to install these configurations, with [Ansible](https://www.ansible.com/) or [pyinfra](https://pyinfra.com/).
 
 **WARNING** running either of these methods locally _will delete_ some of you current configurations,
-if they exit (`./config/nvim`, `.bashrc`, `.zshrc`, `.emacs.d/`, etc.)
+if they exist, (`./config/nvim`, `.bashrc`, `.zshrc`, `.emacs.d/`, _etc._)
 
 ### pyinfra
 
-Read the **WARNING** above.
+You can test the setup inside a container if you have podman/docker installed.
+
+```shell
+pyinfra @docker/fedora:32 deploy.py
+```
+
+If you want to try it locally, first read the **WARNING** above.
 Install `pyinfra` with `pip install pyinfra` and then run the deploy script locally:
 
 ```shell
@@ -35,14 +41,14 @@ dnf install ansible
 ```
 
 To try it without installing locally using the container.
-If you have docker installed build the image with:
+If you have podman/docker installed build the image with:
 
 ```shell
 docker build -t dotfiles:latest .
 docker run -i -t dotfiles:latest /bin/zsh
 ```
 
-To run locally, issue:
+To run locally (did I mention you should read the **WARNING** above?), issue:
 
 ```shell
 ansible-playbook install.yml -K

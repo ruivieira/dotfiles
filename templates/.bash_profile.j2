@@ -12,8 +12,6 @@ export {{key}}={{value}}
 alias java8='export JAVA_HOME=$JAVA_8_HOME'
 alias java11='export JAVA_HOME=$JAVA_11_HOME'
 
-export JAVA_HOME=$JAVA_11_HOME
-
 # Scala path
 export PATH=$PATH:/opt/scala/bin
 
@@ -24,14 +22,9 @@ export PATH=/usr/local/sbin:$PATH
 export TM_LATEX_COMPILER=/usr/texbin/pdflatex
 
 # Aliases
-alias 'ls'='ls -a -1 -o -F -h -l'
-alias 'cd..'='cd ..'
-alias 'dir'='ls'
-alias 'eprofile'='$EDITOR ~/.bash_profile'
-alias 'rprofile'='source ~/.bash_profile'
-alias tree="find . -print | sed -e 's;[^/]*/;|____;g;s;____|; |;g'"
-alias '..'='cd ..'
-alias bu="brew update && brew upgrade && brew cleanup"
+{% for key, value in ALIASES.items() %}
+alias '{{key}}'='{{value}}'
+{% endfor %}
 
 # Aquamacs command line alias
 alias 'xemacs'='/Applications/Emacs.app/Contents/MacOS/Emacs'

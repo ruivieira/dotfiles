@@ -18,6 +18,26 @@ class Env:
 
 
 bashProfile = BashProfile()
+ALIASES = dict()
+
+
+def installJava(deployment):
+    if deployment == "Darwin":
+        pass
+    elif deployment == "Fedora":
+        dnf.packages(
+            name="Install OpenJDK11",
+            packages=["java-11-openjdk-devel.x86_64"],
+            latest=True,
+            sudo=True,
+            use_sudo_password=True,
+        )
+
+    javaHomeEnv = Env("Set Java home to OpenJDK11")
+    javaHomeEnv.ENV["JAVA_HOME"] = "/usr/lib/jvm/java-11/"
+    bashProfile.ENVS.append(javaHomeEnv)
+
+    bashProfile.PATH.append("$JAVA_HOME/bin")
 
 
 def installGraalVM(deployment):
@@ -61,12 +81,38 @@ def installGraalVM(deployment):
 
 # Install vim
 if host.fact.linux_name == "Fedora":
-    dnf.packages(name="Install Vim", packages=["vim"], latest=True)
+    dnf.packages(
+        name="Install Vim",
+        packages=["vim"],
+        latest=True,
+        sudo=True,
+        use_sudo_password=True,
+    )
+    dnf.packages(
+        name="Install cURL",
+        packages=["curl"],
+        latest=True,
+        sudo=True,
+        use_sudo_password=True,
+    )
+
+    # Default Fedora path
+    bashProfile.PATH.append("/usr/local/bin:/usr/bin:/usr/local/sbin:/usr/sbin")
 
     installGraalVM("Fedora")
 
+    installJava("Fedora")
+
 if host.fact.os == "Darwin":
     brew.packages(name="Install Vim", packages=["vim"], update=True, upgrade=True)
+
+    dnf.packages(
+        name="Install cURL",
+        packages=["curl"],
+        latest=True,
+        sudo=True,
+        use_sudo_password=True,
+    )
 
     # Default macOS path
     bashProfile.PATH.append("/usr/bin:/bin:/usr/sbin:/sbin:/usr/local/bin:/usr/X11/bin")
@@ -90,7 +136,16 @@ if host.fact.os == "Darwin":
 
     bashProfile.ENVS.append(rEnv)
 
-
+ALIASES = {
+    "ls": r"ls -a -1 -o -F -h -l",
+    "cd..": "cd ..",
+    "dir": "ls",
+    "eprofile": "$EDITOR ~/.bash_profile",
+    "rprofile": "source ~/.bash_profile",
+    "tree": 'find . -print | sed -e "s;[^/]*/;|____;g;s;____|; |;g"',
+    "..": "cd ..",
+    "bu": "brew update && brew upgrade && brew cleanup",
+}
 # export .bash_profile
 files.template(
     name="Create .bash_profile",
@@ -98,4 +153,5 @@ files.template(
     dest=f"{HOME}/.bash_profile",
     PATH=":".join(bashProfile.PATH),
     ENVS=bashProfile.ENVS,
+    ALIASES=ALIASES,
 )
