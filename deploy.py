@@ -79,6 +79,17 @@ if host.fact.os == "Darwin":
 
     bashProfile.ENVS.append(javaEnv)
 
+    texEnv = Env("TeXLive for macOS")
+    texEnv.ENV["TEX"] = "/usr/local/texlive/2016/bin/x86_64-darwin"
+
+    bashProfile.ENVS.append(texEnv)
+    bashProfile.PATH.append("$TEX")
+
+    rEnv = Env("This hack is a work around a R/Java bug in macOS")
+    rEnv.ENV["LD_LIBRARY_PATH"] = "$(/usr/libexec/java_home -v 1.8)/jre/lib/server"
+
+    bashProfile.ENVS.append(rEnv)
+
 
 # export .bash_profile
 files.template(

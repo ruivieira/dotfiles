@@ -2,11 +2,7 @@
 
 export EDITOR=/usr/bin/nvim
 
-# export base PATH
-export PATH={{PATH}}
-
 {% for ENV in ENVS %}
-
 # {{ENV.comment}}
 {% for key, value in ENV.ENV.items() %}
 export {{key}}={{value}}
@@ -21,15 +17,8 @@ export JAVA_HOME=$JAVA_11_HOME
 # Scala path
 export PATH=$PATH:/opt/scala/bin
 
-# TeXLive for OS X
-export TEX=/usr/local/texlive/2016/bin/x86_64-darwin
-export PATH=$TEX:$PATH
-
 # add sbin
 export PATH=/usr/local/sbin:$PATH
-
-# This hack is to work around an R/Java bug in OS X
-export LD_LIBRARY_PATH=$(/usr/libexec/java_home -v 1.8)/jre/lib/server
 
 #TextMate LaTeX compiler
 export TM_LATEX_COMPILER=/usr/texbin/pdflatex
@@ -77,3 +66,6 @@ export PATH=$(pyenv root)/shims:$PATH
 # call neofetch
 neofetch --iterm2 ~/.images/hexley.png --size 300px
 export PATH="$HOME/.poetry/bin:$PATH"
+
+# export PATH
+export PATH={{PATH}}
