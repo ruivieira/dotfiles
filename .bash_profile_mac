@@ -1,95 +1,20 @@
-##Add below lines in the profile
+#!/usr/bin/bash
 
-export EDITOR=/usr/bin/nvim
+export JAVA_HOME=/opt/jdk1.8
+export JRE_HOME=/opt/jdk1.8/jre
+export PATH=$PATH:$JAVA_HOME/bin:$JRE_HOME/bin
 
-# OSX specific paths
-export JAVA_8_HOME=$(/usr/libexec/java_home -v1.8)
-export JAVA_11_HOME=$(/usr/libexec/java_home -v11)
+# cd to a python module directory
+cdp () {
+    cd "$(python -c "import os.path as _, ${1}; \
+	print _.dirname(_.realpath(${1}.__file__[:-1]))"
+)"
+}
 
-alias java8='export JAVA_HOME=$JAVA_8_HOME'
-alias java11='export JAVA_HOME=$JAVA_11_HOME'
-
-export JAVA_HOME=$JAVA_11_HOME
-
-# Scala path
-export PATH=$PATH:/opt/scala/bin
-
-# TeXLive for OS X
-export TEX=/usr/local/texlive/2016/bin/x86_64-darwin
-export PATH=$TEX:$PATH
-
-# add sbin
-export PATH=/usr/local/sbin:$PATH
-
-## Apache Spark
-export PATH=/usr/local/Cellar/apache-spark/2.1.0/bin:$PATH
-export PYTHON_PATH=/usr/local/Cellar/apache-spark/2.1.0/libexec/python
-export PYSPARK_DRIVER_PYTHON=ipython
-export PYSPARK_DRIVER_PYTHON_OPTS='notebook' pyspark
-
-# This hack is to work around an R/Java bug in OS X
-export LD_LIBRARY_PATH=$(/usr/libexec/java_home -v 1.8)/jre/lib/server
-
-#TextMate LaTeX compiler
-export TM_LATEX_COMPILER=/usr/texbin/pdflatex
-
-# Aliases
-alias 'ls'='ls -a -1 -o -F -h -l'
-alias 'cd..'='cd ..'
-alias 'dir'='ls'
-alias 'eprofile'='$EDITOR ~/.bash_profile'
-alias 'rprofile'='source ~/.bash_profile'
-alias tree="find . -print | sed -e 's;[^/]*/;|____;g;s;____|; |;g'"
-alias '..'='cd ..'
-alias bu="brew update && brew upgrade && brew cleanup"
-
-# Aquamacs command line alias
-alias 'xemacs'='/Applications/Emacs.app/Contents/MacOS/Emacs'
-# LS_COLORS
-LS_COLORS='*.py=31:*.pyc=1;30:*.db=93:*.bat=31:*.txt=93'
-
-export LS_COLORS
-export CLICOLOR=1
+export PYTHONSTARTUP=~/.pythonrc
 
 # ignore commands on the history that might contain passwords
 export HISTIGNORE="*schemasync*:clear:bg:fg:cd:cd -:exit:date:w:* --help" # Colon seperated list of exact commands
 
-# add the Swift toolchain to the path
-export PATH=/Library/Developer/Toolchains/swift-latest.xctoolchain/usr/bin:"${PATH}"
-
-# Android paths
-export ANT_HOME=/usr/local/opt/ant
-export MAVEN_HOME=/usr/local/opt/maven
-export GRADLE_HOME=/usr/local/opt/gradle
-export ANDROID_HOME=/usr/local/opt/android-sdk
-export ANDROID_NDK_HOME=/usr/local/opt/android-ndk
-
-export PATH=$ANT_HOME/bin:$PATH
-export PATH=$MAVEN_HOME/bin:$PATH
-export PATH=$GRADLE_HOME/bin:$PATH
-export PATH=$ANDROID_HOME/tools:$PATH
-export PATH=$ANDROID_HOME/platform-tools:$PATH
-export PATH=$ANDROID_HOME/build-tools/24.0.1:$PATH
-
-# path for npm et al.
-export PATH=$PATH:/usr/local/bin
-
-###-tns-completion-start-###
-if [ -f /Users/ruivieira/.tnsrc ]; then 
-    source /Users/ruivieira/.tnsrc 
-fi
-###-tns-completion-end-###
-
-export PATH="$HOME/.cargo/bin:$PATH"
-# For some reason /usr/local/bin is not on the path
-# also, it needs to be first due to brew
-export PATH=/usr/local/bin:$PATH
-
-export PATH=$(pyenv root)/shims:$PATH
-
-# added by Anaconda3 5.2.0 installer
-#export PATH="/anaconda3/bin:$PATH"
-
-# call neofetch
-neofetch --iterm2 ~/.images/hexley.png --size 300px
-export PATH="$HOME/.poetry/bin:$PATH"
+# OpenShift Origin
+export PATH=$HOME/openshift:$PATH
