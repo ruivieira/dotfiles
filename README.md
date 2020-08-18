@@ -4,6 +4,23 @@ A collection of configuration and setup files I am currently using across severa
 
 ## setup
 
+There are two approaches to install these configurations, with Ansible or pyinfra.
+
+**WARNING** running either of these methods locally _will delete_ some of you current configurations,
+if they exit (`./config/nvim`, `.bashrc`, `.zshrc`, `.emacs.d/`, etc.)
+
+### pyinfra
+
+Read the **WARNING** above.
+Install `pyinfra` with `pip install pyinfra` and then run the deploy script locally:
+
+```shell
+pyinfra @local deploy.py
+```
+
+### Ansible
+
+Read the **WARNING** above.
 To prepare a macOS machine, make sure you have `brew` and `ansible` installed.
 After installing `brew`, you can install `ansible` with:
 
@@ -25,15 +42,13 @@ docker build -t dotfiles:latest .
 docker run -i -t dotfiles:latest /bin/zsh
 ```
 
-**WARNING** running this playbook locally *will delete* some of you current configurations, if they exit (`./config/nvim`, `.bashrc`, `.zshrc`, `.emacs.d/`, etc.)
-
-To run locally (please read the above **WARNING**), issue:
+To run locally, issue:
 
 ```shell
 ansible-playbook install.yml -K
 ```
 
-Alternatively, run each tag separately, *e.g.*
+Alternatively, run each tag separately, _e.g._
 
 ```shell
 ansible-playbook install.yml --tags "core,editors" -K
@@ -43,17 +58,17 @@ ansible-playbook install.yml --tags "core,editors" -K
 
 The `ansible` playbook includes the following tags:
 
-* `core`, essential CLI tools
-* `editors`, a collection of text editors (spacemacs, NeoVim, micro, etc.)
-* `jupyter` install jupyter notebooks along with a Java and R kernels
-* `vscode`, setup for VSCode (config, extensions)
+- `core`, essential CLI tools
+- `editors`, a collection of text editors (spacemacs, NeoVim, micro, etc.)
+- `jupyter` install jupyter notebooks along with a Java and R kernels
+- `vscode`, setup for VSCode (config, extensions)
 
 ### Shell functions
 
 The following shell functions are provided:
 
-* `.functions.zsh`, general environment management (Docker, pyenv, *etc*)
-* `.builders.zsh`, general project template builders (Quarkus, *etc*)
+- `.functions.zsh`, general environment management (Docker, pyenv, _etc_)
+- `.builders.zsh`, general project template builders (Quarkus, _etc_)
 
 ### Editor
 
@@ -86,4 +101,4 @@ ln -s /usr/local/opt/readline/lib/libreadline.8.0.dylib /usr/local/opt/readline/
 
 ## Acknowledgements
 
-* The `Spleen` font is available [here](https://github.com/fcambus/spleen).
+- The `Spleen` font is available [here](https://github.com/fcambus/spleen).

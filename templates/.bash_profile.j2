@@ -1,0 +1,75 @@
+##Add below lines in the profile
+
+export EDITOR=/usr/bin/nvim
+
+# export base PATH
+export PATH={{PATH}}
+
+# OSX specific paths
+export JAVA_8_HOME=$(/usr/libexec/java_home -v1.8)
+export JAVA_11_HOME=$(/usr/libexec/java_home -v11)
+
+alias java8='export JAVA_HOME=$JAVA_8_HOME'
+alias java11='export JAVA_HOME=$JAVA_11_HOME'
+
+export JAVA_HOME=$JAVA_11_HOME
+
+# Scala path
+export PATH=$PATH:/opt/scala/bin
+
+# TeXLive for OS X
+export TEX=/usr/local/texlive/2016/bin/x86_64-darwin
+export PATH=$TEX:$PATH
+
+# add sbin
+export PATH=/usr/local/sbin:$PATH
+
+# This hack is to work around an R/Java bug in OS X
+export LD_LIBRARY_PATH=$(/usr/libexec/java_home -v 1.8)/jre/lib/server
+
+#TextMate LaTeX compiler
+export TM_LATEX_COMPILER=/usr/texbin/pdflatex
+
+# Aliases
+alias 'ls'='ls -a -1 -o -F -h -l'
+alias 'cd..'='cd ..'
+alias 'dir'='ls'
+alias 'eprofile'='$EDITOR ~/.bash_profile'
+alias 'rprofile'='source ~/.bash_profile'
+alias tree="find . -print | sed -e 's;[^/]*/;|____;g;s;____|; |;g'"
+alias '..'='cd ..'
+alias bu="brew update && brew upgrade && brew cleanup"
+
+# Aquamacs command line alias
+alias 'xemacs'='/Applications/Emacs.app/Contents/MacOS/Emacs'
+# LS_COLORS
+LS_COLORS='*.py=31:*.pyc=1;30:*.db=93:*.bat=31:*.txt=93'
+
+export LS_COLORS
+export CLICOLOR=1
+
+# ignore commands on the history that might contain passwords
+export HISTIGNORE="*schemasync*:clear:bg:fg:cd:cd -:exit:date:w:* --help" # Colon seperated list of exact commands
+
+# path for npm et al.
+export PATH=$PATH:/usr/local/bin
+
+###-tns-completion-start-###
+if [ -f /Users/ruivieira/.tnsrc ]; then 
+    source /Users/ruivieira/.tnsrc 
+fi
+###-tns-completion-end-###
+
+export PATH="$HOME/.cargo/bin:$PATH"
+# For some reason /usr/local/bin is not on the path
+# also, it needs to be first due to brew
+export PATH=/usr/local/bin:$PATH
+
+export PATH=$(pyenv root)/shims:$PATH
+
+# added by Anaconda3 5.2.0 installer
+#export PATH="/anaconda3/bin:$PATH"
+
+# call neofetch
+neofetch --iterm2 ~/.images/hexley.png --size 300px
+export PATH="$HOME/.poetry/bin:$PATH"
