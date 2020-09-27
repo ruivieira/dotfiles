@@ -106,13 +106,9 @@ if host.fact.linux_name == "Fedora":
 if host.fact.os == "Darwin":
     brew.packages(name="Install Vim", packages=["vim"], update=True, upgrade=True)
 
-    dnf.packages(
+    brew.packages(
         name="Install cURL",
-        packages=["curl"],
-        latest=True,
-        sudo=True,
-        use_sudo_password=True,
-    )
+        packages=["curl"])
 
     # Default macOS path
     bashProfile.PATH.append("/usr/bin:/bin:/usr/sbin:/sbin:/usr/local/bin:/usr/X11/bin")
@@ -142,7 +138,7 @@ ALIASES = {
     "dir": "ls",
     "eprofile": "$EDITOR ~/.bash_profile",
     "rprofile": "source ~/.bash_profile",
-    "tree": 'find . -print | sed -e "s;[^/]*/;|____;g;s;____|; |;g"',
+    "tree": 'find . -print | sed -e \'s;[^/]*/;|____;g;s;____|; |;g\'',
     "..": "cd ..",
     "bu": "brew update && brew upgrade && brew cleanup",
 }

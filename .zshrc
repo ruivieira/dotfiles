@@ -59,4 +59,4 @@ export GOPATH=$HOME/code/go
 export PATH=$PATH:$GOPATH/bin
 
 # GraalVM binaries path
-export PATH=$PATH:/opt/graalvm/Contents/Home/bin
+export PATH=$PATH:/opt/graalvm/Contents/Home/binexport PATH="/usr/local/opt/llvm/bin:$PATH"
