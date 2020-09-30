@@ -20,6 +20,8 @@ class Env:
 bashProfile = BashProfile()
 ALIASES = dict()
 
+GRAALVM = {}
+
 
 def installJava(deployment):
     if deployment == "Darwin":
@@ -46,34 +48,40 @@ def installGraalVM(deployment):
     Args:
         deployment ([str]): Fedora or Darwin
     """
-    GRAALVM_VERSION = "20.1.0"
+    GRAALVM["VERSION"] = "20.2.0"
     if deployment == "Darwin":
-        GRAALVM_FILE = f"graalvm-ce-java11-darwin-amd64-{GRAALVM_VERSION}.tar.gz"
-        GRAALVM_DEST = "/Library/Java/JavaVirtualMachines/"
-        GRAALVM_BIN = f"/Library/Java/JavaVirtualMachines/graalvm-ce-java11-{GRAALVM_VERSION}/Contents/Home/bin"
+        GRAALVM["FILE"] = f"graalvm-ce-java11-darwin-amd64-{GRAALVM['VERSION']}.tar.gz"
+        GRAALVM["DEST"] = "/Library/Java/JavaVirtualMachines/"
+        GRAALVM[
+            "HOME"
+        ] = f"/Library/Java/JavaVirtualMachines/graalvm-ce-java11-{GRAALVM['VERSION']}/Contents/Home"
+        GRAALVM["BIN"] = f"{GRAALVM['HOME']}/bin"
     elif deployment == "Fedora":
-        GRAALVM_FILE = f"graalvm-ce-java11-linux-amd64-{GRAALVM_VERSION}.tar.gz"
-        GRAALVM_DEST = "/opt/"
-        GRAALVM_BIN = f"/opt/graalvm-ce-java11-{GRAALVM_VERSION}/bin"
+        GRAALVM["FILE"] = f"graalvm-ce-java11-linux-amd64-{GRAALVM['VERSION']}.tar.gz"
+        GRAALVM["DEST"] = "/opt/"
+        GRAALVM["HOME"] = f"/opt/graalvm-ce-java11-{GRAALVM['VERSION']}"
+        GRAALVM["BIN"] = f"{GRAALVM['HOME']}/bin"
 
     files.download(
-        name=f"graalvm: Downloading GraalVM {GRAALVM_VERSION}",
-        src=f"https://github.com/graalvm/graalvm-ce-builds/releases/download/vm-{GRAALVM_VERSION}/{GRAALVM_FILE}",
-        dest=f"{HOME}/tmp/{GRAALVM_FILE}",
+        name=f"graalvm: Downloading GraalVM {GRAALVM['VERSION']}",
+        src=f"https://github.com/graalvm/graalvm-ce-builds/releases/download/vm-{GRAALVM['VERSION']}/{GRAALVM['FILE']}",
+        dest=f"{HOME}/tmp/{GRAALVM['FILE']}",
     )
 
     server.shell(
         name="graalvm: Untar GraalvM tar.gz file",
-        commands=[f"/usr/bin/tar -zxvf /{HOME}/tmp/{GRAALVM_FILE} -C {GRAALVM_DEST}"],
+        commands=[
+            f"/usr/bin/tar -zxvf /{HOME}/tmp/{GRAALVM['FILE']} -C {GRAALVM['DEST']}"
+        ],
         sudo=True,
         use_sudo_password=True,
     )
 
-    bashProfile.PATH.append(GRAALVM_BIN)
+    bashProfile.PATH.append(GRAALVM["BIN"])
 
     server.shell(
         name="graalvm: Install native image add-on",
-        commands=[f"{GRAALVM_BIN}/gu install native-image"],
+        commands=[f"{GRAALVM['BIN']}/gu install native-image"],
         sudo=True,
         use_sudo_password=True,
     )
@@ -106,9 +114,7 @@ if host.fact.linux_name == "Fedora":
 if host.fact.os == "Darwin":
     brew.packages(name="Install Vim", packages=["vim"], update=True, upgrade=True)
 
-    brew.packages(
-        name="Install cURL",
-        packages=["curl"])
+    brew.packages(name="Install cURL", packages=["curl"])
 
     # Default macOS path
     bashProfile.PATH.append("/usr/bin:/bin:/usr/sbin:/sbin:/usr/local/bin:/usr/X11/bin")
@@ -116,8 +122,11 @@ if host.fact.os == "Darwin":
     installGraalVM("Darwin")
 
     javaEnv = Env("macOS specific java environment")
+
+    # Java paths
     javaEnv.ENV["JAVA_8_HOME"] = "$(/usr/libexec/java_home -v1.8)"
     javaEnv.ENV["JAVA_11_HOME"] = "$(/usr/libexec/java_home -v11)"
+    javaEnv.ENV["GRAALVM_HOME"] = GRAALVM["HOME"]
 
     bashProfile.ENVS.append(javaEnv)
 
@@ -138,9 +147,12 @@ ALIASES = {
     "dir": "ls",
     "eprofile": "$EDITOR ~/.bash_profile",
     "rprofile": "source ~/.bash_profile",
-    "tree": 'find . -print | sed -e \'s;[^/]*/;|____;g;s;____|; |;g\'',
+    "tree": "find . -print | sed -e 's;[^/]*/;|____;g;s;____|; |;g'",
     "..": "cd ..",
     "bu": "brew update && brew upgrade && brew cleanup",
+    "java8": "export JAVA_HOME=$JAVA_8_HOME",
+    "java11": "export JAVA_HOME=$JAVA_11_HOME",
+    "javagraal": "export JAVA_HOME=$GRAALVM_HOME",
 }
 # export .bash_profile
 files.template(
