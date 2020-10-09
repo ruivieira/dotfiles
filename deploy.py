@@ -1,8 +1,31 @@
 from pyinfra import host
 from pathlib import Path
 from pyinfra.operations import files, dnf, brew, server
+from abc import ABC, abstractmethod
 
 HOME = str(Path.home())
+
+
+class Action(ABC):
+    def __init__(self):
+        if host.fact.linux_name == "Fedora":
+            self.action_fedora()
+        if host.fact.os == "Darwin":
+            self.action_darwin()
+
+        self.post_action()
+
+    @abstractmethod
+    def action_fedora(self) -> None:
+        pass
+
+    @abstractmethod
+    def action_darwin(self) -> None:
+        pass
+
+    @abstractmethod
+    def post_action(self) -> None:
+        pass
 
 
 class BashProfile:
@@ -20,13 +43,15 @@ class Env:
 bashProfile = BashProfile()
 ALIASES = dict()
 
-GRAALVM = {}
 
+class JavaAction(Action):
+    def __init__(self):
+        super().__init__()
 
-def installJava(deployment):
-    if deployment == "Darwin":
+    def action_darwin(self):
         pass
-    elif deployment == "Fedora":
+
+    def action_fedora(self):
         dnf.packages(
             name="Install OpenJDK11",
             packages=["java-11-openjdk-devel.x86_64"],
@@ -35,57 +60,93 @@ def installJava(deployment):
             use_sudo_password=True,
         )
 
-    javaHomeEnv = Env("Set Java home to OpenJDK11")
-    javaHomeEnv.ENV["JAVA_HOME"] = "/usr/lib/jvm/java-11/"
-    bashProfile.ENVS.append(javaHomeEnv)
+    def post_action(self):
+        javaHomeEnv = Env("Set Java home to OpenJDK11")
+        javaHomeEnv.ENV["JAVA_HOME"] = "/usr/lib/jvm/java-11/"
+        bashProfile.ENVS.append(javaHomeEnv)
 
-    bashProfile.PATH.append("$JAVA_HOME/bin")
+        bashProfile.PATH.append("$JAVA_HOME/bin")
 
 
-def installGraalVM(deployment):
-    """Install GraalVM on the host machine
+class GraalVMAction(Action):
+    """Install GraalVM on the host machine"""
 
-    Args:
-        deployment ([str]): Fedora or Darwin
-    """
-    GRAALVM["VERSION"] = "20.2.0"
-    if deployment == "Darwin":
-        GRAALVM["FILE"] = f"graalvm-ce-java11-darwin-amd64-{GRAALVM['VERSION']}.tar.gz"
-        GRAALVM["DEST"] = "/Library/Java/JavaVirtualMachines/"
-        GRAALVM[
+    def __init__(self):
+        self.GRAALVM = {}
+        self.GRAALVM["VERSION"] = "20.2.0"
+        super().__init__()
+
+    def action_darwin(self):
+        self.GRAALVM[
+            "FILE"
+        ] = f"graalvm-ce-java11-darwin-amd64-{self.GRAALVM['VERSION']}.tar.gz"
+        self.GRAALVM["DEST"] = "/Library/Java/JavaVirtualMachines/"
+        self.GRAALVM[
             "HOME"
-        ] = f"/Library/Java/JavaVirtualMachines/graalvm-ce-java11-{GRAALVM['VERSION']}/Contents/Home"
-        GRAALVM["BIN"] = f"{GRAALVM['HOME']}/bin"
-    elif deployment == "Fedora":
-        GRAALVM["FILE"] = f"graalvm-ce-java11-linux-amd64-{GRAALVM['VERSION']}.tar.gz"
-        GRAALVM["DEST"] = "/opt/"
-        GRAALVM["HOME"] = f"/opt/graalvm-ce-java11-{GRAALVM['VERSION']}"
-        GRAALVM["BIN"] = f"{GRAALVM['HOME']}/bin"
+        ] = f"/Library/Java/JavaVirtualMachines/graalvm-ce-java11-{self.GRAALVM['VERSION']}/Contents/Home"
+        self.GRAALVM["BIN"] = f"{self.GRAALVM['HOME']}/bin"
 
-    files.download(
-        name=f"graalvm: Downloading GraalVM {GRAALVM['VERSION']}",
-        src=f"https://github.com/graalvm/graalvm-ce-builds/releases/download/vm-{GRAALVM['VERSION']}/{GRAALVM['FILE']}",
-        dest=f"{HOME}/tmp/{GRAALVM['FILE']}",
-    )
+    def action_fedora(self):
+        self.GRAALVM[
+            "FILE"
+        ] = f"graalvm-ce-java11-linux-amd64-{self.GRAALVM['VERSION']}.tar.gz"
+        self.GRAALVM["DEST"] = "/opt/"
+        self.GRAALVM["HOME"] = f"/opt/graalvm-ce-java11-{self.GRAALVM['VERSION']}"
+        self.GRAALVM["BIN"] = f"{self.GRAALVM['HOME']}/bin"
 
-    server.shell(
-        name="graalvm: Untar GraalvM tar.gz file",
-        commands=[
-            f"/usr/bin/tar -zxvf /{HOME}/tmp/{GRAALVM['FILE']} -C {GRAALVM['DEST']}"
-        ],
-        sudo=True,
-        use_sudo_password=True,
-    )
+    def post_action(self):
+        files.download(
+            name=f"graalvm: Downloading GraalVM {self.GRAALVM['VERSION']}",
+            src=f"https://github.com/graalvm/graalvm-ce-builds/releases/download/vm-{self.GRAALVM['VERSION']}/{self.GRAALVM['FILE']}",
+            dest=f"{HOME}/tmp/{self.GRAALVM['FILE']}",
+        )
 
-    bashProfile.PATH.append(GRAALVM["BIN"])
+        server.shell(
+            name="graalvm: Untar GraalvM tar.gz file",
+            commands=[
+                f"/usr/bin/tar -zxvf /{HOME}/tmp/{self.GRAALVM['FILE']} -C {self.GRAALVM['DEST']}"
+            ],
+            sudo=True,
+            use_sudo_password=True,
+        )
 
-    server.shell(
-        name="graalvm: Install native image add-on",
-        commands=[f"{GRAALVM['BIN']}/gu install native-image"],
-        sudo=True,
-        use_sudo_password=True,
-    )
+        bashProfile.PATH.append(self.GRAALVM["BIN"])
 
+        server.shell(
+            name="graalvm: Install native image add-on",
+            commands=[f"{self.GRAALVM['BIN']}/gu install native-image"],
+            sudo=True,
+            use_sudo_password=True,
+        )
+
+
+class PoetryAction(Action):
+    def __init__(self, bash_profile: BashProfile):
+        self.bash_profile = bash_profile
+        super().__init__()
+
+    def action_darwin(self):
+        pass
+
+    def action_fedora(self):
+        pass
+
+    def post_action(self):
+        server.shell(
+            name="Download poetry",
+            commands=[
+                f"curl -sSL https://raw.githubusercontent.com/python-poetry/poetry/master/get-poetry.py | python -"
+            ],
+            sudo=True,
+            use_sudo_password=True,
+        )
+
+        bashProfile.PATH.append("~/.poetry/bin")
+
+
+java = JavaAction()
+graalvm = GraalVMAction()
+poetry = PoetryAction(bash_profile=bashProfile)
 
 # Install vim
 if host.fact.linux_name == "Fedora":
@@ -107,26 +168,21 @@ if host.fact.linux_name == "Fedora":
     # Default Fedora path
     bashProfile.PATH.append("/usr/local/bin:/usr/bin:/usr/local/sbin:/usr/sbin")
 
-    installGraalVM("Fedora")
-
-    installJava("Fedora")
 
 if host.fact.os == "Darwin":
-    brew.packages(name="Install Vim", packages=["vim"], update=True, upgrade=True)
+    brew.packages(name="Install Vim", packages=["vim"], update=False, upgrade=False)
 
     brew.packages(name="Install cURL", packages=["curl"])
 
     # Default macOS path
     bashProfile.PATH.append("/usr/bin:/bin:/usr/sbin:/sbin:/usr/local/bin:/usr/X11/bin")
 
-    installGraalVM("Darwin")
-
     javaEnv = Env("macOS specific java environment")
 
     # Java paths
     javaEnv.ENV["JAVA_8_HOME"] = "$(/usr/libexec/java_home -v1.8)"
     javaEnv.ENV["JAVA_11_HOME"] = "$(/usr/libexec/java_home -v11)"
-    javaEnv.ENV["GRAALVM_HOME"] = GRAALVM["HOME"]
+    javaEnv.ENV["GRAALVM_HOME"] = graalvm.GRAALVM["HOME"]
 
     bashProfile.ENVS.append(javaEnv)
 
