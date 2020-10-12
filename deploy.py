@@ -1,5 +1,7 @@
 from pyinfra import host
 from pathlib import Path
+import os
+import glob
 from pyinfra.operations import files, dnf, brew, server
 from abc import ABC, abstractmethod
 
@@ -120,6 +122,28 @@ class GraalVMAction(Action):
         )
 
 
+class VSCodeSettings(Action):
+    def __init__(self):
+        super().__init__()
+        self._setting_location = ""
+
+    def action_darwin(self):
+        self._setting_location = (
+            f"{HOME}/Library/Application Support/Code/User/settings.json"
+        )
+
+    def action_fedora(self):
+        pass
+
+    def post_action(self):
+        # copy VSCode user settings
+        files.template(
+            name="Create VSCode settings",
+            src="templates/vscode_settings.j2",
+            dest=self._setting_location,
+        )
+
+
 class PoetryAction(Action):
     def __init__(self, bash_profile: BashProfile):
         self.bash_profile = bash_profile
@@ -144,9 +168,37 @@ class PoetryAction(Action):
         bashProfile.PATH.append("~/.poetry/bin")
 
 
+class Fonts(Action):
+    def __init__(self):
+        self.source = "fonts/juliamono/*.ttf"
+        super().__init__()
+
+    def action_darwin(self):
+        server.shell(
+            name="Install Julia Mono fonts",
+            commands=[f"cp {self.source} ~/Library/Fonts/"],
+        )
+
+    def action_fedora(self):
+        files.directory(f"{HOME}/.local/share/fonts", present=True)
+        server.shell(
+            name="Install Julia Mono fonts",
+            commands=[f"cp {self.source} ~/.local/share/fonts/"],
+        )
+        server.shell(
+            name="Update font cache",
+            commands=[f"fc-cache -v"],
+        )
+
+    def post_action(self):
+        pass
+
+
 java = JavaAction()
 graalvm = GraalVMAction()
 poetry = PoetryAction(bash_profile=bashProfile)
+fonts = Fonts()
+vscodeSettings = VSCodeSettings()
 
 # Install vim
 if host.fact.linux_name == "Fedora":
