@@ -133,7 +133,7 @@ class VSCodeSettings(Action):
         )
 
     def action_fedora(self):
-        pass
+        self._setting_location = f"{HOME}/.config/Code/User/settings.json"
 
     def post_action(self):
         # copy VSCode user settings
@@ -168,6 +168,35 @@ class PoetryAction(Action):
         bashProfile.PATH.append("~/.poetry/bin")
 
 
+class JuliaAction(Action):
+    def __init__(self):
+        super().__init__()
+
+    def action_darwin(self):
+        brew.packages(
+            name="Install Julia", packages=["julia"], update=False, upgrade=False
+        )
+
+    def action_fedora(self):
+        server.shell(
+            name="Enable Julia COPR",
+            commands=["dnf copr enable nalimilan/julia -y"],
+            sudo=True,
+            use_sudo_password=True,
+        )
+        dnf.packages(
+            name="Install Julia",
+            packages=["julia"],
+            latest=True,
+            sudo=True,
+            use_sudo_password=True,
+        )
+
+    def post_action(self):
+        # TODO: Install base packages
+        pass
+
+
 class Fonts(Action):
     def __init__(self):
         self.source = "fonts/juliamono/*.ttf"
@@ -199,6 +228,7 @@ graalvm = GraalVMAction()
 poetry = PoetryAction(bash_profile=bashProfile)
 fonts = Fonts()
 vscodeSettings = VSCodeSettings()
+julia = JuliaAction()
 
 # Install vim
 if host.fact.linux_name == "Fedora":
