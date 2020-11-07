@@ -197,6 +197,29 @@ class JuliaAction(Action):
         pass
 
 
+class NaviAction(Action):
+    def __init__(self):
+        super().__init__()
+
+    def action_darwin(self):
+        # TODO: Install navi on Darwin
+        pass
+
+    def action_fedora(self):
+        # TODO: Install navi on Fedora
+        pass
+
+    def post_action(self):
+        sheets = ["openshift", "zsh", "k8s"]
+        for sheet in sheets:
+            files.download(
+                name=f"Install Navi {sheet} repo",
+                src=f"https://raw.githubusercontent.com/geometricfirs/{sheet}.cheat/master/{sheet}.cheat",
+                dest=f"{HOME}/.config/navi/{sheet}.cheat",
+                force=True,
+            )
+
+
 class Fonts(Action):
     def __init__(self):
         self.source = "fonts/juliamono/*.ttf"
@@ -229,6 +252,7 @@ poetry = PoetryAction(bash_profile=bashProfile)
 fonts = Fonts()
 vscodeSettings = VSCodeSettings()
 julia = JuliaAction()
+navi = NaviAction()
 
 # Install vim
 if host.fact.linux_name == "Fedora":
