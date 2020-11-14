@@ -211,13 +211,42 @@ class NaviAction(Action):
 
     def post_action(self):
         sheets = ["openshift", "zsh", "k8s"]
-        for sheet in sheets:
-            files.download(
-                name=f"Install Navi {sheet} repo",
-                src=f"https://raw.githubusercontent.com/geometricfirs/{sheet}.cheat/master/{sheet}.cheat",
-                dest=f"{HOME}/.config/navi/{sheet}.cheat",
-                force=True,
-            )
+        # for sheet in sheets:
+        #     files.download(
+        #         name=f"Install Navi {sheet} repo",
+        #         src=f"https://raw.githubusercontent.com/geometricfirs/{sheet}.cheat/master/{sheet}.cheat",
+        #         dest=f"{HOME}/.config/navi/{sheet}.cheat",
+        #         force=True,
+        #     )
+
+
+class KittyAction(Action):
+    def __init__(self):
+        super().__init__()
+
+    def action_darwin(self) -> None:
+        brew.packages(
+            name="Install Kitty", packages=["kitty"], update=False, upgrade=False
+        )
+
+    def action_fedora(self) -> None:
+        dnf.packages(
+            name="Install Kitty",
+            packages=["kitty"],
+            latest=True,
+            sudo=True,
+            use_sudo_password=True,
+        )
+
+    def post_action(self) -> None:
+        files.directory(f"{HOME}/.config/kitty", present=True, assume_present=False)
+        # export kitty.conf
+        filename = ".config/kitty/kitty.conf"
+        files.template(
+            name=f"Create {filename}",
+            src="templates/kitty.j2",
+            dest=f"{HOME}/{filename}",
+        )
 
 
 class Fonts(Action):
@@ -246,6 +275,46 @@ class Fonts(Action):
         pass
 
 
+class SyncthingAction(Action):
+    def __init__(self):
+        super().__init__()
+
+    def action_darwin(self) -> None:
+        brew.packages(
+            name="Install Syncthing",
+            packages=["syncthing"],
+            update=False,
+            upgrade=False,
+        )
+        server.shell(
+            name="Start Syncthing service",
+            commands=["brew services start syncthing"],
+        )
+
+    def action_fedora(self) -> None:
+        pass
+
+    def post_action(self) -> None:
+        pass
+
+
+class ZshAction(Action):
+    def __init__(self):
+        super().__init__()
+
+    def action_darwin(self) -> None:
+        pass
+
+    def action_fedora(self) -> None:
+        pass
+
+    def post_action(self) -> None:
+        server.shell(
+            name="Copy Zsh functions",
+            commands=[f"cp .functions.zsh ~/"],
+        )
+
+
 java = JavaAction()
 graalvm = GraalVMAction()
 poetry = PoetryAction(bash_profile=bashProfile)
@@ -253,6 +322,9 @@ fonts = Fonts()
 vscodeSettings = VSCodeSettings()
 julia = JuliaAction()
 navi = NaviAction()
+kitty = KittyAction()
+syncthing = SyncthingAction()
+zsh = ZshAction()
 
 # Install vim
 if host.fact.linux_name == "Fedora":

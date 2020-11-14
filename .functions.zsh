@@ -25,6 +25,11 @@ function jvm_exists() {
 	fi
 }
 
+function rsync_code_dropbox() {
+	cd ~/Sync/
+	rsync -avh --exclude-from='.stignore' --delete  ~/Sync/code ~/Dropbox/code/backup/
+}
+
 function docker_nuke() {
 	# Delete all containers
 	docker rm $(docker ps -a -q)
