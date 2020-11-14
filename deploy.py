@@ -295,7 +295,10 @@ class SyncthingAction(Action):
         pass
 
     def post_action(self) -> None:
-        pass
+        server.shell(
+            name="Install Syncthing global ignore patterns",
+            commands=[f"cp templates/.stignore.j2 ~/Sync/.stignore"],
+        )
 
 
 class ZshAction(Action):
