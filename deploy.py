@@ -378,6 +378,26 @@ if host.fact.os == "Darwin":
 
     bashProfile.ENVS.append(rEnv)
 
+    # Copy macOS hosts file
+    files.template(
+        name=f"Create /etc/hosts",
+        src="templates/hosts.j2",
+        dest=f"/etc/hosts",
+        CRC_HOST=os.environ["CRC_HOST"],
+        HOST=host.fact.os,
+        sudo=True,
+        use_sudo_password=True,
+    )
+
+    # restart/flush DNS cache
+    server.shell(
+        name="Restart/flush DNS cache",
+        commands=["killall -HUP mDNSResponder"],
+        sudo=True,
+        use_sudo_password=True,
+    )
+
+
 ALIASES = {
     "ls": r"ls -a -1 -o -F -h -l",
     "cd..": "cd ..",
