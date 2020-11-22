@@ -1,7 +1,6 @@
 from pyinfra import host
 from pathlib import Path
 import os
-import glob
 from pyinfra.operations import files, dnf, brew, server
 from abc import ABC, abstractmethod
 
@@ -37,7 +36,7 @@ class BashProfile:
 
 
 class Env:
-    def __init__(self, comment):
+    def __init__(self, comment: str):
         self.comment = comment
         self.ENV = {}
 
@@ -318,6 +317,47 @@ class ZshAction(Action):
         )
 
 
+class VimAction(Action):
+    def __init__(self):
+        super().__init__()
+
+    def action_darwin(self) -> None:
+        brew.packages(name="Install Vim", packages=["vim"], update=False, upgrade=False)
+
+    def action_fedora(self) -> None:
+        dnf.packages(
+            name="Install Vim",
+            packages=["vim"],
+            latest=True,
+            sudo=True,
+            use_sudo_password=True,
+        )
+
+    def post_action(self) -> None:
+        # install Pathogen
+        files.directory(f"{HOME}/.vim/autoload", present=True)
+        files.directory(f"{HOME}/.vim/bundle", present=True)
+
+        files.template(
+            name=f"[Vim] Install .vimrc",
+            src="templates/.vimrc",
+            dest=f"{HOME}/.vim/.vimrc",
+        )
+        server.shell(
+            name="[Vim] Download Pathogen",
+            commands=[
+                f"curl -LSso {HOME}/.vim/autoload/pathogen.vim https://tpo.pe/pathogen.vim"
+            ],
+        )
+        server.shell(
+            name="[Vim] Install vim-plug",
+            commands=[
+                f"curl -fLo {HOME}/.vim/autoload/plug.vim --create-dirs "
+                + "https://raw.githubusercontent.com/junegunn/vim-plug/master/plug.vim"
+            ],
+        )
+
+
 java = JavaAction()
 graalvm = GraalVMAction()
 poetry = PoetryAction(bash_profile=bashProfile)
@@ -328,16 +368,10 @@ navi = NaviAction()
 kitty = KittyAction()
 syncthing = SyncthingAction()
 zsh = ZshAction()
+vim = VimAction()
 
 # Install vim
 if host.fact.linux_name == "Fedora":
-    dnf.packages(
-        name="Install Vim",
-        packages=["vim"],
-        latest=True,
-        sudo=True,
-        use_sudo_password=True,
-    )
     dnf.packages(
         name="Install cURL",
         packages=["curl"],
@@ -351,7 +385,6 @@ if host.fact.linux_name == "Fedora":
 
 
 if host.fact.os == "Darwin":
-    brew.packages(name="Install Vim", packages=["vim"], update=False, upgrade=False)
 
     brew.packages(name="Install cURL", packages=["curl"])
 
