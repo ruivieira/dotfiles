@@ -416,7 +416,7 @@ if host.fact.os == "Darwin":
         name=f"Create /etc/hosts",
         src="templates/hosts.j2",
         dest=f"/etc/hosts",
-        CRC_HOST=os.environ["CRC_HOST"],
+        CRC_HOST=os.getenv("CRC_HOST", "127.0.0.1"),
         HOST=host.fact.os,
         sudo=True,
         use_sudo_password=True,

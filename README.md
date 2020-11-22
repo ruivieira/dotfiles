@@ -11,7 +11,7 @@ if they exist, (`./config/nvim`, `.bashrc`, `.zshrc`, `.emacs.d/`, _etc._)
 
 ### pyinfra
 
-You can test the setup inside a container if you have podman/docker installed.
+You can test the setup inside a container if you have [podman](https://podman.io/)/Docker installed.
 
 ```shell
 pyinfra @docker/fedora:32 deploy.py
