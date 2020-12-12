@@ -45,3 +45,7 @@ function borg_backup_code() {
 function b2_upload_backup() {
 	rclone -P sync ~/Backup b2:$B2_BACKUP_BUCKET
 }
+
+function restic_backup_code() {
+	 restic -r b2:${B2_RESTIC_BUCKET}:/ --verbose backup ~/Dropbox/code/backup/code
+}
