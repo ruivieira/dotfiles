@@ -1,6 +1,7 @@
 from pyinfra import host
 from pathlib import Path
 import os
+from os import path
 from pyinfra.operations import files, dnf, brew, server
 from abc import ABC, abstractmethod
 
@@ -379,6 +380,7 @@ class PyenvAction(Action):
     def post_action(self) -> None:
         pass
 
+
 class ResticAction(Action):
     def __init__(self):
         super().__init__()
@@ -387,11 +389,60 @@ class ResticAction(Action):
         brew.packages(
             name="Install restic", packages=["restic"], update=False, upgrade=False
         )
+
     def action_fedora(self) -> None:
         pass
 
     def post_action(self) -> None:
         pass
+
+
+class Emacs(Action):
+    def __init__(self):
+        super().__init__()
+
+    def action_darwin(self) -> None:
+        brew.packages(
+            name="Install Emacs", packages=["emacs"], update=False, upgrade=False
+        )
+
+    def action_fedora(self) -> None:
+        pass
+
+    def post_action(self) -> None:
+
+        emacs_d_present = path.exists(f"{HOME}/.emacs.d/")
+
+        if not emacs_d_present:
+            files.directory(
+                "~/.emacs.d",
+                present=True,
+                assume_present=False,
+                user=None,
+                group=None,
+                mode=None,
+                recursive=True,
+            )
+            server.shell(
+                name="[Emacs] Clone DOOM Emacs",
+                commands=[
+                    f"git clone --depth 1 https://github.com/hlissner/doom-emacs {HOME}/.emacs.d"
+                ],
+            )
+
+        server.shell(
+            name="[Emacs] Install DOOM Emacs",
+            commands=[f"{HOME}/.emacs.d/bin/doom -y install"],
+        )
+        server.shell(
+            name="[Emacs] Copy DOOM configuration",
+            commands=[f"cp .doom.d/* ~/.doom.d/"],
+        )
+        server.shell(
+            name="[Emacs] Sync DOOM configuration",
+            commands=[f"{HOME}/.emacs.d/bin/doom -y sync"],
+        )
+
 
 java = JavaAction()
 graalvm = GraalVMAction()
@@ -406,6 +457,7 @@ zsh = ZshAction()
 vim = VimAction()
 pyenv = PyenvAction()
 restic = ResticAction()
+emacs = Emacs()
 
 # Install vim
 if host.fact.linux_name == "Fedora":
