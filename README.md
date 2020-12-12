@@ -21,7 +21,7 @@ If you want to try it locally, first read the **WARNING** above.
 Install `pyinfra` with `pip install pyinfra` and then run the deploy script locally:
 
 ```shell
-pyinfra @local deploy.py
+pyinfra -vvv @local deploy.py
 ```
 
 ### Ansible
