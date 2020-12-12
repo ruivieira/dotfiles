@@ -36,3 +36,12 @@ function docker_nuke() {
 	# Delete all images
 	docker rmi $(docker images -q)
 }
+
+function borg_backup_code() {
+	local archive_name="$(date +%s)"
+	borg create --progress --stats --compression zlib ~/Backup::code-${archive_name} ~/Dropbox/code/backup/code
+}
+
+function b2_upload_backup() {
+	rclone -P sync ~/Backup b2:$B2_BACKUP_BUCKET
+}

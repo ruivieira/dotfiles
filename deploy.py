@@ -358,17 +358,54 @@ class VimAction(Action):
         )
 
 
+class PyenvAction(Action):
+    def __init__(self):
+        super().__init__()
+
+    def action_darwin(self) -> None:
+        brew.packages(
+            name="Install pyenv", packages=["pyenv"], update=False, upgrade=False
+        )
+
+    def action_fedora(self) -> None:
+        dnf.packages(
+            name="Install pyenv",
+            packages=["pyenv"],
+            latest=True,
+            sudo=True,
+            use_sudo_password=True,
+        )
+
+    def post_action(self) -> None:
+        pass
+
+class ResticAction(Action):
+    def __init__(self):
+        super().__init__()
+
+    def action_darwin(self) -> None:
+        brew.packages(
+            name="Install restic", packages=["restic"], update=False, upgrade=False
+        )
+    def action_fedora(self) -> None:
+        pass
+
+    def post_action(self) -> None:
+        pass
+
 java = JavaAction()
 graalvm = GraalVMAction()
 poetry = PoetryAction(bash_profile=bashProfile)
 fonts = Fonts()
 vscodeSettings = VSCodeSettings()
-julia = JuliaAction()
+# julia = JuliaAction()
 navi = NaviAction()
-kitty = KittyAction()
+# kitty = KittyAction()
 syncthing = SyncthingAction()
 zsh = ZshAction()
 vim = VimAction()
+pyenv = PyenvAction()
+restic = ResticAction()
 
 # Install vim
 if host.fact.linux_name == "Fedora":
@@ -405,6 +442,12 @@ if host.fact.os == "Darwin":
 
     bashProfile.ENVS.append(texEnv)
     bashProfile.PATH.append("$TEX")
+
+    # add C/clang build environment
+    buildEnv = Env("Build environment")
+    buildEnv.ENV["ARCHFLAGS"] = '"-arch x86_64"'
+
+    bashProfile.ENVS.append(buildEnv)
 
     rEnv = Env("This hack is a work around a R/Java bug in macOS")
     rEnv.ENV["LD_LIBRARY_PATH"] = "$(/usr/libexec/java_home -v 1.8)/jre/lib/server"
@@ -452,4 +495,10 @@ files.template(
     PATH=":".join(bashProfile.PATH),
     ENVS=bashProfile.ENVS,
     ALIASES=ALIASES,
+)
+# .zshrc
+files.template(
+    name="Create .zshrc",
+    src="templates/.zshrc.j2",
+    dest=f"{HOME}/.zshrc",
 )
