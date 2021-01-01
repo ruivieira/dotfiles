@@ -1,0 +1,6 @@
+---
+- name: Install rustup
+  shell:
+    cmd: "curl --proto '=https' --tlsv1.2 -sSf https://sh.rustup.rs | sh -s -- -y"
+  tags:
+    - rust

@@ -1,0 +1,49 @@
+---
+- name: Install emacs (macOS)
+  package:
+    name: emacs
+    state: present
+  when: ansible_distribution == 'MacOSX'
+  tags:
+    - emacs
+- name: Install emacs (Linux)
+  package:
+    name: emacs
+    state: present
+  become: "{{linux}}"
+  when: ansible_distribution == 'Fedora'
+  tags:
+    - emacs
+- name: Empty ~/emacs.d folder
+  file:
+    path: ~/.emacs.d
+    state: absent
+  tags:
+    - emacs
+- name: Create ~/emacs.d folder
+  file:
+    path: ~/.emacs.d
+    state: directory
+  tags:
+    - emacs
+- name: Clone DOOM emacs
+  git:
+    repo: https://github.com/hlissner/doom-emacs
+    dest: ~/.emacs.d
+    depth: 1
+  tags:
+    - emacs
+- name: Install DOOM emacs
+  shell:
+    cmd: "~/.emacs.d/bin/doom -y install"
+    chdir: ~/.emacs.d/bin
+- name: Copy custom DOOM emacs config
+  copy:
+    src: "{{ item }}"
+    dest: "~/.doom.d/"
+  with_fileglob:
+    - "{{ role_path }}/files/.doom.d/*"
+- name: Sync DOOM emacs config
+  shell:
+    cmd: "~/.emacs.d/bin/doom -y sync"
+    chdir: ~/.emacs.d/bin

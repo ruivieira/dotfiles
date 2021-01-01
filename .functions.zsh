@@ -46,6 +46,8 @@ function b2_upload_backup() {
 	rclone -P sync ~/Backup b2:$B2_BACKUP_BUCKET
 }
 
-function restic_backup_code() {
-	 restic -r b2:${B2_RESTIC_BUCKET}:/ --verbose backup ~/Dropbox/code/backup/code
+function restic_backup() {
+	 restic -r b2:${B2_RESTIC_BUCKET}:/ --verbose backup ~/Dropbox/code/backup/code --exclude-file="${HOME}/Sync/.stignore"
+	 restic -r b2:${B2_RESTIC_BUCKET}:/ --verbose backup ~/Sync/documents --exclude-file="${HOME}/Sync/.stignore"
+	 restic -r b2:${B2_RESTIC_BUCKET}:/ --verbose backup ~/Sync/sites --exclude-file="${HOME}/Sync/.stignore"
 }

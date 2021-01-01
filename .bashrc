@@ -24,5 +24,8 @@ source .bash_profile
 # jEnv path
 export PATH=$PATH:$HOME/.jenv/bin
 
+# Rust path
+export PATH=$PATH:$HOME/.cargo/bin
+
 # GraalVM binaries
 export GRAALVM=/opt/graalvm

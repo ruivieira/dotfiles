@@ -1,0 +1,19 @@
+---
+- name: Install Julia Mono font (macOS)
+  copy:
+    src: "{{ item }}"
+    dest: "~/Library/Fonts/"
+  with_fileglob:
+    - "{{ role_path }}/files/juliamono/*.ttf"
+  when: ansible_distribution == 'MacOSX'
+  tags:
+    - fonts
+- name: Install Julia Mono font (Linux)
+  copy:
+    src: "{{ item }}"
+    dest: "~/.local/share/fonts/"
+  with_fileglob:
+    - "{{ role_path }}/files/juliamono/*.ttf"
+  when: ansible_distribution == 'Fedora'
+  tags:
+    - fonts
