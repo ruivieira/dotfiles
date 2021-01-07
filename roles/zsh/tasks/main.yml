@@ -47,27 +47,24 @@
     state: absent
   tags:
     - core
-- name: Symlink .bashprofile (macOS)
-  file:
+- name: Copy .bashprofile (macOS)
+  copy:
     src: "{{playbook_dir}}/.bash_profile_mac"
     dest: "{{ansible_env.HOME}}/.bash_profile"
-    state: link
   when: ansible_distribution == 'MacOSX'
   tags:
     - core
-- name: Symlink .bashprofile (Fedora)
-  file:
+- name: Copy .bashprofile (Fedora)
+  copy:
     src: "{{playbook_dir}}/.bash_profile_linux"
     dest: "{{ansible_env.HOME}}/.bash_profile"
-    state: link
   when: ansible_distribution == 'Fedora'
   tags:
     - core
-- name: Symlink .bashprofile (Alpine)
-  file:
+- name: Copy .bashprofile (Alpine)
+  copy:
     src: "{{playbook_dir}}/.bash_profile_alpine"
-    dest: "{{ansible_env.HOME}}/.bash_profile"
-    state: link
+    copy: "{{ansible_env.HOME}}/.bash_profile"
   when: ansible_distribution == 'Alpine'
   tags:
     - core
@@ -77,31 +74,27 @@
     state: absent
   tags:
     - core
-- name: Symlink .bashrc
-  file:
+- name: Copy .bashrc
+  copy:
     src: "{{playbook_dir}}/.bashrc"
     dest: "{{ansible_env.HOME}}/.bashrc"
-    state: link
   tags:
     - core
-- name: Symlink .zshrc
-  file:
+- name: Copy .zshrc
+  copy:
     src: "{{playbook_dir}}/.zshrc"
     dest: ~/.zshrc
-    state: link
   tags:
     - core
-- name: Symlink .functions.zsh
-  file:
+- name: Copy .functions.zsh
+  copy:
     src: "{{playbook_dir}}/.functions.zsh"
     dest: ~/.functions.zsh
-    state: link
   tags:
     - core
-- name: Symlink .builders.zsh
-  file:
+- name: Copy .builders.zsh
+  copy:
     src: "{{playbook_dir}}/.builders.zsh"
     dest: ~/.builders.zsh
-    state: link
   tags:
     - core

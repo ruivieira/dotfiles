@@ -73,11 +73,11 @@
   tags:
     - core
     - navi
-- name: Install navi cheats
-  shell: navi repo add {{item}}
-  with_items:
-    - https://github.com/geometricfirs/openshift.cheat
-    - https://github.com/geometricfirs/zsh.cheat
-  tags:
-    - core
-    - navi
+# - name: Install navi cheats
+#   shell: navi repo add {{item}}
+#   with_items:
+#     - https://github.com/geometricfirs/openshift.cheat
+#     - https://github.com/geometricfirs/zsh.cheat
+#   tags:
+#     - core
+#     - navi

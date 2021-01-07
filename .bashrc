@@ -2,7 +2,7 @@
 
 # aliases
 
-alias 'ls'='ls -a -1 --color -F -h -l'
+alias 'ls'='ls -a -1 -G -F -h -l'
 alias 'cd..'='cd ..'
 alias 'dir'='ls'
 alias 'eprofile'='$EDITOR ~/.bash_profile'
@@ -29,3 +29,6 @@ export PATH=$PATH:$HOME/.cargo/bin
 
 # GraalVM binaries
 export GRAALVM=/opt/graalvm
+
+# Poetry
+export PATH=$PATH:$HOME/.poetry/bin
