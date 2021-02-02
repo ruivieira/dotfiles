@@ -1,89 +1,149 @@
 /* Styling for Dark Theme */
 
 /* Change the font size to 13px */
-body, th, td, .inline-code, .tox-tiny-mce {
-	font-size: 13px;
+body,
+th,
+td,
+.inline-code,
+.tox-tiny-mce {
+  font-size: 0.85rem;
+  font-family: "Helvetica Neue";
+  color: rgb(175, 175, 175);
+}
+
+strong {
+  color: rgb(255, 255, 255);
+}
+
+a {
+  color: #cf3f00;
+  text-decoration: none;
+}
+
+a:hover {
+  background-color: #cf3f00;
+  color: rgb(175, 175, 175);
+  text-decoration: none;
 }
 
 /* Colors for different mark tags */
 /* ==mark== */
 mark {
-	background-color: #BBDD66;
-	padding:          1px 2px;
+  background-color: #bbdd66;
+  padding: 1px 2px;
 }
 /* occurrences of search term */
 mark[data-markjs] {
-	background-color: #F3B717;
-	padding:          0;
+  background-color: #f3b717;
+  padding: 0;
 }
 /* current search term (local search) */
 mark[data-markjs].mark-selected {
-	background-color: #CF3F00;
+  background-color: #cf3f00;
 }
 
 /* Add background and padding to preformatted text */
 pre {
-	padding:    0.5em;
-	background: #282c34;
+  padding: 0.5em;
+  background: #282c34;
+  font-family: "FiraCode";
+  font-size: 0.9rem;
 }
 
+code {
+  font-family: JuliaMono !important;
+  font-size: 0.85rem;
+}
+code.inline-code {
+  color: grey;
+  font-family: JuliaMono !important;
+}
+.hljs {
+  background-color: #151515 !important;
+}
 /* Headings: change background and padding */
-h1, h2, h3, h4, h5, h6 {
-	background-color: #444444;
-	padding-bottom:   .1em;
-	padding-top:      .2em;
-	padding-left:     .4em;
-	border-bottom:    unset;
+h1,
+h2,
+h3,
+h4,
+h5,
+h6 {
+  background-color: #444444;
+  padding-bottom: 0.1em;
+  padding-top: 0.2em;
+  padding-left: 0.4em;
+  border-bottom: unset;
 }
 
 /* Headings: Use nested counters */
-body { counter-reset: h1counter; }
-h1 { counter-reset: h2counter; }
-h2 { counter-reset: h3counter; }
-h3 { counter-reset: h4counter; }
-h4 { counter-reset: h5counter; }
-h5 { counter-reset: h6counter; }
-h6 {}
+body {
+  counter-reset: h1counter;
+  margin-left: 2rem;
+  margin-right: 2rem;
+}
+h1 {
+  counter-reset: h2counter;
+}
+h2 {
+  counter-reset: h3counter;
+}
+h3 {
+  counter-reset: h4counter;
+}
+h4 {
+  counter-reset: h5counter;
+}
+h5 {
+  counter-reset: h6counter;
+}
+h6 {
+}
 
 h1:before {
-	counter-increment: h1counter;
-	content: counter(h1counter) ".\0000a0\0000a0";
+  counter-increment: h1counter;
+  content: counter(h1counter) ".\0000a0\0000a0";
 }
 
 h2:before {
-	counter-increment: h2counter;
-	content: counter(h1counter) "." counter(h2counter) ".\0000a0\0000a0";
+  counter-increment: h2counter;
+  content: counter(h1counter) "." counter(h2counter) ".\0000a0\0000a0";
 }
 
 h3:before {
-	counter-increment: h3counter;
-	content: counter(h1counter) "." counter(h2counter) "." counter(h3counter) ".\0000a0\0000a0";
+  counter-increment: h3counter;
+  content: counter(h1counter) "." counter(h2counter) "." counter(h3counter)
+    ".\0000a0\0000a0";
 }
 
 h4:before {
-	counter-increment: h4counter;
-	content: counter(h1counter) "." counter(h2counter) "." counter(h3counter) "." counter(h4counter) ".\0000a0\0000a0";
+  counter-increment: h4counter;
+  content: counter(h1counter) "." counter(h2counter) "." counter(h3counter) "."
+    counter(h4counter) ".\0000a0\0000a0";
 }
 
 h5:before {
-	counter-increment: h5counter;
-	content: counter(h1counter) "." counter(h2counter) "." counter(h3counter) "." counter(h4counter) "." counter(h5counter) ".\0000a0\0000a0";
+  counter-increment: h5counter;
+  content: counter(h1counter) "." counter(h2counter) "." counter(h3counter) "."
+    counter(h4counter) "." counter(h5counter) ".\0000a0\0000a0";
 }
 
 h6:before {
-	counter-increment: h6counter;
-	content: counter(h1counter) "." counter(h2counter) "." counter(h3counter) "." counter(h4counter) "." counter(h5counter) "." counter(h6counter) ".\0000a0\0000a0";
+  counter-increment: h6counter;
+  content: counter(h1counter) "." counter(h2counter) "." counter(h3counter) "."
+    counter(h4counter) "." counter(h5counter) "." counter(h6counter)
+    ".\0000a0\0000a0";
 }
 
 /* TOC: Use nested counters for list items */
 .table-of-contents ol {
-	counter-reset: list-item;
+  counter-reset: list-item;
 }
 .table-of-contents li {
-	display: block; counter-increment: list-item;
+  display: block;
+  counter-increment: list-item;
 }
 .table-of-contents li:before {
-	content: counters(list-item,'.') '.\0000a0';
+  content: counters(list-item, ".") ".\0000a0";
 }
 
 /* TOC: Make TOC a fixed height and scrollable */
@@ -103,41 +163,44 @@ h6:before {
 
 /* Print: Adjustments for printing and PDF export */
 @media print {
+  pre {
+    padding: unset;
+    background: unset;
+  }
 
-	pre {
-		padding: unset;
-		background: unset;
-	}
-
-	h1, h2, h3, h4, h5, h6 {
-		background-color: #eeeeee;
-	}
-
+  h1,
+  h2,
+  h3,
+  h4,
+  h5,
+  h6 {
+    background-color: #eeeeee;
+  }
 }
 
 /* MermaidJS section */
 .mermaid {
-	background-color: rgb(29,32,36);
+  background-color: rgb(29, 32, 36);
 }
 
 .actor {
-	fill: rgb(61, 68, 76) !important;
-	stroke: rgb(102, 114, 128) !important;
+  fill: rgb(61, 68, 76) !important;
+  stroke: rgb(102, 114, 128) !important;
 }
 
 text.actor {
-	fill: #d2cece !important;
+  fill: #d2cece !important;
 }
 
 .messageText {
-	fill: #737373 !important;
+  fill: #737373 !important;
 }
 
 .noteText {
-	fill: #d2cece !important;
+  fill: #d2cece !important;
 }
 
 .note {
-	fill: #42402c !important;
-	stroke: #5f5f22 !important;
+  fill: #42402c !important;
+  stroke: #5f5f22 !important;
 }
