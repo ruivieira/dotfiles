@@ -107,4 +107,5 @@ ln -s /usr/local/opt/readline/lib/libreadline.8.0.dylib /usr/local/opt/readline/
 
 ## Acknowledgements
 
-- The `Spleen` font is available [here](https://github.com/fcambus/spleen).
+- The `Spleen` font is available [here](https://github.com/fcambus/spleen)
+- Remarkable 2 splash screens from `sblumentritt` (available [here](https://github.com/sblumentritt/remarkable_splashscreens))
