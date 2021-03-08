@@ -61,4 +61,7 @@ function restic_backup() {
 	 restic -r b2:${B2_RESTIC_BUCKET}:/ --verbose backup ~/Sync/sites --exclude-file="${HOME}/Sync/.stignore"
 	 echo -e "${GREEN}Backing up wiki${NOCOLOR}"
 	 restic -r b2:${B2_RESTIC_BUCKET}:/ --verbose backup ~/Dropbox/wiki --exclude-file="${HOME}/Sync/.stignore"
+	 echo -e "${GREEN}Backing up Joplin${NOCOLOR}"
+	 restic -r b2:${B2_RESTIC_BUCKET}:/ --verbose backup ~/.config/joplin-desktop \
+	 	--exclude="cache" --exclude="log-autoupdater.txt" --exclude="log-clipper.txt" --exclude="log.txt" --exclude="tmp"
 }
