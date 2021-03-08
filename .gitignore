@@ -11,3 +11,4 @@ tests/_support
 node_modules
 pyinfra-debug.log
 .DS_Store
+pyinfra-sudo-askpass
