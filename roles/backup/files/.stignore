@@ -166,3 +166,6 @@ clojure**out
 
 # Tensorflow logs
 events.out.tfevents.*
+
+# Manim intermediate files
+partial_movie_files
