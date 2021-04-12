@@ -51,13 +51,13 @@ docker run -i -t dotfiles:latest /bin/zsh
 To run locally (did I mention you should read the **WARNING** above?), issue:
 
 ```shell
-ansible-playbook install.yml -K
+ansible-playbook playbook.yml -K
 ```
 
 Alternatively, run each tag separately, _e.g._
 
 ```shell
-ansible-playbook install.yml --tags "core,editors" -K
+ansible-playbook playbook.yml --tags "core,editors" -K
 ```
 
 ### tags

@@ -1,0 +1,34 @@
+- name: Install git
+  package:
+    name: git
+    state: present
+  become: "{{ linux }}"
+  tags:
+    - core
+- name: Install curl
+  package:
+    name: curl
+    state: present
+  become: "{{linux}}"
+  tags:
+    - core
+- name: Create .config directory
+  file:
+    path: ~/.config
+    state: directory
+  tags:
+    - core
+- name: Install neofetch
+  package:
+    name: neofetch
+    state: present
+  become: "{{linux}}"
+  tags:
+    - core
+- name: Install chezmoi
+  package:
+    name: chezmoi
+    state: present
+  become: "{{linux}}"
+  tags:
+    - core

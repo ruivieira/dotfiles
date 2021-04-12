@@ -28,12 +28,16 @@ function jvm_exists() {
 	fi
 }
 
-function rsync_backup() {
+function rsync_net_backup() {
 	cd ~/Sync/
+	local LOG_FILE="/Users/$USER/tmp/rsyncnet.log"
+	touch $LOG_FILE
+	echo BEGIN `date` >> ${LOG_FILE}
 	echo -e "${GREEN}Sync code folders${NOCOLOR}"
-	rsync -avh --exclude-from='.stignore' --delete  ~/Sync/code ~/Dropbox/code/backup/
-	echo -e "${GREEN}Sync wiki folder${NOCOLOR}"
-	rsync -avh --exclude-from='.stignore' --delete  ~/Library/Containers/co.noteplan.NotePlan3/Data/Library/Application\ Support/co.noteplan.NotePlan3/ ~/Dropbox/wiki/
+	rsync -avH --exclude-from='.stignore' ~/Sync/code rsyncnet: >> ${LOG_FILE}
+	echo -e "${GREEN}Sync journal folder${NOCOLOR}"
+	rsync -avH --exclude-from='.stignore' ~/Library/Containers/co.noteplan.NotePlan3/Data/Library/Application\ Support/co.noteplan.NotePlan3/ rsyncnet:wiki >> ${LOG_FILE}
+	echo END `date` >> ${LOG_FILE}
 }
 
 function docker_nuke() {

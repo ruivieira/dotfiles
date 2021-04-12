@@ -1,16 +1,20 @@
----
-- name: Copy .stignore
-  copy:
-    src: "{{ role_path }}/files/.stignore"
-    dest: ~/Sync/.stignore
+- name: enable Fedora COPR for restic
+  become: yes
+  command: "dnf copr enable -y copart/restic"
+  when: ansible_distribution == 'Fedora'
   tags:
     - backup
-- name: enable Fedora COPR for restic
-  command: "dnf copr enable -y copart/restic"
-  become: yes
-  when: ansible_distribution == 'Fedora'
 - name: Install restic
   package:
     name: restic
     state: present
-  become: "{{linux}}"
+  become: "{{ linux }}"
+  tags:
+    - backup
+- name: Install Kopia
+  package:
+    name: kopia
+    state: present
+  become: "{{ linux }}"
+  tags:
+    - backup  

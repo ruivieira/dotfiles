@@ -5,7 +5,7 @@
     states: present
   when: ansible_distribution == 'Fedora'
   tags:
-    - core
+    - openshift
 - name: Enable libvirtd (Linux)
   systemd:
     name: libvirtd
@@ -21,7 +21,7 @@
     states: present
   when: ansible_distribution == 'Fedora'
   tags:
-    - core  
+    - openshift  
 - name: Enable tinyproxy (Linux)
   systemd:
     name: tinyproxy
