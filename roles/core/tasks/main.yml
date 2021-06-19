@@ -33,3 +33,9 @@
   become: "{{ linux }}"
   tags:
     - core
+- name: Install keepassxc (macOS)
+  homebrew_cask:
+    name: keepassxc
+    state: present
+  when: ansible_distribution == 'MacOSX'
+

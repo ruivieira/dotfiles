@@ -8,6 +8,7 @@
     - { role: core, tags: [core] }
     - { role: backup, tags: [backup] }
     - { role: cli, tags: [cli] }
+    - { role: devtools, tags: [devtools] }
     - { role: zsh, tags: [zsh] }
     - { role: emacs, tags: [emacs] }
     - { role: neovim, tags: [editors, vim] }

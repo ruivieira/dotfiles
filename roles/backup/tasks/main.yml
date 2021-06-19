@@ -18,3 +18,10 @@
   become: "{{ linux }}"
   tags:
     - backup  
+- name: Install Syncthing
+  package:
+    name: syncthing
+    state: present
+  become: "{{ linux }}"
+  tags:
+    - backup  

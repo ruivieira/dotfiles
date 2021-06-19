@@ -1,0 +1,8 @@
+---
+- name: Install sass
+  package:
+    name: sass/sass/sass
+    state: present
+  when: ansible_distribution == 'MacOSX'
+  tags:
+    - devtools
