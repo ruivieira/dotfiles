@@ -1,100 +1,43 @@
 ---
-# # Install and configure zshell.
-# - name: Install zsh
-#   package:
-#     name: zsh
-#     state: present
-#   become: "{{linux}}"
-#   tags:
-#     - zsh
-# - name: Install bash-completion
-#   package:
-#     name: bash-completion
-#     state: present
-#   become: "{{linux}}"
-#   tags:
-#     - zsh
-# - name: Check if oh-my-zsh is installed
-#   stat:
-#     path: ~/.oh-my-zsh/
-#   register: ohmyzsh_result  
-#   tags:
-#     - zsh
-# - name: Delete oh-my-zsh if installed
-#   file:
-#     path: ~/.oh-my-zsh/
-#     state: absent
-#   when: ohmyzsh_result.stat.exists == True
-#   tags:
-#     - zsh
-# - name: Install oh-my-zsh
-#   git:
-#     repo: https://github.com/robbyrussell/oh-my-zsh.git
-#     dest: ~/.oh-my-zsh
-#   tags:
-#     - zsh
-# - name: Install oh-my-zsh auto-completions
-#   command: git clone https://github.com/zsh-users/zsh-autosuggestions ~/.oh-my-zsh/custom/plugins/zsh-autosuggestions
-#   tags:
-#     - zsh
-# - name: Install oh-my-zsh syntax highlighting
-#   command: git clone https://github.com/zsh-users/zsh-syntax-highlighting.git ~/.oh-my-zsh/custom/plugins/zsh-syntax-highlighting
-#   tags:
-#     - zsh  
-# - name: Delete current .bash_profile
-#   file:
-#     path: "{{ansible_env.HOME}}/.bash_profile"
-#     state: absent
-#   tags:
-#     - zsh
-# - name: Copy .bashprofile (macOS)
-#   copy:
-#     src: "{{playbook_dir}}/.bash_profile_mac"
-#     dest: "{{ansible_env.HOME}}/.bash_profile"
-#   when: ansible_distribution == 'MacOSX'
-#   tags:
-#     - zsh
-# - name: Copy .bashprofile (Fedora)
-#   copy:
-#     src: "{{playbook_dir}}/.bash_profile_linux"
-#     dest: "{{ansible_env.HOME}}/.bash_profile"
-#   when: ansible_distribution == 'Fedora'
-#   tags:
-#     - zsh
-# - name: Copy .bashprofile (Alpine)
-#   copy:
-#     src: "{{playbook_dir}}/.bash_profile_alpine"
-#     copy: "{{ansible_env.HOME}}/.bash_profile"
-#   when: ansible_distribution == 'Alpine'
-#   tags:
-#     - zsh
-# - name: Delete current .bashrc
-#   file:
-#     path: "{{ansible_env.HOME}}/.bashrc"
-#     state: absent
-#   tags:
-#     - core
-# - name: Copy .bashrc
-#   copy:
-#     src: "{{playbook_dir}}/.bashrc"
-#     dest: "{{ansible_env.HOME}}/.bashrc"
-#   tags:
-#     - core
-# - name: Copy .zshrc
-#   copy:
-#     src: "{{playbook_dir}}/.zshrc"
-#     dest: ~/.zshrc
-#   tags:
-#     - core
-# - name: Copy .functions.zsh
-#   copy:
-#     src: "{{playbook_dir}}/.functions.zsh"
-#     dest: ~/.functions.zsh
-#   tags:
-#     - core
-# - name: Copy .builders.zsh
-#   copy:
-#     src: "{{playbook_dir}}/.builders.zsh"
-#     dest: ~/.builders.zsh
-#   tags:
-#     - core
+# Install and configure zshell.
+- name: Install zsh
+  package:
+    name: zsh
+    state: present
+  become: "{{ linux }}"
+  tags:
+    - zsh
+- name: Install bash-completion
+  package:
+    name: bash-completion
+    state: present
+  become: "{{ linux }}"
+  tags:
+    - zsh
+- name: Check if oh-my-zsh is installed
+  stat:
+    path: ~/.oh-my-zsh/
+  register: ohmyzsh_result  
+  tags:
+    - zsh
+- name: Delete oh-my-zsh if installed
+  file:
+    path: ~/.oh-my-zsh/
+    state: absent
+  when: ohmyzsh_result.stat.exists == True
+  tags:
+    - zsh
+- name: Install oh-my-zsh
+  git:
+    repo: https://github.com/robbyrussell/oh-my-zsh.git
+    dest: ~/.oh-my-zsh
+  tags:
+    - zsh
+- name: Install oh-my-zsh auto-completions
+  command: git clone https://github.com/zsh-users/zsh-autosuggestions ~/.oh-my-zsh/custom/plugins/zsh-autosuggestions
+  tags:
+    - zsh
+- name: Install oh-my-zsh syntax highlighting
+  command: git clone https://github.com/zsh-users/zsh-syntax-highlighting.git ~/.oh-my-zsh/custom/plugins/zsh-syntax-highlighting
+  tags:
+    - zsh

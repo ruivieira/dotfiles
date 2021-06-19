@@ -10,12 +10,12 @@
     - { role: cli, tags: [cli] }
     - { role: devtools, tags: [devtools] }
     - { role: zsh, tags: [zsh] }
+
     - { role: emacs, tags: [emacs] }
     - { role: neovim, tags: [editors, vim] }
     - { role: jdk, tags: [jdk, code] }
     - { role: python, tags: [python, code] }
     - { role: ruby, tags: [ruby, code, blog] }
-
     - { role: vscode, tags: [editors, vscode] }
     - { role: nim, tags: [code, nim] }
     - { role: crystal, tags: [crystal] }
