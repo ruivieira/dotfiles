@@ -1,5 +1,5 @@
 ---
-- hosts: localhost
+- hosts: all
   gather_facts: yes
   vars:
     linux: "{{ 'no' if ansible_distribution == 'MacOSX' else 'yes'}}"

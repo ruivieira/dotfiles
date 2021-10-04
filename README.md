@@ -47,6 +47,17 @@ If you have podman/docker installed build the image with:
 docker build -t dotfiles:latest .
 docker run -i -t dotfiles:latest /bin/zsh
 ```
+A better option is to use `Vagrant`. If `Vagrant` is already
+installed simply run
+
+```shell
+vagrant up
+```
+or if a VM is already build use
+
+```shell
+vagrant provision
+```
 
 To run locally (did I mention you should read the **WARNING** above?), issue:
 

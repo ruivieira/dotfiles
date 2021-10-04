@@ -1,23 +1,9 @@
-- name: enable Fedora COPR for restic
-  become: yes
-  command: "dnf copr enable -y copart/restic"
+- name: Install Kopia for Fedora
+  import_tasks: "{{ role_path }}/tasks/kopia-fedora.yaml"
   when: ansible_distribution == 'Fedora'
   tags:
     - backup
-- name: Install restic
-  package:
-    name: restic
-    state: present
-  become: "{{ linux }}"
-  tags:
-    - backup
-- name: Install Kopia
-  package:
-    name: kopia
-    state: present
-  become: "{{ linux }}"
-  tags:
-    - backup  
+
 - name: Install Syncthing
   package:
     name: syncthing
