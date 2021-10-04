@@ -26,13 +26,22 @@
   become: "{{ linux }}"
   tags:
     - core
-- name: Install chezmoi
+- name: Install chezmoi (macOS)
   package:
     name: chezmoi
     state: present
+  tags:
+    - core
+  when: ansible_distribution == 'MacOSX'
+- name: Install chezmoi (Fedora)
+  dnf:
+    name: 'https://github.com/twpayne/chezmoi/releases/download/v2.0.15/chezmoi-2.0.15-x86_64.rpm'
+    state: present
+    disable_gpg_check: yes
   become: "{{ linux }}"
   tags:
     - core
+  when: ansible_distribution == 'Fedora'
 - name: Install keepassxc (macOS)
   homebrew_cask:
     name: keepassxc
