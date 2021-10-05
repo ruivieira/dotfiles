@@ -26,6 +26,9 @@ Plug 'rust-lang/rust.vim'
 Plug 'neovim/nvim-lspconfig'
 Plug 'simrat39/rust-tools.nvim'
 
+" zsh
+Plug 'zsh-users/zsh-syntax-highlighting'
+
 " Optional dependencies
 Plug 'nvim-lua/popup.nvim'
 Plug 'nvim-lua/plenary.nvim'
@@ -77,3 +80,6 @@ let g:ale_fixers = { 'rust': ['rustfmt', 'trim_whitespace', 'remove_trailing_lin
 
 colorscheme gruvbox
 set background=dark " use dark mode
+
+" Extra extensions
+au BufRead,BufNewFile *.zsh.tmpl set filetype=zsh
