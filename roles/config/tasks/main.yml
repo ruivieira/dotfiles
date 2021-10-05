@@ -1,10 +1,18 @@
 ---
-- name: Copy wallpapers (Linux)
-  shell: "{{item}}"
-  with_items:
-    - mkdir -p ~/.wallpapers
-    - cp {{role_path}}/files/vw.png ~/.wallpapers
+- name: Create wallpapers directory (Linux)
+  ansible.builtin.file:
+    path: ~/.wallpapers
+    state: directory
+    mode: '0755'
   when: ansible_distribution == 'Fedora'
+
+- name: Copy main wallpaper (Linux)
+  ansible.builtin.copy:
+    src: "{{role_path}}/files/vw.png"
+    dest: "~/.wallpapers/vw.png"
+    follow: yes
+  when: ansible_distribution == 'Fedora'
+
 - name: Set wallpapers (Linux)
   shell: "{{item}}"
   with_items:

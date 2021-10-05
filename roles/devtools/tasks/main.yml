@@ -6,3 +6,9 @@
   when: ansible_distribution == 'MacOSX'
   tags:
     - devtools
+
+- name: Install NeoVim
+  import_tasks: "{{ role_path }}/tasks/neovim.yaml"
+  tags:
+    - devtools
+    - neovim

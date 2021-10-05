@@ -2,7 +2,7 @@
 - name: Install NeoVim package
   package:
     name: neovim
-    state: present
+    state: latest
   become: "{{linux}}"
   register: neovim_result
   tags:
@@ -23,6 +23,7 @@
   file:
     src: "{{playbook_dir}}/.config/nvim/init.vim"
     dest: ~/.config/nvim/init.vim
+    force: yes
     state: link
   tags:
     - editors
@@ -48,14 +49,8 @@
     repo: "git://github.com/{{item.url}}"
     dest: "{{ansible_env.HOME}}/.config/nvim/bundle/{{item.name}}"
   with_items:
-    - { url: "scrooloose/nerdtree.git", name: "nerdtree" }
     - { url: "zah/nim.vim.git", name: "nim.vim" }
-    - { url: "scrooloose/syntastic.git", name: "syntastic" }
-    - { url: "vim-airline/vim-airline.git", name: "vim-airline" }
-    - { url: "tpope/vim-fugitive.git", name: "vim-fugitive" }
-    - { url: "airblade/vim-gitgutter.git", name: "vim-gitgutter" }
-    - { url: "plasticboy/vim-markdown.git", name: "vim-markdown" }
-    - { url: "rust-lang/rust.vim.git", name: "rust.vim" }
+  
   tags:
     - editors
 - name: Install pathogen
@@ -70,3 +65,9 @@
   shell: "{{item}}"
   with_items:
     - curl -fLo ~/.config/nvim/autoload/plug.vim --create-dirs https://raw.githubusercontent.com/junegunn/vim-plug/master/plug.vim
+
+- name: Run vimplug plugin install
+  shell: "{{item}}"
+  with_items:
+    - nvim --headless +PlugInstall +UpdateRemotePlugins +qall
+  

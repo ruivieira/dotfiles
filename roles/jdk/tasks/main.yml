@@ -9,14 +9,6 @@
     name: giter8
     state: present
   when: ansible_distribution == 'MacOSX'
-- name: Install jEnv (macOS)
-  package:
-    name: jenv
-    state: present
-  when: ansible_distribution == 'MacOSX'
-- name: Install jEnv (Linux)
-  command: git clone https://github.com/gcuisinier/jenv.git ~/.jenv
-  when: ansible_distribution == 'Fedora'
 - name: Install maven
   package:
     name: maven

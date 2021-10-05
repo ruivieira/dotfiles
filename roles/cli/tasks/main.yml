@@ -5,20 +5,20 @@
   become: "{{ linux }}"
   tags:
     - cli
-- name: Install dust
-  package:
-    name: dust
-    state: present
-  become: "{{ linux }}"
-  tags:
-    - cli
-- name: Install duf
-  package:
-    name: duf
-    state: present
-  become: "{{ linux }}"
-  tags:
-    - cli
+# - name: Install dust
+#   package:
+#     name: dust
+#     state: present
+#   become: "{{ linux }}"
+#   tags:
+#     - cli
+# - name: Install duf
+#   package:
+#     name: duf
+#     state: present
+#   become: "{{ linux }}"
+#   tags:
+#     - cli
 - name: Install starship
   package:
     name: starship
