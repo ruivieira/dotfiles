@@ -1,4 +1,5 @@
 - name: Install Kopia for Fedora
+  become: "{{linux}}"
   import_tasks: "{{ role_path }}/tasks/kopia-fedora.yaml"
   when: ansible_distribution == 'Fedora'
   tags:

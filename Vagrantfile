@@ -7,10 +7,8 @@ Vagrant.configure("2") do |config|
     end
 
  config.vm.provision "ansible" do |ansible|  
-        ansible.become = true  
-        ansible.verbose = "v"          
-        # ansible.extra_vars = "ansible_extra_vars.yml"  
-        # ansible.vault_password_file="~/.vault_pass.txt"  
-        ansible.playbook = "./playbook.yml"  
+        ansible.ask_become_pass = true
+        ansible.verbose = "v"
+        ansible.playbook = "./playbook.yml"
     end  
 end

@@ -1,0 +1,19 @@
+- name: Enable firewall
+  ansible.builtin.shell:
+    cmd: /usr/libexec/ApplicationFirewall/socketfilterfw --setglobalstate on
+
+- name: Turn on logging mode
+  ansible.builtin.shell:
+    cmd: /usr/libexec/ApplicationFirewall/socketfilterfw --setloggingmode on
+
+- name: Enable stealth mode
+  ansible.builtin.shell:
+    cmd: /usr/libexec/ApplicationFirewall/socketfilterfw --setstealthmode on
+
+- name: Disable allow signed built-in applications automatically
+  ansible.builtin.shell:
+    cmd: /usr/libexec/ApplicationFirewall/socketfilterfw --setallowsigned off
+
+- name: Disable allow signed downloaded applications automatically
+  ansible.builtin.shell:
+    cmd: /usr/libexec/ApplicationFirewall/socketfilterfw --setallowsignedapp off

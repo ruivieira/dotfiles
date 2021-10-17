@@ -13,15 +13,8 @@
 
     - { role: jdk, tags: [jdk, code] }
     - { role: python, tags: [python, code] }
-    # - { role: nim, tags: [code, nim] }
-    # - { role: crystal, tags: [crystal] }
-    # - { role: jupyter, tags: [jupyter, R] }
     - { role: config, tags: [config] }
-    # - { role: swift, tags: [code, swift] }
-    # - { role: openshift, tags: [openshift] }
-    # - { role: zig, tags: [zig] }
     - { role: fonts, tags: [fonts] }
     - { role: rust, tags: [rust] }
-
 
   # Core dependencies

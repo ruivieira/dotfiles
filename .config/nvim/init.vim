@@ -2,6 +2,8 @@ execute pathogen#infect()
 syntax on
 " associate *.erc with html filetype
 au BufRead,BufNewFile *.erc setfiletype html
+set nocompatible
+filetype plugin on
 
 call plug#begin('~/.vim/plugged')
 
@@ -38,8 +40,19 @@ Plug 'nvim-telescope/telescope.nvim'
 Plug 'mfussenegger/nvim-dap'
 
 " Themes
-
 Plug 'morhetz/gruvbox' " The one and only
+
+" Vim Markdown and Wiki
+Plug 'junegunn/fzf', { 'do': { -> fzf#install() } }
+Plug 'junegunn/fzf.vim'
+Plug 'lervag/wiki.vim'
+Plug 'iamcco/markdown-preview.nvim'
+
+" Outliner
+Plug 'vimoutliner/vimoutliner'
+
+" Ansible plugin
+Plug 'pearofducks/ansible-vim'
 
 call plug#end()
 
@@ -83,3 +96,12 @@ set background=dark " use dark mode
 
 " Extra extensions
 au BufRead,BufNewFile *.zsh.tmpl set filetype=zsh
+au BufRead,BufNewFile *.md set filetype=votl
+
+let g:wiki_root = '~/Sync/notes'
+let g:wiki_filetypes = ['md']
+let g:wiki_link_extension = '.md'
+
+" Ansible plugin configuration
+let g:ansible_extra_keywords_highlight = 1
+let g:ansible_name_highlight = 'b'

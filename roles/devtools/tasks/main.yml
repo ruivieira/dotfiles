@@ -12,3 +12,16 @@
   tags:
     - devtools
     - neovim
+
+- name: Install Spacemacs
+  import_tasks: "{{ role_path }}/tasks/spacemacs.yaml"
+  tags:
+    - devtools
+    - spacemacs
+
+- name: Install VSCode
+  import_tasks: "{{ role_path }}/tasks/vscode.yaml"
+  tags:
+    - devtools
+    - vscode
+

@@ -1,8 +1,9 @@
 ---
 - name: Define vscode variables
   set_fact:
-    settings_dir_mac: ~/Library/Application\ Support/Code/User/
-    settings_dir_linux: ~/.config/Code/User/
+    settings_dir_mac: "{{ansible_env.HOME}}/Library/Application\ Support/Code/User/"
+    settings_dir_linux: "{{ansible_env.HOME}}/.config/Code/User/"
+
 - name: Install VSCode (Linux)
   block:
     - name: Import RPM keys
@@ -25,25 +26,30 @@
         state: present
       become: yes
   when: ansible_distribution == 'Fedora'
-  tags:
-    - code
-    - editors
-- name: Install vscode settings (macOS)
-  shell: "{{item}}"
-  with_items:
-    - mkdir -p {{settings_dir_mac}}
-    - cp  {{role_path}}/files/settings.json {{settings_dir_mac}}
+
+- name: Install VSCode (macOS)
+  community.general.homebrew_cask:
+    name: visual-studio-code
+    state: present
   when: ansible_distribution == 'MacOSX'
+
+- name: Install vscode settings (macOS)
+  ansible.builtin.copy:
+    src: "{{role_path}}/files/settings.json"
+    dest: "{{settings_dir_mac}}"
+    follow: yes
+  when: ansible_distribution == 'MacOSX'
+
 - name: Install vscode settings (Linux)
-  shell: "{{item}}"
-  with_items:
-    - mkdir -p {{settings_dir_linux}}
-    - cp  {{role_path}}/files/settings.json {{settings_dir_linux}}
+  ansible.builtin.copy:
+    src: "{{role_path}}/files/settings.json"
+    dest: "{{settings_dir_linux}}"
+    follow: yes
   when: ansible_distribution == 'Fedora'
+
 - name: Install VSCode extensions
   shell: "code --install-extension {{item}}"
   with_items:
-    - 0x9ef.vscode-vlang
     - aeschli.vscode-css-formatter
     - alexcvzz.vscode-sqlite
     - bpruitt-goddard.mermaid-markdown-syntax-highlighting
@@ -56,7 +62,6 @@
     - daylerees.rainglow
     - dunstontc.viml
     - eamodio.gitlens
-    - faustinoaq.crystal-lang
     - glen-anderson.vscode-faust
     - guyskk.language-cython
     - hbenl.vscode-test-explorer
@@ -81,8 +86,6 @@
     - ms-vscode-remote.remote-wsl
     - ms-vscode-remote.vscode-remote-extensionpack
     - ms-vscode.cpptools
-    - ms-vscode.Go
-    - npruehs.pony
     - octref.vetur
     - pepri.subtitles-editor
     - raczzalan.webgl-glsl-editor
@@ -101,7 +104,6 @@
     - stayfool.vscode-asciidoc
     - stiansivertsen.visualclojure
     - Swellaby.vscode-rust-test-adapter
-    - tiehuis.zig
     - UCL.haskelly
     - VisualStudioExptTeam.vscodeintellicode
     - vknabel.vscode-swift-development-environment
@@ -112,3 +114,4 @@
     - vscjava.vscode-maven
     - vstirbu.vscode-mermaid-preview
     - yzhang.markdown-all-in-one
+    - richie5um2.vscode-sort-json

@@ -1,0 +1,48 @@
+---
+- name: Install ripgrep (macOS)
+  package:
+    name: rg
+    state: present
+  when: ansible_distribution == 'MacOSX'
+
+- name: Print host information
+  ansible.builtin.debug:
+    msg: "Running on {{ansible_distribution}}"
+
+- name: Install ripgrep (Linux)
+  become: "{{linux}}"
+  package:
+    name: ripgrep
+    state: present
+  when: ansible_distribution == 'Fedora'
+
+- name: Install Emacs
+  become: "{{linux}}"
+  package:
+    name: emacs
+    state: present
+
+- name: Delete current emacs config
+  file:
+    path: ~/emacs.d
+    state: absent
+
+- name: Delete current DOOM emacs config
+  file:
+    path: ~/doom.d
+    state: absent
+
+- name: Delete current spacemacs config
+  file:
+    path: ~/.spacemacs
+    state: absent
+
+- name: Copy spacemacs config
+  ansible.builtin.copy:
+    src: "{{role_path}}/files/.spacemacs"
+    dest: "{{ansible_env.HOME}}/.spacemacs"
+
+- name: Clone spacemacs
+  ansible.builtin.git:
+    repo: https://github.com/syl20bnr/spacemacs
+    dest: "{{ansible_env.HOME}}/.emacs.d"

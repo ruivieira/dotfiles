@@ -21,7 +21,7 @@
 - name: Create fonts dir (Linux)
   shell: mkdir -p ~/.fonts
 - name: Copy fonts (Linux)
-  shell: cp {{playbook_dir}}/fonts/{{item}} ~/.fonts
+  shell: "cp {{playbook_dir}}/fonts/{{item}} ~/.fonts"
   with_items:
     - firacode/FiraCode-Bold.ttf
     - firacode/FiraCode-Light.ttf
@@ -80,3 +80,11 @@
   when: ansible_distribution == 'MacOSX'
   tags:
     - navi
+
+- name: Setup macOS security
+  import_tasks: "{{ role_path }}/tasks/security-mac.yaml"
+  tags:
+    - config
+    - macos
+    - security
+  when: ansible_distribution == 'MacOSX'

@@ -6,27 +6,9 @@ A collection of configuration and setup files I am currently using across severa
 
 There are two approaches to install these configurations, with [Ansible](https://www.ansible.com/) or [pyinfra](https://pyinfra.com/).
 
-**WARNING** running either of these methods locally _will delete_ some of you current configurations,
+> **⚠️ WARNING ⚠️** running either of these methods locally _will delete_ some of you current configurations,
 if they exist, (`./config/nvim`, `.bashrc`, `.zshrc`, `.emacs.d/`, _etc._)
 
-### pyinfra
-
-You can test the setup inside a container if you have [podman](https://podman.io/)/Docker installed.
-
-```shell
-pyinfra @docker/fedora:32 deploy.py
-```
-
-If you want to try it locally, first read the **WARNING** above.
-Install `pyinfra` with `pip install pyinfra` and then run the deploy script locally:
-
-```shell
-pyinfra -vvv @local deploy.py
-```
-
-### Ansible
-
-Read the **WARNING** above.
 To prepare a macOS machine, make sure you have `brew` and `ansible` installed.
 After installing `brew`, you can install `ansible` with:
 
@@ -40,26 +22,36 @@ On Fedora just run
 dnf install ansible
 ```
 
+### Vagrant
+
+The best option is to use `Vagrant`. If `Vagrant` is already
+installed simply run
+
+```shell
+vagrant up --provision
+```
+
+and then 
+
+```shell
+vagrant ssh
+```
+
+to inspect the installation.
+
+### Container
+
 To try it without installing locally using the container.
-If you have podman/docker installed build the image with:
+If you have `podman`/`docker` installed build the image with:
 
 ```shell
 docker build -t dotfiles:latest .
 docker run -i -t dotfiles:latest /bin/zsh
 ```
-A better option is to use `Vagrant`. If `Vagrant` is already
-installed simply run
 
-```shell
-vagrant up
-```
-or if a VM is already build use
+### Locally (here be 🐉)
 
-```shell
-vagrant provision
-```
-
-To run locally (did I mention you should read the **WARNING** above?), issue:
+To run locally (did I mention you should read the **⚠️ WARNING ⚠️** above?), issue:
 
 ```shell
 ansible-playbook playbook.yml -K
@@ -71,7 +63,7 @@ Alternatively, run each tag separately, _e.g._
 ansible-playbook playbook.yml --tags "core,editors" -K
 ```
 
-### tags
+## Tags
 
 The `ansible` playbook includes the following tags:
 
