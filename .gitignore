@@ -13,3 +13,4 @@ pyinfra-debug.log
 .DS_Store
 pyinfra-sudo-askpass
 .vagrant
+.metals
