@@ -7,6 +7,12 @@
   tags:
     - devtools
 
+- name: Install PlantUML
+  package:
+    name: plantuml
+    state: present
+  become: "{{linux}}"
+
 - name: Install NeoVim
   import_tasks: "{{ role_path }}/tasks/neovim.yaml"
   tags:

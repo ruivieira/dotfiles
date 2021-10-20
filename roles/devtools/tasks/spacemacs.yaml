@@ -5,10 +5,6 @@
     state: present
   when: ansible_distribution == 'MacOSX'
 
-- name: Print host information
-  ansible.builtin.debug:
-    msg: "Running on {{ansible_distribution}}"
-
 - name: Install ripgrep (Linux)
   become: "{{linux}}"
   package:
@@ -24,12 +20,12 @@
 
 - name: Delete current emacs config
   file:
-    path: ~/emacs.d
+    path: ~/.emacs.d
     state: absent
 
 - name: Delete current DOOM emacs config
   file:
-    path: ~/doom.d
+    path: ~/.doom.d
     state: absent
 
 - name: Delete current spacemacs config
@@ -46,3 +42,15 @@
   ansible.builtin.git:
     repo: https://github.com/syl20bnr/spacemacs
     dest: "{{ansible_env.HOME}}/.emacs.d"
+
+- name: Create banners directory
+  file:
+    path: ~/.emacs.d/banners
+    state: directory
+
+- name: Copy banners
+  ansible.builtin.copy:
+    src: "{{role_path}}/files/banners/{{item}}"
+    dest: "~/.emacs.d/banners/{{item}}"
+  with_items:
+    - "cat1.png"
