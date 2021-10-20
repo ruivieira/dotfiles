@@ -1,0 +1,7 @@
+- name: Set initial keyboard repeat rate
+  ansible.builtin.shell:
+    cmd: defaults write -g InitialKeyRepeat -int 10
+
+- name: Set keyboard repeat rate
+  ansible.builtin.shell:
+    cmd: defaults write -g KeyRepeat -int 1
