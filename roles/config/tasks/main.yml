@@ -88,3 +88,10 @@
     - macos
     - security
   when: ansible_distribution == 'MacOSX'
+
+- name: Setup general macOS
+  import_tasks: "{{ role_path }}/tasks/general-mac.yaml"
+  tags:
+    - config
+    - macos
+  when: ansible_distribution == 'MacOSX'
