@@ -42,6 +42,7 @@ This function should only modify configuration layer settings."
      auto-completion
      ;; better-defaults
      docker
+     elfeed
      emacs-lisp
      emoji
      git
@@ -53,16 +54,25 @@ This function should only modify configuration layer settings."
      multiple-cursors
      org
      python
+     shell-scripts
      (shell :variables
             shell-default-height 30
             shell-default-position 'bottom)
      rust
      syntax-checking
+     typescript
      version-control
      treemacs
 
      ;; Python layer configuration
      (python :variables python-backend 'lsp python-lsp-server 'pyright)
+
+     ;;; Add the black formatter
+     (python :variables python-formatter 'black)
+
+     ;; Auto-completion configuration
+     (auto-completion :variables
+                      auto-completion-enable-snippets-in-popup t)
 
      ;; org-mode configuration
      (org :variables
@@ -94,23 +104,14 @@ This function should only modify configuration layer settings."
     ;; Set extra org-mode TODO keywords
     (org :variables
         org-todo-keywords
-    '((sequence "TODO" "LATER" "DOING" "|" "DONE" "CANCELED")))
+    '((sequence "TODO" "LATER" "DOING" "JIRA" "IDEA" "REVIEW" "|" "DONE" "CANCELED")))
 
-    ;; Add custom org-agenda commands
-    (org :variables
-       org-agenda-custom-commands
-      '(("x" agenda)
-        ("y" agenda*)
-        ("l" todo "LATER")
-        ("L" todo-tree "LATER")
-        ("w" tags "+work")
-        ("tw" tags-todo "+work")
-        ("tW" tags-tree "+work")
-        ("f" occur-tree "\\<FIXME\\>")
-        ("h" . "HOME+Name tags searches") ;description for "h" prefix
-        ("n" "Agenda and all TODOs" ((agenda "") (alltodo "")))
-        ("nf" "Fortnight agenda and all TODOs" ((agenda "" ((org-agenda-span 14))) (alltodo "")))
-      ))
+
+      (elfeed :variables
+   elfeed-feeds '(("https://news.ycombinator.com/rss" news computing)
+                  ("http://rss.slashdot.org/Slashdot/slashdot"  news computing)
+                  ("https://lobste.rs/rss" news computing)))
+
    )
 
 
@@ -124,14 +125,23 @@ This function should only modify configuration layer settings."
    ;; Also include the dependencies as they will not be resolved automatically.
    dotspacemacs-additional-packages '(
                                       ;; Themes
-                                      (gruvbox-theme)
+                                      (sketch-themes)
+                                      (modus-themes)
+                                      (acme-theme)
                                       (cyberpunk-theme)
+                                      (gruvbox-theme)
                                       (zenburn-theme)
                                       (ample-theme)
                                       ;; Other packages
+                                      (virtualenvwrapper)
                                       (org-sidebar)
                                       (jupyter)
                                       (org-super-agenda)
+                                      (auto-virtualenv)
+                                      (cookiecutter :location
+                                                    (recipe :fetcher github
+                                                            :repo "ruivieira/cookiecutter.el"
+                                                            :files ("cookiecutter.el")))
    )
 
    ;; A list of packages that cannot be updated.
@@ -289,7 +299,11 @@ It should only modify the values of Spacemacs settings."
    ;; List of themes, the first of the list is loaded when spacemacs starts.
    ;; Press `SPC T n' to cycle to the next theme in the list (works great
    ;; with 2 themes variants, one dark and one light)
-   dotspacemacs-themes '(ample
+   dotspacemacs-themes '(
+                         modus-vivendi
+                         acme
+                         ample
+                         sketch-black
                          zenburn
                          cyberpunk
                          gruvbox-dark-soft
@@ -303,7 +317,7 @@ It should only modify the values of Spacemacs settings."
    ;; refer to the DOCUMENTATION.org for more info on how to create your own
    ;; spaceline theme. Value can be a symbol or list with additional properties.
    ;; (default '(spacemacs :separator wave :separator-scale 1.5))
-   dotspacemacs-mode-line-theme '(vim-powerline :separator wave :separator-scale 1.5)
+   dotspacemacs-mode-line-theme '(vanilla :separator wave :separator-scale 1.5)
 
    ;; If non-nil the cursor color matches the state color in GUI Emacs.
    ;; (default t)
@@ -312,7 +326,7 @@ It should only modify the values of Spacemacs settings."
    ;; Default font or prioritized list of fonts. The `:size' can be specified as
    ;; a non-negative integer (pixel size), or a floating-point (point size).
    ;; Point size is recommended, because it's device independent. (default 10.0)
-   dotspacemacs-default-font '("JuliaMono"
+   dotspacemacs-default-font '("Victor Mono"
                                :size 14.0
                                :weight normal
                                :width normal)
@@ -403,7 +417,7 @@ It should only modify the values of Spacemacs settings."
    ;; If non-nil a progress bar is displayed when spacemacs is loading. This
    ;; may increase the boot time on some systems and emacs builds, set it to
    ;; nil to boost the loading time. (default t)
-   dotspacemacs-loading-progress-bar t
+   dotspacemacs-loading-progress-bar nil
 
    ;; If non-nil the frame is fullscreen when Emacs starts up. (default nil)
    ;; (Emacs 24.4+ only)
@@ -600,6 +614,8 @@ configuration.
 It is mostly for variables that should be set before packages are loaded.
 If you are unsure, try setting them in `dotspacemacs/user-config' first."
 (setq initial-frame-alist '((top . 10) (left . 100) (width . 212) (height . 80)))
+  (setq configuration-layer-elpa-archives '(("melpa" . "melpa.org/packages/")
+    ("org" . "orgmode.org/elpa/") ("gnu" . "elpa.gnu.org/packages/")))
  )
 
 
@@ -633,9 +649,39 @@ before packages are loaded."
     (python . t)
     (jupyter . t)))
 
-  ;; set Python source blocks to babel by default
+ ;; Add custom org-agenda commands
+ (setq
+  org-agenda-custom-commands
+  '(
+    ("l" todo "LATER")
+    ("j" todo "JIRA")
+    ("w" tags "+work")
+    ("tw" tags-todo "+work")
+    ("n" "Agenda and all TODOs" ((agenda "") (todo "TODO")))
+    ("f" "Fortnight agenda and all TODOs" ((agenda "" ((org-agenda-span 14))) (alltodo "")))
+    ))
+
+ ;; set Python source blocks to babel by default
  (org-babel-jupyter-override-src-block "python")
-)
+
+ ;; Remove uninteresting files from dired
+ (setq dired-omit-files
+       (concat dired-omit-files "\\|^\\.DS_Store$\\|,v$"))
+
+ ;; YASnippet work around
+ (global-set-key (kbd "TAB") 'hippie-expand)
+
+ ;; Set line wrap on, globally
+ (global-visual-line-mode t)
+
+ (let ((org-super-agenda-groups
+       '((:auto-category t))))
+   (org-agenda-list))
+
+ ;; configure auto-virtualenv
+ (require 'auto-virtualenv)
+ (add-hook 'python-mode-hook 'auto-virtualenv-set-virtualenv)
+ )
 
 
 ;; Do not write anything past this comment. This is where Emacs will

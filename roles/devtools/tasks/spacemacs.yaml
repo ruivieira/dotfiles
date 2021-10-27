@@ -54,3 +54,13 @@
     dest: "~/.emacs.d/banners/{{item}}"
   with_items:
     - "cat1.png"
+
+- name: Create snippets directory
+  file:
+    path: ~/.emacs.d/private
+    state: directory
+
+- name: Copy snippets
+  ansible.builtin.copy:
+    src: "{{role_path}}/files/snippets"
+    dest: "~/.emacs.d/private/"

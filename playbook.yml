@@ -12,7 +12,6 @@
     - { role: zsh, tags: [zsh] }
 
     - { role: jdk, tags: [jdk, code] }
-    - { role: python, tags: [python, code] }
     - { role: config, tags: [config] }
     - { role: fonts, tags: [fonts] }
     - { role: rust, tags: [rust] }

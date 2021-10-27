@@ -31,3 +31,9 @@
     - devtools
     - vscode
 
+- name: Install Python
+  import_tasks: "{{ role_path }}/tasks/python.yaml"
+  tags:
+    - devtools
+    - python
+

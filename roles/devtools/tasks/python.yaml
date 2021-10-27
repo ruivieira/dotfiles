@@ -6,14 +6,8 @@
   when: ansible_distribution == 'MacOSX'
   tags:
     - core
+    - devtools
     - python
-# - name: Install pyenv (Linux)
-#   command: curl -L https://github.com/pyenv/pyenv-installer/raw/master/bin/pyenv-installer | sh
-#   when: ansible_distribution == 'Fedora' or ansible_distribution == 'Alpine' 
-#   become: yes
-#   tags:
-#     - core
-#     - python
 - name: Configure matplotlib
   block:
     - name: Create matplotlib config dir
@@ -24,3 +18,9 @@
       copy:
         src: "{{ playbook_dir }}/.matplotlib/matplotlibrc"
         dest: "{{ ansible_env.HOME }}/.matplotlib/matplotlibrc"
+
+- name: Install pyright node.js package globally.
+  community.general.npm:
+    name: pyright
+    global: yes
+    state: present
