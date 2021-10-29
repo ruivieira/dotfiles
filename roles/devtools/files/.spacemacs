@@ -41,25 +41,31 @@ This function should only modify configuration layer settings."
      ansible
      auto-completion
      ;; better-defaults
+     clojure
+     common-lisp
      docker
      elfeed
      emacs-lisp
      emoji
      git
-     helm
+     ;; helm
+     ivy
      java
      javascript
      lsp
      markdown
      multiple-cursors
      org
+     pdf
      python
      shell-scripts
      (shell :variables
             shell-default-height 30
             shell-default-position 'bottom)
+
      rust
      syntax-checking
+     themes-megapack
      typescript
      version-control
      treemacs
@@ -80,17 +86,15 @@ This function should only modify configuration layer settings."
      (org :variables
           org-agenda-files (directory-files-recursively "~/Sync/notes/pages/" "\\.org$"))
 
-    (org :variables
-          org-emphasis-alist
-           '(      ("*" bold)
-                   ("_" italic)
-                   ("^" (:foreground "yellow" :background "black"))
-                   ("~" org-verbatim verbatim)
-                   ("+"
-                    (:strike-through t))
-                   ))
+     (org :variables org-emphasis-alist
+           '(("*" (bold))
+             ("/" italic)
+             ("_" underline)
+             ("=" (:background "#CCAA00" :foreground "#FF99FF"))
+             ("~" (:background "#111" :foreground ""))
+             ("+" (:strike-through t))))
 
-    (org :variables
+     (org :variables
           org-structure-template-alist
           '("s" "#+NAME: ?\n#+BEGIN_SRC \n\n#+END_SRC")
           )
@@ -103,16 +107,29 @@ This function should only modify configuration layer settings."
 
     ;; Set extra org-mode TODO keywords
     (org :variables
-        org-todo-keywords
-    '((sequence "TODO" "LATER" "DOING" "JIRA" "IDEA" "REVIEW" "|" "DONE" "CANCELED")))
+         org-todo-keywords
+         '((sequence "TODO" "LATER" "DOING" "|" "DONE" "CANCELED")
+           (sequence "JIRA" "REVIEW" "|" "MERGED" "CANCELED")
+           (sequence "MEETING" "|" "DONE" "CANCELED")
+           (sequence "IDEA" "|" "DONE" "CANCELED")
+           ))
 
-
-      (elfeed :variables
-   elfeed-feeds '(("https://news.ycombinator.com/rss" news computing)
+    (elfeed :variables
+            elfeed-feeds '(("https://news.ycombinator.com/rss" news computing)
                   ("http://rss.slashdot.org/Slashdot/slashdot"  news computing)
                   ("https://lobste.rs/rss" news computing)))
 
-   )
+      ;; ivy configuration
+      (ivy :variables ivy-enable-icons t)
+      (ivy :variables ivy-re-builders-alist
+           '((ivy-switch-buffer . spacemacs/ivy--regex-plus)
+             (t . ivy--regex-fuzzy)))
+
+      (lsp :variables lsp-lens-enable t)
+      (lsp :variables lsp-use-lsp-ui t)
+      (lsp :variables lsp-ui-sideline-show-symbol t)
+
+      )
 
 
    ;; List of additional packages that will be installed without being wrapped
@@ -125,8 +142,8 @@ This function should only modify configuration layer settings."
    ;; Also include the dependencies as they will not be resolved automatically.
    dotspacemacs-additional-packages '(
                                       ;; Themes
-                                      (sketch-themes)
                                       (modus-themes)
+                                      (sketch-themes)
                                       (acme-theme)
                                       (cyberpunk-theme)
                                       (gruvbox-theme)
@@ -142,6 +159,9 @@ This function should only modify configuration layer settings."
                                                     (recipe :fetcher github
                                                             :repo "ruivieira/cookiecutter.el"
                                                             :files ("cookiecutter.el")))
+
+                                      (ivy-posframe)
+                                      (all-the-icons-ivy-rich)
    )
 
    ;; A list of packages that cannot be updated.
@@ -216,7 +236,7 @@ It should only modify the values of Spacemacs settings."
    ;; latest version of packages from MELPA. Spacelpa is currently in
    ;; experimental state please use only for testing purposes.
    ;; (default nil)
-   dotspacemacs-use-spacelpa nil
+   dotspacemacs-use-spacelpa t
 
    ;; If non-nil then verify the signature for downloaded Spacelpa archives.
    ;; (default t)
@@ -317,7 +337,7 @@ It should only modify the values of Spacemacs settings."
    ;; refer to the DOCUMENTATION.org for more info on how to create your own
    ;; spaceline theme. Value can be a symbol or list with additional properties.
    ;; (default '(spacemacs :separator wave :separator-scale 1.5))
-   dotspacemacs-mode-line-theme '(vanilla :separator wave :separator-scale 1.5)
+   dotspacemacs-mode-line-theme '(vanilla :separator wave :separator-scale 1.0)
 
    ;; If non-nil the cursor color matches the state color in GUI Emacs.
    ;; (default t)
@@ -430,7 +450,7 @@ It should only modify the values of Spacemacs settings."
    ;; If non-nil the frame is maximized when Emacs starts up.
    ;; Takes effect only if `dotspacemacs-fullscreen-at-startup' is nil.
    ;; (default nil) (Emacs 24.4+ only)
-   dotspacemacs-maximized-at-startup nil
+   dotspacemacs-maximized-at-startup t
 
    ;; If non-nil the frame is undecorated when Emacs starts up. Combine this
    ;; variable with `dotspacemacs-maximized-at-startup' in OSX to obtain
@@ -613,9 +633,8 @@ This function is called immediately after `dotspacemacs/init', before layer
 configuration.
 It is mostly for variables that should be set before packages are loaded.
 If you are unsure, try setting them in `dotspacemacs/user-config' first."
-(setq initial-frame-alist '((top . 10) (left . 100) (width . 212) (height . 80)))
-  (setq configuration-layer-elpa-archives '(("melpa" . "melpa.org/packages/")
-    ("org" . "orgmode.org/elpa/") ("gnu" . "elpa.gnu.org/packages/")))
+;;  (setq configuration-layer-elpa-archives '(("melpa" . "melpa.org/packages/")
+;;    ("org" . "orgmode.org/elpa/") ("gnu" . "elpa.gnu.org/packages/")))
  )
 
 
@@ -654,8 +673,9 @@ before packages are loaded."
   org-agenda-custom-commands
   '(
     ("l" todo "LATER")
-    ("j" todo "JIRA")
-    ("w" tags "+work")
+    ("j" "Agenda and JIRAs" ((agenda "") (todo "JIRA") (todo "REVIEW")))
+    ("m" "Agenda and meetings" ((agenda "") (todo "MEETING")))
+    ("w" "Work tasks and meetings" ((agenda "" ((org-agenda-span 14) (todo "MEETING") (todo "REVIEW") (todo "JIRA") (tags "+work"))) (todo "MEETING") (todo "REVIEW") (todo "JIRA") (tags "+work")))
     ("tw" tags-todo "+work")
     ("n" "Agenda and all TODOs" ((agenda "") (todo "TODO")))
     ("f" "Fortnight agenda and all TODOs" ((agenda "" ((org-agenda-span 14))) (alltodo "")))
@@ -665,8 +685,8 @@ before packages are loaded."
  (org-babel-jupyter-override-src-block "python")
 
  ;; Remove uninteresting files from dired
- (setq dired-omit-files
-       (concat dired-omit-files "\\|^\\.DS_Store$\\|,v$"))
+ ;;(setq dired-omit-files
+ ;;      (concat dired-omit-files "\\|^\\.DS_Store$\\|,v$"))
 
  ;; YASnippet work around
  (global-set-key (kbd "TAB") 'hippie-expand)
@@ -681,8 +701,87 @@ before packages are loaded."
  ;; configure auto-virtualenv
  (require 'auto-virtualenv)
  (add-hook 'python-mode-hook 'auto-virtualenv-set-virtualenv)
+ ;; Whether display the icons
+ (setq all-the-icons-ivy-rich-icon t)
+
+ ;; Whether display the colorful icons.
+ ;; It respects `all-the-icons-color-icons'.
+ (setq all-the-icons-ivy-rich-color-icon t)
+
+ ;; The icon size
+ (setq all-the-icons-ivy-rich-icon-size 1.0)
+
+ ;; Whether support project root
+ (setq all-the-icons-ivy-rich-project t)
+
+ ;; Slow Rendering
+ ;; If you experience a slow down in performance when rendering multiple icons simultaneously,
+ ;; you can try setting the following variable
+ (setq inhibit-compacting-font-caches t)
+
+ (require 'ivy-posframe)
+
+ (setq ivy-posframe-display-functions-alist '((t . ivy-posframe-display)))
+ (setq ivy-posframe-display-functions-alist '((t . ivy-posframe-display-at-frame-center)))
+ (setq ivy-posframe-display-functions-alist '((t . ivy-posframe-display-at-window-center)))
+ (setq ivy-posframe-display-functions-alist '((t . ivy-posframe-display-at-frame-bottom-left)))
+ (setq ivy-posframe-display-functions-alist '((t . ivy-posframe-display-at-window-bottom-left)))
+ (setq ivy-posframe-display-functions-alist '((t . ivy-posframe-display-at-frame-top-center)))
+ (ivy-posframe-mode 1)
+
+ (setq-default
+  org-startup-indented t
+  org-pretty-entities t
+       ;; show actually italicized text instead of /italicized text/
+       org-hide-emphasis-markers t
+       org-agenda-block-separator ""
+       org-fontify-whole-heading-line t
+       org-fontify-done-headline t
+       org-fontify-quote-and-verse-blocks t)
+
+ ;; Hack around evil-org bug
+ (fset 'evil-redirect-digit-argument 'ignore) ;; before evil-org loaded
+
+ (add-to-list 'evil-digit-bound-motions 'evil-org-beginning-of-line)
+ (evil-define-key 'motion 'evil-org-mode
+   (kbd "0") 'evil-org-beginning-of-line)
+ ;; evil-org hack ends here.
+
+ (setq rui/org-agenda-directory "~/Sync/notes/pages/")
+ (setq org-capture-templates
+       `(("i" "inbox" entry (file ,(concat rui/org-agenda-directory "Inbox.org"))
+          "* TODO  %?")
+         ("e" "email" entry (file+headline ,(concat rui/org-agenda-directory "emails.org") "Emails")
+          "* TODO  [#A] Reply: %a :@home:@school:" :immediate-finish t)
+         ("l" "link" entry (file ,(concat rui/org-agenda-directory "Inbox.org"))
+          "* TODO %(org-cliplink-capture)" :immediate-finish t)
+         ("c" "org-protocol-capture" entry (file ,(concat rui/org-agenda-directory "Inbox.org"))
+          "* TODO [[%:link][%:description]]\n\n %i" :immediate-finish t)))
+
+ ;; custom org-mode fonts
+ (set-face-attribute 'org-level-1 nil :height 1.5)
+ (set-face-attribute 'org-level-2 nil :height 1.4)
+ (set-face-attribute 'org-level-3 nil :height 1.3)
+ (set-face-attribute 'org-level-4 nil :height 1.2)
+ (set-face-attribute 'org-level-5 nil :height 1.1)
+ (set-face-attribute 'org-verbatim nil :background "#111")
+ (set-face-attribute 'org-done nil :weight 'bold :background "DarkGreen" :foreground "White")
+ (set-face-attribute 'org-quote nil :background "#111" :slant 'italic :foreground "#BBB")
+ (set-face-attribute 'org-block-begin-line nil :foreground "#888" :background "#222")
+
+ ;; Slime helper for SBCL
+ (load (expand-file-name "~/quicklisp/slime-helper.el"))
+ ;; Replace "sbcl" with the path to your implementation
+ (setq inferior-lisp-program "/usr/local/bin/sbcl")
  )
 
+(defun notes ()
+  "Switch to the notes view"
+  (interactive)
+  (delete-other-windows)
+  (find-file "~/Sync/notes/pages/contents.org")
+  (split-window-horizontally)
+  (org-agenda))
 
 ;; Do not write anything past this comment. This is where Emacs will
 ;; auto-generate custom variable definitions.

@@ -37,3 +37,9 @@
     - devtools
     - python
 
+- name: Install LISP(s)
+  import_tasks: "{{ role_path }}/tasks/lisp.yaml"
+  tags:
+    - devtools
+    - lisp
+

@@ -1,0 +1,19 @@
+---
+- name: Install SBCL
+  package:
+    name: sbcl
+    state: present
+
+- name: Download SBCL quicklisp
+  get_url:
+    url: http://beta.quicklisp.org/quicklisp.lisp 
+    dest: /tmp/quicklisp.lisp
+
+- name: Import SBCL quicklisp
+  ansible.builtin.shell:
+    cmd: sbcl --load /tmp/quicklisp.lisp --eval '(quicklisp-quickstart:install)' --eval '(ql:quickload "quicklisp-slime-helper")' --eval "(exit)"
+
+- name: Install Leiningen
+  package:
+    name: leiningen
+    state: present
