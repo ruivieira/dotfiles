@@ -5,6 +5,11 @@
     state: present
   when: ansible_distribution == 'MacOSX'
 
+- name: Install libvterm
+  package:
+    name: libvterm
+    state: present
+  
 - name: Install ripgrep (Linux)
   become: "{{linux}}"
   package:
