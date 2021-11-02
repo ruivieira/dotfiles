@@ -43,12 +43,12 @@ This function should only modify configuration layer settings."
      ;; better-defaults
      clojure
      common-lisp
+     colors
      docker
      elfeed
      emacs-lisp
      emoji
      git
-     ;; helm
      ivy
      java
      javascript
@@ -61,7 +61,8 @@ This function should only modify configuration layer settings."
      shell-scripts
      (shell :variables
             shell-default-height 30
-            shell-default-position 'bottom)
+            shell-default-position 'bottom
+            shell-default-shell 'vterm)
 
      rust
      syntax-checking
@@ -71,10 +72,10 @@ This function should only modify configuration layer settings."
      treemacs
 
      ;; Python layer configuration
-     (python :variables python-backend 'lsp python-lsp-server 'pyright)
-
-     ;;; Add the black formatter
-     (python :variables python-formatter 'black)
+     (python :variables
+             python-backend 'lsp
+             python-lsp-server 'pyright
+             python-formatter 'black)
 
      ;; Auto-completion configuration
      (auto-completion :variables
@@ -82,16 +83,21 @@ This function should only modify configuration layer settings."
 
      ;; org-mode configuration
      (org :variables
-          org-enable-sticky-header t)
-     (org :variables
-          org-agenda-files (directory-files-recursively "~/Sync/notes/pages/" "\\.org$"))
+          org-enable-sticky-header t
+          org-agenda-files "~/Sync/notes/pages"
+          org-default-notes-file "~/Sync/notes/pages/contents.org"
+          org-display-inline-images t
+          org-enforce-todo-dependencies t
+          org-startup-folded "showall" ;; default org-mode visibility is to show all document
+          org-startup-indented t ;; indent below headings as default
+     )
 
      (org :variables org-emphasis-alist
            '(("*" (bold))
              ("/" italic)
              ("_" underline)
              ("=" (:background "#CCAA00" :foreground "#FF99FF"))
-             ("~" (:background "#111" :foreground ""))
+             ("~" (:background "#111" :foreground "Cyan"))
              ("+" (:strike-through t))))
 
      (org :variables
@@ -99,17 +105,13 @@ This function should only modify configuration layer settings."
           '("s" "#+NAME: ?\n#+BEGIN_SRC \n\n#+END_SRC")
           )
 
-    (org :variables
-         org-display-inline-images t)
-
-    (org :variables
-         org-enforce-todo-dependencies t)
-
     ;; Set extra org-mode TODO keywords
     (org :variables
          org-todo-keywords
          '((sequence "TODO" "LATER" "DOING" "|" "DONE" "CANCELED")
            (sequence "JIRA" "REVIEW" "|" "MERGED" "CANCELED")
+           (sequence "WORK" "|" "DONE" "CANCELED")
+           (sequence "SHOP" "|" "DONE" "CANCELED")
            (sequence "MEETING" "|" "DONE" "CANCELED")
            (sequence "IDEA" "|" "DONE" "CANCELED")
            ))
@@ -117,7 +119,8 @@ This function should only modify configuration layer settings."
     (elfeed :variables
             elfeed-feeds '(("https://news.ycombinator.com/rss" news computing)
                   ("http://rss.slashdot.org/Slashdot/slashdot"  news computing)
-                  ("https://lobste.rs/rss" news computing)))
+                  ("https://lobste.rs/rss" news computing)
+                  ("https://planet.emacslife.com/atom.xml" news emacs computing)))
 
       ;; ivy configuration
       (ivy :variables ivy-enable-icons t)
@@ -128,10 +131,7 @@ This function should only modify configuration layer settings."
       (lsp :variables lsp-lens-enable t)
       (lsp :variables lsp-use-lsp-ui t)
       (lsp :variables lsp-ui-sideline-show-symbol t)
-
-      )
-
-
+)
    ;; List of additional packages that will be installed without being wrapped
    ;; in a layer (generally the packages are installed only and should still be
    ;; loaded using load/require/use-package in the user-config section below in
@@ -151,15 +151,20 @@ This function should only modify configuration layer settings."
                                       (ample-theme)
                                       ;; Other packages
                                       (virtualenvwrapper)
+                                      ;; org
                                       (org-sidebar)
+                                      (org-tree-slide)
                                       (jupyter)
-                                      (org-super-agenda)
                                       (auto-virtualenv)
                                       (cookiecutter :location
                                                     (recipe :fetcher github
                                                             :repo "ruivieira/cookiecutter.el"
                                                             :files ("cookiecutter.el")))
 
+                                      (agile :location
+                                                    (recipe :fetcher github
+                                                            :repo "ruivieira/elisp"
+                                                            :files ("agile.el")))
                                       (ivy-posframe)
                                       (all-the-icons-ivy-rich)
    )
@@ -323,7 +328,6 @@ It should only modify the values of Spacemacs settings."
                          modus-vivendi
                          acme
                          ample
-                         sketch-black
                          zenburn
                          cyberpunk
                          gruvbox-dark-soft
@@ -591,7 +595,7 @@ It should only modify the values of Spacemacs settings."
    ;; indent handling like has been reported for `go-mode'.
    ;; If it does deactivate it here.
    ;; (default t)
-   dotspacemacs-use-clean-aindent-mode t
+   dotspacemacs-use-clean-aindent-mode nil
 
    ;; Accept SPC as y for prompts if non-nil. (default nil)
    dotspacemacs-use-SPC-as-y nil
@@ -673,10 +677,11 @@ before packages are loaded."
   org-agenda-custom-commands
   '(
     ("l" todo "LATER")
-    ("j" "Agenda and JIRAs" ((agenda "") (todo "JIRA") (todo "REVIEW")))
+    ("j" "Agenda and work tasks" ((agenda "") (todo "JIRA") (todo "REVIEW") (todo "WORK")))
     ("m" "Agenda and meetings" ((agenda "") (todo "MEETING")))
-    ("w" "Work tasks and meetings" ((agenda "" ((org-agenda-span 14) (todo "MEETING") (todo "REVIEW") (todo "JIRA") (tags "+work"))) (todo "MEETING") (todo "REVIEW") (todo "JIRA") (tags "+work")))
+    ("w" "Work tasks and meetings" ((agenda "" ((org-agenda-span 14) (todo "MEETING") (todo "REVIEW") (todo "JIRA") (todo "WORK") (tags "+work"))) (todo "MEETING") (todo "REVIEW") (todo "JIRA") (todo "WORK") (tags "+work")))
     ("tw" tags-todo "+work")
+    ("s" "Shopping tasks" ((agenda "" ((todo "SHOP"))) (todo "SHOP")))
     ("n" "Agenda and all TODOs" ((agenda "") (todo "TODO")))
     ("f" "Fortnight agenda and all TODOs" ((agenda "" ((org-agenda-span 14))) (alltodo "")))
     ))
@@ -693,10 +698,6 @@ before packages are loaded."
 
  ;; Set line wrap on, globally
  (global-visual-line-mode t)
-
- (let ((org-super-agenda-groups
-       '((:auto-category t))))
-   (org-agenda-list))
 
  ;; configure auto-virtualenv
  (require 'auto-virtualenv)
@@ -729,15 +730,6 @@ before packages are loaded."
  (setq ivy-posframe-display-functions-alist '((t . ivy-posframe-display-at-frame-top-center)))
  (ivy-posframe-mode 1)
 
- (setq-default
-  org-startup-indented t
-  org-pretty-entities t
-       ;; show actually italicized text instead of /italicized text/
-       org-hide-emphasis-markers t
-       org-agenda-block-separator ""
-       org-fontify-whole-heading-line t
-       org-fontify-done-headline t
-       org-fontify-quote-and-verse-blocks t)
 
  ;; Hack around evil-org bug
  (fset 'evil-redirect-digit-argument 'ignore) ;; before evil-org loaded
@@ -749,8 +741,10 @@ before packages are loaded."
 
  (setq rui/org-agenda-directory "~/Sync/notes/pages/")
  (setq org-capture-templates
-       `(("i" "inbox" entry (file ,(concat rui/org-agenda-directory "Inbox.org"))
+       `(("t" "todo" entry (file ,(concat rui/org-agenda-directory "Inbox.org"))
           "* TODO  %?")
+         ("w" "work" entry (file ,(concat rui/org-agenda-directory "Inbox.org"))
+            "* WORK  %?")
          ("e" "email" entry (file+headline ,(concat rui/org-agenda-directory "emails.org") "Emails")
           "* TODO  [#A] Reply: %a :@home:@school:" :immediate-finish t)
          ("l" "link" entry (file ,(concat rui/org-agenda-directory "Inbox.org"))
@@ -764,7 +758,7 @@ before packages are loaded."
  (set-face-attribute 'org-level-3 nil :height 1.3)
  (set-face-attribute 'org-level-4 nil :height 1.2)
  (set-face-attribute 'org-level-5 nil :height 1.1)
- (set-face-attribute 'org-verbatim nil :background "#111")
+ (set-face-attribute 'org-verbatim nil :background "#111" :foreground "Pink")
  (set-face-attribute 'org-done nil :weight 'bold :background "DarkGreen" :foreground "White")
  (set-face-attribute 'org-quote nil :background "#111" :slant 'italic :foreground "#BBB")
  (set-face-attribute 'org-block-begin-line nil :foreground "#888" :background "#222")
@@ -773,7 +767,7 @@ before packages are loaded."
  (load (expand-file-name "~/quicklisp/slime-helper.el"))
  ;; Replace "sbcl" with the path to your implementation
  (setq inferior-lisp-program "/usr/local/bin/sbcl")
- )
+)
 
 (defun notes ()
   "Switch to the notes view"
