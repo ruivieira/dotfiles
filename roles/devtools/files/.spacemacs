@@ -84,12 +84,18 @@ This function should only modify configuration layer settings."
      ;; org-mode configuration
      (org :variables
           org-enable-sticky-header t
-          org-agenda-files "~/Sync/notes/pages"
+          org-agenda-files (seq-filter
+                            (lambda (path)
+                              (not (seq-some
+                                    (lambda (x) (string-match x path))
+                                    ["backlog/"] )))
+                            (directory-files-recursively "~/Sync/notes/pages/" "\\.org$" ))
           org-default-notes-file "~/Sync/notes/pages/contents.org"
           org-display-inline-images t
           org-enforce-todo-dependencies t
           org-startup-folded "showall" ;; default org-mode visibility is to show all document
           org-startup-indented t ;; indent below headings as default
+          org-agenda-inhibit-startup t
      )
 
      (org :variables org-emphasis-alist
