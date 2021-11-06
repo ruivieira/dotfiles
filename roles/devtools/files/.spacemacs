@@ -84,18 +84,15 @@ This function should only modify configuration layer settings."
      ;; org-mode configuration
      (org :variables
           org-enable-sticky-header t
-          org-agenda-files (seq-filter
-                            (lambda (path)
-                              (not (seq-some
-                                    (lambda (x) (string-match x path))
-                                    ["backlog/"] )))
-                            (directory-files-recursively "~/Sync/notes/pages/" "\\.org$" ))
+          org-agenda-files (file-expand-wildcards "~/Sync/notes/pages/*.org")
           org-default-notes-file "~/Sync/notes/pages/contents.org"
           org-display-inline-images t
           org-enforce-todo-dependencies t
           org-startup-folded "showall" ;; default org-mode visibility is to show all document
-          org-startup-indented t ;; indent below headings as default
+          org-startup-indented t ;; indent below headings as defaults
           org-agenda-inhibit-startup t
+          org-agenda-dim-blocked-tasks nil
+          org-agenda-use-tag-inheritance nil
      )
 
      (org :variables org-emphasis-alist
@@ -114,12 +111,12 @@ This function should only modify configuration layer settings."
     ;; Set extra org-mode TODO keywords
     (org :variables
          org-todo-keywords
-         '((sequence "TODO" "LATER" "DOING" "|" "DONE" "CANCELED")
-           (sequence "JIRA" "REVIEW" "|" "MERGED" "CANCELED")
+         '((sequence "IDEA" "TODO" "LATER" "DOING" "|" "DONE" "CANCELED")
+           (sequence "BACKLOG" "INPROGRESS" "ONHOLD" "INREVIEW" "|" "MERGED" "CANCELED")
            (sequence "WORK" "|" "DONE" "CANCELED")
            (sequence "SHOP" "|" "DONE" "CANCELED")
-           (sequence "MEETING" "|" "DONE" "CANCELED")
-           (sequence "IDEA" "|" "DONE" "CANCELED")
+           (sequence "REVIEW" "|" "DONE" "CANCELED")
+           (sequence "MEETING" "|" "MET" "CANCELED")
            ))
 
     (elfeed :variables
@@ -356,7 +353,7 @@ It should only modify the values of Spacemacs settings."
    ;; Default font or prioritized list of fonts. The `:size' can be specified as
    ;; a non-negative integer (pixel size), or a floating-point (point size).
    ;; Point size is recommended, because it's device independent. (default 10.0)
-   dotspacemacs-default-font '("Victor Mono"
+   dotspacemacs-default-font '("JetBrains Mono"
                                :size 14.0
                                :weight normal
                                :width normal)
@@ -667,7 +664,6 @@ before packages are loaded."
    markdown-fontify-code-blocks-natively t
    markdown-header-scaling t
    )
- (setq org-agenda-files (directory-files-recursively "~/Sync/notes/pages/" "\\.org$"))
  (setq org-plantuml-jar-path
        (expand-file-name "/usr/local/Cellar/plantuml/1.2021.12/libexec/plantuml.jar"))
  (org-babel-do-load-languages
@@ -683,13 +679,24 @@ before packages are loaded."
   org-agenda-custom-commands
   '(
     ("l" todo "LATER")
-    ("j" "Agenda and work tasks" ((agenda "") (todo "JIRA") (todo "REVIEW") (todo "WORK")))
-    ("m" "Agenda and meetings" ((agenda "") (todo "MEETING")))
+    ("j" "Agenda and work tasks" (
+                                  (agenda "")
+                                  (todo "BACKLOG") (todo "INPROGRESS")
+                                  (todo "WORK")
+                                  (todo "REVIEW")))
+    ("h" "Work (on hold): agend and tasks" (
+                                            (agenda "" ((todo "ONHOLD") (todo "INREVIEW")))
+                                            (todo "ONHOLD") (todo "INREVIEW")))
+    ("m" "Work: agenda and meetings" (
+                                (agenda "" ((todo "MEETING")))
+                                (todo "MEETING")))
     ("w" "Work tasks and meetings" ((agenda "" ((org-agenda-span 14) (todo "MEETING") (todo "REVIEW") (todo "JIRA") (todo "WORK") (tags "+work"))) (todo "MEETING") (todo "REVIEW") (todo "JIRA") (todo "WORK") (tags "+work")))
     ("tw" tags-todo "+work")
-    ("s" "Shopping tasks" ((agenda "" ((todo "SHOP"))) (todo "SHOP")))
-    ("n" "Agenda and all TODOs" ((agenda "") (todo "TODO")))
-    ("f" "Fortnight agenda and all TODOs" ((agenda "" ((org-agenda-span 14))) (alltodo "")))
+    ("s" "Shopping: agenda and tasks" ((agenda "" ((todo "SHOP"))) (todo "SHOP")))
+    ("n" "General: agenda and TODOs" (
+                             (agenda "" ((todo "TODO")))
+                             (todo "TODO")))
+    ("f" "Fortnight agenda and everything" ((agenda "" ((org-agenda-span 14))) (alltodo "")))
     ))
 
  ;; set Python source blocks to babel by default
@@ -757,23 +764,28 @@ before packages are loaded."
           "* TODO %(org-cliplink-capture)" :immediate-finish t)
          ("c" "org-protocol-capture" entry (file ,(concat rui/org-agenda-directory "Inbox.org"))
           "* TODO [[%:link][%:description]]\n\n %i" :immediate-finish t)))
-
+ (setq org-image-actual-width nil)
  ;; custom org-mode fonts
- (set-face-attribute 'org-level-1 nil :height 1.5)
- (set-face-attribute 'org-level-2 nil :height 1.4)
- (set-face-attribute 'org-level-3 nil :height 1.3)
- (set-face-attribute 'org-level-4 nil :height 1.2)
- (set-face-attribute 'org-level-5 nil :height 1.1)
- (set-face-attribute 'org-verbatim nil :background "#111" :foreground "Pink")
- (set-face-attribute 'org-done nil :weight 'bold :background "DarkGreen" :foreground "White")
- (set-face-attribute 'org-quote nil :background "#111" :slant 'italic :foreground "#BBB")
- (set-face-attribute 'org-block-begin-line nil :foreground "#888" :background "#222")
+ ;; (set-face-attribute 'org-level-1 nil :height 1.5)
+ ;; (set-face-attribute 'org-level-2 nil :height 1.4)
+ ;; (set-face-attribute 'org-level-3 nil :height 1.3)
+ ;; (set-face-attribute 'org-level-4 nil :height 1.2)
+ ;; (set-face-attribute 'org-level-5 nil :height 1.1)
+ ;; (set-face-attribute 'org-verbatim nil :background "#111" :foreground "Pink")
+ ;; (set-face-attribute 'org-done nil :weight 'bold :background "DarkGreen" :foreground "White")
+ ;; (set-face-attribute 'org-quote nil :background "#111" :slant 'italic :foreground "#BBB")
+ ;; (set-face-attribute 'org-block-begin-line nil :foreground "#888" :background "#222")
 
  ;; Slime helper for SBCL
  (load (expand-file-name "~/quicklisp/slime-helper.el"))
  ;; Replace "sbcl" with the path to your implementation
  (setq inferior-lisp-program "/usr/local/bin/sbcl")
-)
+
+ ;; Disable git-gutter for org-mode
+ (setq git-gutter:disabled-modes '(org-mode image-mode))
+ (setq flycheck-global-modes '(not org-mode))
+ (setq evil-insert-state-cursor '((bar . 5) "red"))
+ )
 
 (defun notes ()
   "Switch to the notes view"

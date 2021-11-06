@@ -51,6 +51,9 @@ Plug 'iamcco/markdown-preview.nvim'
 " Outliner
 Plug 'vimoutliner/vimoutliner'
 
+" Org-mode
+Plug 'kristijanhusak/orgmode.nvim'
+
 " Ansible plugin
 Plug 'pearofducks/ansible-vim'
 
@@ -105,3 +108,11 @@ let g:wiki_link_extension = '.md'
 " Ansible plugin configuration
 let g:ansible_extra_keywords_highlight = 1
 let g:ansible_name_highlight = 'b'
+
+" init.vim
+lua << EOF
+require('orgmode').setup({
+  org_agenda_files = {'~/Sync/notes/pages/*.org'},
+  org_default_notes_file = '~/Sync/notes/pages/contents.org',
+})
+EOF

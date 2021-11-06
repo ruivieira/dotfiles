@@ -1,0 +1,49 @@
+---
+- name: Install ripgrep (macOS)
+  package:
+    name: rg
+    state: present
+  when: ansible_distribution == 'MacOSX'
+
+- name: Install libvterm
+  package:
+    name: libvterm
+    state: present
+  
+- name: Install ripgrep (Linux)
+  become: "{{linux}}"
+  package:
+    name: ripgrep
+    state: present
+  when: ansible_distribution == 'Fedora'
+
+- name: Install Emacs
+  become: "{{linux}}"
+  package:
+    name: emacs
+    state: present
+
+- name: Delete current emacs config
+  file:
+    path: ~/.emacs.d
+    state: absent
+
+- name: Delete current DOOM emacs config
+  file:
+    path: ~/.doom.d
+    state: absent
+
+- name: Delete current spacemacs config
+  file:
+    path: ~/.spacemacs
+    state: absent
+
+- name: Clone DOOM Emacs
+  ansible.builtin.git:
+    repo: https://github.com/hlissner/doom-emacs
+    dest: "{{ansible_env.HOME}}/.emacs.d"
+
+- name: Run DOOM Emacs install
+  ansible.builtin.shell:
+    cmd: ./doom -yC install
+    chdir: ~/.emacs.d/bin

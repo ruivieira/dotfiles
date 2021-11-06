@@ -5,62 +5,45 @@
     state: latest
   become: "{{linux}}"
   register: neovim_result
-  tags:
-    - editors
+
 - name: Delete current NeoVim config
   file:
     path: ~/.config/nvim
     state: absent
-  tags:
-    - editors
+
 - name: Create NeoVim config dir
   file:
     path: ~/.config/nvim
     state: directory
-  tags:
-    - editors
 - name: Link init.vim
   file:
     src: "{{playbook_dir}}/.config/nvim/init.vim"
     dest: ~/.config/nvim/init.vim
     force: yes
     state: link
-  tags:
-    - editors
 - name: Check if NeoVim bundle folder exists
   stat:
     path: "{{ansible_env.HOME}}/.config/nvim/bundle"
   register: neovim_bundle_dir_result
-  tags:
-    - editors
 - name: Delete current NeoVim bundle folder
   shell: "rm -Rf {{ansible_env.HOME}}/.config/nvim/bundle"
   when: neovim_bundle_dir_result.stat.exists == True 
-  tags:
-    - editors
 - name: Create NeoVim bundle folder
   file:
     path: "{{ansible_env.HOME}}/.config/nvim/bundle"
     state: directory
-  tags:
-    - editors
 - name: Install NeoVim Bundles
   git:
     repo: "git://github.com/{{item.url}}"
     dest: "{{ansible_env.HOME}}/.config/nvim/bundle/{{item.name}}"
   with_items:
     - { url: "zah/nim.vim.git", name: "nim.vim" }
-  
-  tags:
-    - editors
 - name: Install pathogen
   shell: "{{item}}"
   with_items:
     - rm -Rf ~/.config/nvim/autoload
     - mkdir -p ~/.config/nvim/autoload
     - curl -LSso ~/.config/nvim/autoload/pathogen.vim https://tpo.pe/pathogen.vim
-  tags:
-    - editors
 - name: Install vimplug
   shell: "{{item}}"
   with_items:

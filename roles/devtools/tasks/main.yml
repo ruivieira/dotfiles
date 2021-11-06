@@ -25,6 +25,12 @@
     - devtools
     - spacemacs
 
+- name: Install DOOM Emacs
+  import_tasks: "{{ role_path }}/tasks/doom-emacs.yaml"
+  tags:
+    - devtools
+    - doomemacs
+
 - name: Install VSCode
   import_tasks: "{{ role_path }}/tasks/vscode.yaml"
   tags:
