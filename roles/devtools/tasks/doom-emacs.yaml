@@ -5,7 +5,14 @@
     state: present
   when: ansible_distribution == 'MacOSX'
 
+- name: Install fd
+  package:
+    name: fd
+    state: present
+  when: ansible_distribution == 'MacOSX'
+
 - name: Install libvterm
+  become: "{{linux}}"
   package:
     name: libvterm
     state: present

@@ -26,7 +26,7 @@
 ;; `load-theme' function. This is the default:
 ;; (setq doom-theme 'doom-one)
 ;; (setq doom-theme 'acme)
-(setq doom-theme 'doom-acario-dark)
+(setq doom-theme 'doom-sourcerer)
 
 (let ((alternatives '("doom-emacs-color.png" "doom-emacs-color2.png"
                       "doom-emacs-slant-out-bw.png" "doom-emacs-slant-out-color.png")))
@@ -63,6 +63,8 @@
 ;; start full-screen
 (add-to-list 'initial-frame-alist '(fullscreen . maximized))
 
+(setq python-shell-completion-native-enable nil)
+
 (after! org
       (setq org-todo-keywords
             '((sequence "IDEA" "TODO" "LATER" "DOING" "|" "DONE" "CANCELED")
@@ -74,27 +76,42 @@
       (setq org-agenda-custom-commands
             '(("l" todo "LATER")
             ("j" "Agenda and work tasks" (
-                                  (agenda "")
-                                  (todo "BACKLOG") (todo "INPROGRESS")
-                                  (todo "WORK")
-                                  (todo "REVIEW")))
-    ("h" "Work (on hold): agend and tasks" (
-                                            (agenda "" ((todo "ONHOLD") (todo "INREVIEW")))
-                                            (todo "ONHOLD") (todo "INREVIEW")))
-    ("m" "Work: agenda and meetings" (
-                                (agenda "" ((todo "MEETING")))
-                                (todo "MEETING")))
-    ("w" "Work tasks and meetings" ((agenda "" ((org-agenda-span 14) (todo "MEETING") (todo "REVIEW") (todo "JIRA") (todo "WORK") (tags "+work"))) (todo "MEETING") (todo "REVIEW") (todo "JIRA") (todo "WORK") (tags "+work")))
+                                          (agenda "")
+                                          (todo "BACKLOG") (todo "INPROGRESS")
+                                          (todo "WORK")
+                                          (todo "REVIEW")))
+            ("h" "Work (on hold): agend and tasks" (
+                                                    (agenda "" ((todo "ONHOLD") (todo "INREVIEW")))
+                                                    (todo "ONHOLD") (todo "INREVIEW")))
+            ("m" "Work: agenda and meetings" (
+                                              (agenda "" ((todo "MEETING")))
+                                              (todo "MEETING")))
+            ("w" "Work tasks and meetings" (
+                                            (agenda "" ((org-agenda-span 14)
+                                                        (todo "MEETING")
+                                                        (todo "REVIEW")
+                                                        (todo "BACKLOG")
+                                                        (todo "WORK")
+                                                        (tags "+work")))
+                                    (todo "MEETING")
+                                    (todo "REVIEW")
+                                    (todo "BACKLOG")
+                                    (todo "WORK")
+                                    (tags "+work")))
     ("tw" tags-todo "+work")
-    ("s" "Shopping: agenda and tasks" ((agenda "" ((todo "SHOP"))) (todo "SHOP")))
+    ("s" "Shopping: agenda and tasks" (
+                                       (agenda "" ((todo "SHOP")))
+                                       (todo "SHOP")))
     ("n" "General: agenda and TODOs" (
                              (agenda "" ((todo "TODO")))
                              (todo "TODO")))
-    ("f" "Fortnight agenda and everything" ((agenda "" ((org-agenda-span 14))) (alltodo "")))
+    ("f" "Fortnight agenda and everything" (
+                                            (agenda "" ((org-agenda-span 14)))
+                                            (alltodo "")))
     ))
     (setq rui/org-agenda-directory "~/Sync/notes/pages/")
- (setq org-capture-templates
-       `(("t" "todo" entry (file ,(concat rui/org-agenda-directory "Inbox.org"))
+    (setq org-capture-templates
+          `(("t" "todo" entry (file ,(concat rui/org-agenda-directory "Inbox.org"))
           "* TODO  %?")
          ("w" "work" entry (file ,(concat rui/org-agenda-directory "Inbox.org"))
             "* WORK  %?")
@@ -105,7 +122,26 @@
          ("c" "org-protocol-capture" entry (file ,(concat rui/org-agenda-directory "Inbox.org"))
           "* TODO [[%:link][%:description]]\n\n %i" :immediate-finish t)))
  (setq org-image-actual-width nil)
+    (org-babel-do-load-languages
+  'org-babel-load-languages
+  '((emacs-lisp . t)
+    (plantuml . t)
+    (java . t)
+    (python . t)
+    (deno . t)
+    (go . t)
+    (jupyter . t)))
+    (setq org-roam-directory "~/Sync/notes/pages/")
+    
     )
+
+(add-hook 'typescript-mode-hook 'deno-fmt-mode)
+(add-hook 'js2-mode-hook 'deno-fmt-mode)
+;; (add-to-list 'org-src-lang-modes '("deno" . typescript))
+
+;; Configure file templates
+(set-file-template! "/post\\.org$" :trigger "__post.org" :mode 'org-mode)
+(set-file-template! "/JIRAs\\.org$" :trigger "__jira.org" :mode 'org-mode)
 
 (use-package! org-super-agenda
   :after org-agenda
