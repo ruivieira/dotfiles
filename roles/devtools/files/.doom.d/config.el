@@ -132,7 +132,7 @@
     (go . t)
     (jupyter . t)))
     (setq org-roam-directory "~/Sync/notes/pages/")
-    
+    (setq org-babel-jupyter-override-src-block "python")
     )
 
 (add-hook 'typescript-mode-hook 'deno-fmt-mode)
@@ -148,3 +148,75 @@
   :config
   (setq org-super-agenda-groups '((:auto-dir-name t)))
   (org-super-agenda-mode))
+
+(use-package! org-ref
+
+  ;; this bit is highly recommended: make sure Org-ref is loaded after Org
+  :after org
+
+  ;; Put any Org-ref commands here that you would like to be auto loaded:
+  ;; you'll be able to call these commands before the package is actually loaded.
+  :commands
+  (org-ref-cite-hydra/body
+   org-ref-bibtex-hydra/body)
+
+  ;; if you don't need any autoloaded commands, you'll need the following
+  ;; :defer t
+
+  ;; This initialization bit puts the `orhc-bibtex-cache-file` into `~/.doom/.local/cache/orhc-bibtex-cache
+  ;; Not strictly required, but Org-ref will pollute your home directory otherwise, creating the cache file in ~/.orhc-bibtex-cache
+  :init
+  (let ((cache-dir (concat doom-cache-dir "org-ref")))
+    (unless (file-exists-p cache-dir)
+      (make-directory cache-dir t))
+    (setq orhc-bibtex-cache-file (concat cache-dir "/orhc-bibtex-cache"))
+    ))
+
+(after! org
+  (require 'org-ref))
+
+(use-package! org-ref
+    ;:after org-roam
+    :config
+    (setq
+         org-ref-completion-library 'org-ref-ivy-cite
+         org-ref-get-pdf-filename-function 'org-ref-get-pdf-filename-helm-bibtex
+         bibtex-completion-bibliography (list "~/Sync/notes/references.bib")
+         org-ref-note-title-format "* %y - %t\n :PROPERTIES:\n  :Custom_ID: %k\n  :NOTER_DOCUMENT: %F\n :ROAM_KEY: cite:%k\n  :AUTHOR: %9a\n  :JOURNAL: %j\n  :YEAR: %y\n  :VOLUME: %v\n  :PAGES: %p\n  :DOI: %D\n  :URL: %U\n :END:\n\n"
+         org-ref-notes-function 'orb-edit-notes
+    ))
+
+(after! org-ref
+(setq
+ bibtex-completion-bibliography "~/Sync/notes/references.bib"
+ bibtex-completion-pdf-field "file"
+ bibtex-completion-notes-template-multiple-files
+ (concat
+  "#+TITLE: ${title}\n"
+  "#+ROAM_KEY: cite:${=key=}\n"
+  "* TODO Notes\n"
+  ":PROPERTIES:\n"
+  ":Custom_ID: ${=key=}\n"
+  ":NOTER_DOCUMENT: %(orb-process-file-field \"${=key=}\")\n"
+  ":AUTHOR: ${author-abbrev}\n"
+  ":JOURNAL: ${journaltitle}\n"
+  ":DATE: ${date}\n"
+  ":YEAR: ${year}\n"
+  ":DOI: ${doi}\n"
+  ":URL: ${url}\n"
+  ":END:\n\n"
+  )
+ )
+)
+(after! ox-hugo
+  (use-package! citeproc-org
+    :config
+    (citeproc-org-setup)
+    (setq citeproc-org-org-bib-header "* References\n")
+    )
+  (setq org-hugo-auto-set-lastmod 't
+      org-hugo-section "posts"
+      org-hugo-suppress-lastmod-period 43200.0
+      org-hugo-export-creator-string "Emacs 28.0 (Org mode 9.4 + ox-hugo)"
+)
+  )

@@ -14,6 +14,9 @@
 ;; org-babel packages
 (package! ob-deno)
 (package! ob-go)
+(package! ivy-bibtex)
+(package! org-ref)
+(package! citeproc-org)
 
 (package! deno-fmt)
 ;; To install a package directly from a remote git repo, you must specify a
