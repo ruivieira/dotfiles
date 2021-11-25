@@ -27,15 +27,20 @@
 ;; (setq doom-theme 'doom-one)
 ;; (setq doom-theme 'acme)
 (setq doom-theme 'doom-sourcerer)
+;; (setq doom-theme 'doom-flatwhite)
+;; (setq doom-theme 'doom-one-light)
+;; (setq doom-theme 'doom-solarized-light)
+;; (setq doom-theme 'doom-acario-dark)
+
+(add-hook! 'solaire-mode-hook
+  ;(set-face-attribute 'solaire-fringe-face nil :background (face-background 'solaire-hl-line-face))
+  (set-face-attribute 'fringe nil :background (face-background 'solaire-default-face)))
 
 (let ((alternatives '("doom-emacs-color.png" "doom-emacs-color2.png"
                       "doom-emacs-slant-out-bw.png" "doom-emacs-slant-out-color.png")))
   (setq fancy-splash-image
         (concat doom-private-dir "splash/"
                 (nth (random (length alternatives)) alternatives))))
-;; If you use `org' and don't want your org files in the default location below,
-;; change `org-directory'. It must be set before org loads!
-(setq org-directory "~/Sync/notes/pages/")
 
 ;; This determines the style of line numbers in effect. If set to `nil', line
 ;; numbers are disabled. For relative line numbers, set this to `relative'.
@@ -63,7 +68,21 @@
 ;; start full-screen
 (add-to-list 'initial-frame-alist '(fullscreen . maximized))
 
+(after! f
+  (setq org-agenda-files
+      (flatten-list
+       (mapcar #'(lambda (topic) (f-glob (format "~/Sync/notes/pages/%s/*.org" topic)))
+              '("." "AI" "Code" "Code projects" "JIRAs" "Life" "Machine learning" "Tools")))))
+
+;; Python configuration
 (setq python-shell-completion-native-enable nil)
+(use-package! python-black
+  :after python
+  :hook (python-mode . python-black-on-save-mode-enable-dwim))
+
+;; If you use `org' and don't want your org files in the default location below,
+;; change `org-directory'. It must be set before org loads!
+;; (setq org-directory "~/Sync/notes/pages/")
 
 (after! org
       (setq org-todo-keywords
@@ -122,18 +141,26 @@
          ("c" "org-protocol-capture" entry (file ,(concat rui/org-agenda-directory "Inbox.org"))
           "* TODO [[%:link][%:description]]\n\n %i" :immediate-finish t)))
  (setq org-image-actual-width nil)
-    (org-babel-do-load-languages
+ (org-babel-do-load-languages
   'org-babel-load-languages
-  '((emacs-lisp . t)
+  '(
+    (emacs-lisp . t)
     (plantuml . t)
     (java . t)
     (python . t)
     (deno . t)
     (go . t)
     (jupyter . t)))
-    (setq org-roam-directory "~/Sync/notes/pages/")
-    (setq org-babel-jupyter-override-src-block "python")
-    )
+
+ (setq org-roam-directory "~/Sync/notes/pages/"))
+
+(after! org-src
+ (dolist (lang '(python typescript jupyter))
+ (cl-pushnew (cons (format "jupyter-%s" lang) lang)
+                org-src-lang-modes :key #'car))
+  ;; (org-babel-jupyter-override-src-block "python") ;; alias all python to jupyter-python
+  ;; (org-babel-jupyter-override-src-block "typescript") ;; alias all python to jupyter-python
+ )
 
 (add-hook 'typescript-mode-hook 'deno-fmt-mode)
 (add-hook 'js2-mode-hook 'deno-fmt-mode)

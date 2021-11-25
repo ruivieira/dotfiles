@@ -8,7 +8,9 @@
 
 ;; To install SOME-PACKAGE from MELPA, ELPA or emacsmirror:
 ;(package! some-package)
+;; Themes
 (package! acme-theme)
+(package! doom-themes)
 (package! org-super-agenda)
 (package! org-sidebar)
 ;; org-babel packages
@@ -17,8 +19,12 @@
 (package! ivy-bibtex)
 (package! org-ref)
 (package! citeproc-org)
-
+;; Extra Python packages
+(package! python-black)
 (package! deno-fmt)
+
+;; Utilities
+(package! f)
 ;; To install a package directly from a remote git repo, you must specify a
 ;; `:recipe'. You'll find documentation on what `:recipe' accepts here:
 ;; https://github.com/raxod502/straight.el#the-recipe-format
