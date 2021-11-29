@@ -1,0 +1,10 @@
+---
+- name: Setup i3
+  import_tasks: "{{ role_path }}/tasks/i3.yaml"
+  tags:
+    - ui
+
+- name: Setup Alacritty
+  import_tasks: "{{ role_path }}/tasks/alacritty.yaml"
+  tags:
+    - ui

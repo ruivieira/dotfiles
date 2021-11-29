@@ -1,0 +1,16 @@
+- name: Install i3
+  ansible.builtin.package:
+    name: i3
+    state: present
+
+- name: Create i3 config dir
+  file:
+    path: ~/.config/i3
+    state: directory
+
+- name: Copy i3 config
+  ansible.builtin.copy:
+    src: "{{role_path}}/files/i3/{{item}}"
+    dest: "~/.config/i3/{{item}}"
+  with_items:
+    - "config"

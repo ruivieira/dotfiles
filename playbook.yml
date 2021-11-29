@@ -1,5 +1,5 @@
 ---
-- hosts: all
+- hosts: localhost
   gather_facts: yes
   vars:
     linux: "{{ 'no' if ansible_distribution == 'MacOSX' else 'yes'}}"
@@ -15,5 +15,6 @@
     - { role: config, tags: [config] }
     - { role: fonts, tags: [fonts] }
     - { role: rust, tags: [rust] }
+    - { role: ui, tags: [ui] }
 
   # Core dependencies

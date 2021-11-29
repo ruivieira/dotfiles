@@ -141,10 +141,14 @@
          ("c" "org-protocol-capture" entry (file ,(concat rui/org-agenda-directory "Inbox.org"))
           "* TODO [[%:link][%:description]]\n\n %i" :immediate-finish t)))
  (setq org-image-actual-width nil)
+ (setq org-confirm-babel-evaluate nil)  ;; skip org-babel confirmation dialog
+ (add-hook 'org-babel-after-execute-hook 'org-redisplay-inline-images)
+ (setq org-preview-latex-default-process 'imagemagick)
  (org-babel-do-load-languages
   'org-babel-load-languages
   '(
     (emacs-lisp . t)
+    (latex . t)
     (plantuml . t)
     (java . t)
     (python . t)
