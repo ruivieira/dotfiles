@@ -16,5 +16,6 @@
     - { role: fonts, tags: [fonts] }
     - { role: rust, tags: [rust] }
     - { role: ui, tags: [ui] }
+    - { role: comms, tags: [comms, irc]}
 
   # Core dependencies

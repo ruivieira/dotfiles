@@ -30,22 +30,22 @@ colors:
 
 font:
   normal:
-    family: "JetBrains Mono"
+    family: "JuliaMono"
     style: Regular
 
   bold:
-    family: "JetBrains Mono"
+    family: "JuliaMono"
     style: Bold
 
   italic:
-    family: "JetBrains Mono"
+    family: "JuliaMono"
     style: Italic
 
   bold_italic:
-    family: "JetBrains Mono"
+    family: "JuliaMono"
     style: Bold Italic
 
-  size: 8
+  size: 12
 
   key_bindings:
   - { key: Return,   mods: Control|Shift, action: SpawnNewInstance }

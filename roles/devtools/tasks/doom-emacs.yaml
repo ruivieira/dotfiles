@@ -16,7 +16,15 @@
   package:
     name: libvterm
     state: present
-  
+  when: ansible_distribution == 'MacOSX' or ansible_distribution == 'Fedora'
+
+- name: Install libvterm (Ubuntu)
+  become: "{{linux}}"
+  package:
+    name: libvterm-dev
+    state: present
+  when: ansible_distribution == 'Ubuntu'
+
 - name: Install ripgrep (Linux)
   become: "{{linux}}"
   package:
@@ -24,11 +32,13 @@
     state: present
   when: ansible_distribution == 'Fedora'
 
-- name: Install Emacs
+- name: Install Emacs (Ubuntu)
   become: "{{linux}}"
-  package:
+  community.general.snap:
     name: emacs
-    state: present
+    channel: edge
+    classic: yes
+  when: ansible_distribution == 'Ubuntu'
 
 - name: Delete current emacs config
   file:
@@ -45,6 +55,12 @@
     path: ~/.spacemacs
     state: absent
 
+- name: Install Git
+  become: "{{linux}}"
+  package:
+    name: git
+    state: present
+
 - name: Clone DOOM Emacs
   ansible.builtin.git:
     repo: https://github.com/hlissner/doom-emacs
@@ -54,3 +70,13 @@
   ansible.builtin.shell:
     cmd: ./doom -yC install
     chdir: ~/.emacs.d/bin
+
+- name: Copy Emacs daemon launcher (macOS)
+  ansible.builtin.copy:
+    src: "{{role_path}}/files/LaunchAgents/gnu.emacs.daemon.plist"
+    dest: "~/Library/LaunchAgents"
+    follow: yes
+  when: ansible_distribution == 'MacOSX'
+
+- name: Start Emacs daemon launcher (macOS)
+  shell: "launchctl load -w ~/Library/LaunchAgents/gnu.emacs.daemon.plist"

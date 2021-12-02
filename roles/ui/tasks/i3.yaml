@@ -1,4 +1,5 @@
 - name: Install i3
+  become: "{{ linux }}"
   ansible.builtin.package:
     name: i3
     state: present

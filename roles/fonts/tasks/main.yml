@@ -8,12 +8,17 @@
   when: ansible_distribution == 'MacOSX'
   tags:
     - fonts
+
 - name: Install Julia Mono font (Linux)
   copy:
     src: "{{ item }}"
     dest: "~/.local/share/fonts/"
   with_fileglob:
     - "{{ role_path }}/files/juliamono/*.ttf"
-  when: ansible_distribution == 'Fedora'
+  when: ansible_distribution == 'Fedora' or ansible_distribution == 'Ubuntu'
   tags:
     - fonts
+
+- name: Refresh font cache
+  ansible.builtin.shell: fc-cache -fv
+  when: ansible_distribution == 'Fedora' or ansible_distribution == 'Ubuntu'

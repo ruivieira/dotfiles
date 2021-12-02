@@ -3,8 +3,16 @@
   import_tasks: "{{ role_path }}/tasks/i3.yaml"
   tags:
     - ui
+    - ubuntu
 
 - name: Setup Alacritty
   import_tasks: "{{ role_path }}/tasks/alacritty.yaml"
   tags:
     - ui
+
+- name: Setup Ubuntu UI
+  import_tasks: "{{ role_path }}/tasks/ubuntu.yaml"
+  tags:
+    - ui
+    - ubuntu  
+  when: ansible_distribution == 'Ubuntu'
