@@ -1,0 +1,5 @@
+- name: Install WeeChat
+  ansible.builtin.package:
+    name: weechat
+    state: present
+    

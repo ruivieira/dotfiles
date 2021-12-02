@@ -1,0 +1,24 @@
+- name: Create icon directory
+  become: "{{ linux }}"
+  file:
+    path: /var/lib/AccountsService/icons
+    state: directory
+
+- name: Create user directory
+  become: "{{ linux }}"
+  file:
+    path: /var/lib/AccountsService/users
+    state: directory
+    
+- name: Copy user icon
+  become: "{{ linux }}"
+  ansible.builtin.copy:
+    src: "{{role_path}}/files/AccountServices/icons/rui"
+    dest: "/var/lib/AccountsService/icons/rui"
+
+- name: Copy user profile
+  become: "{{ linux }}"
+  ansible.builtin.copy:
+    src: "{{role_path}}/files/AccountServices/users/rui"
+    dest: "/var/lib/AccountsService/users/rui"
+    
