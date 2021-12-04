@@ -41,6 +41,10 @@
   :recipe (:host github :repo "ruivieira/elisp"
            :files ("org-extras.el")))
 
+
+(package! humble
+  :recipe (:host github :repo "ruivieira/elisp"
+           :files ("humble.el")))
 ;; If you'd like to disable a package included with Doom, you can do so here
 ;; with the `:disable' property:
 ;(package! builtin-package :disable t)

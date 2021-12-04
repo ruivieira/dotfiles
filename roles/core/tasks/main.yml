@@ -6,6 +6,7 @@
   become: "{{ linux }}"
   tags:
     - core
+
 - name: Install curl
   package:
     name: curl
@@ -33,18 +34,28 @@
   tags:
     - core
   when: ansible_distribution == 'MacOSX'
-- name: Install chezmoi (Fedora)
-  dnf:
-    name: 'https://github.com/twpayne/chezmoi/releases/download/v2.0.15/chezmoi-2.0.15-x86_64.rpm'
-    state: present
-    disable_gpg_check: yes
+
+- name: Install chezmoi (Linux)
+  community.general.snap:
+    name: chezmoi
+    classic: yes
   become: "{{ linux }}"
   tags:
     - core
-  when: ansible_distribution == 'Fedora'
-- name: Install keepassxc (macOS)
-  homebrew_cask:
+  when: "{{ is_linux }}"
+
+- name: Install keepassxc
+  package:
     name: keepassxc
     state: present
-  when: ansible_distribution == 'MacOSX'
+  become: "{{ linux }}"
+  tags:
+    - core
 
+- name: Install sqlite3
+  package:
+    name: sqlite3
+    state: present
+  become: "{{ linux }}"
+  tags:
+    - core

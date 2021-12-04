@@ -3,6 +3,7 @@
   gather_facts: yes
   vars:
     linux: "{{ 'no' if ansible_distribution == 'MacOSX' else 'yes'}}"
+    is_linux: "{{ linux == 'yes' }}"
 
   roles:
     - { role: core, tags: [core] }

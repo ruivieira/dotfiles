@@ -54,13 +54,13 @@ docker run -i -t dotfiles:latest /bin/zsh
 To run locally (did I mention you should read the **⚠️ WARNING ⚠️** above?), issue:
 
 ```shell
-ansible-playbook playbook.yml -K
+ansible-playbook --connection=local --inventory 127.0.0.1, playbook.yml -K
 ```
 
-Alternatively, run each tag separately, _e.g._
+Alternatively, run each tag separately, _e.g._ running the tasks tagged `core` 
 
 ```shell
-ansible-playbook playbook.yml --tags "core,editors" -K
+ansible-playbook --connection=local --inventory 127.0.0.1, playbook.yml --tags "core" -K
 ```
 
 ## Tags
@@ -71,6 +71,7 @@ The `ansible` playbook includes the following tags:
 - `editors`, a collection of text editors (spacemacs, NeoVim, micro, etc.)
 - `jupyter` install jupyter notebooks along with a Java and R kernels
 - `vscode`, setup for VSCode (config, extensions)
+- `doomemacs`, my doom emacs personal configuration
 
 ### Shell functions
 

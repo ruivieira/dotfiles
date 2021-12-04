@@ -1,4 +1,7 @@
 ---
+- dependencies:
+    - role: core
+
 - name: Install sass
   package:
     name: sass/sass/sass
