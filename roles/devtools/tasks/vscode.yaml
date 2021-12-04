@@ -50,29 +50,51 @@
 - name: Install VSCode extensions
   shell: "code --install-extension {{item}}"
   with_items:
+    - aaronduino.gemini
     - aeschli.vscode-css-formatter
     - alexcvzz.vscode-sqlite
+    - arthurwang.vsc-prolog
+    - asciidoctor.asciidoctor-vscode
+    - ban.spellright
+    - bierner.emojisense
+    - bierner.markdown-emoji
     - bpruitt-goddard.mermaid-markdown-syntax-highlighting
     - bungcip.better-toml
-    - CADENAS.vscode-glsllint
+    - chenglou92.rescript-vscode
     - christopherstyles.html-entities
     - circledev.glsl-canvas
+    - crystal-lang-tools.crystal-lang
     - DavidAnson.vscode-markdownlint
     - dawhite.mustache
     - daylerees.rainglow
+    - deerawan.vscode-dash
+    - dendron.dendron-markdown-shortcuts
+    - denoland.vscode-deno
+    - DotJoshJohnson.xml
+    - dtoplak.vscode-glsllint
     - dunstontc.viml
     - eamodio.gitlens
+    - earthly.earthfile-syntax-highlighting
+    - esbenp.prettier-vscode
+    - evalapply.crystal-cult-colortheme
+    - fabianlauer.vs-code-xml-format
     - glen-anderson.vscode-faust
+    - golang.go
     - guyskk.language-cython
     - hbenl.vscode-test-explorer
     - iampeterbanjo.elixirlinter
+    - James-Yu.latex-workshop
+    - jatinchowdhury18.vscode-supercollider
+    - jdinhlife.gruvbox
     - jithurjacob.nbpreviewer
     - joaompinto.asciidoctor-vscode
+    - johob.pico8-vscode
+    - joshua-fontany.tw5-syntax
     - justusadam.language-haskell
     - kevinglasson.cornflakes-linter
-    - kiegroup.vscode-extension-pack-kogito-kie-editors
     - kosz78.nim
     - kunstmusik.csound-vscode-plugin
+    - lextudio.restructuredtext
     - lightbend.vscode-sbt-scala
     - mactkg.sonic-pi
     - mattn.Lisp
@@ -80,17 +102,30 @@
     - mjmcloug.vscode-elixir
     - ms-azuretools.vscode-docker
     - ms-python.python
+    - ms-python.vscode-pylance
+    - ms-toolsai.jupyter
+    - ms-toolsai.jupyter-keymap
+    - ms-toolsai.jupyter-renderers
     - ms-vscode-remote.remote-containers
     - ms-vscode-remote.remote-ssh
     - ms-vscode-remote.remote-ssh-edit
     - ms-vscode-remote.remote-wsl
     - ms-vscode-remote.vscode-remote-extensionpack
     - ms-vscode.cpptools
+    - ms-vscode.test-adapter-converter
+    - mushan.vscode-paste-image
+    - naumovs.color-highlight
     - octref.vetur
     - pepri.subtitles-editor
+    - PKief.material-icon-theme
     - raczzalan.webgl-glsl-editor
+    - redhat.ansible
     - redhat.java
+    - redhat.vscode-commons
+    - redhat.vscode-extension-dmn-editor
+    - redhat.vscode-xml
     - redhat.vscode-yaml
+    - richie5um2.vscode-sort-json
     - ritwickdey.LiveServer
     - robertrossmann.remedy
     - rust-lang.rust
@@ -98,20 +133,30 @@
     - scalameta.metals
     - scriplit.perl6-lsp
     - serayuzgur.crates
+    - shadowtime2000.eta-vscode
     - Sir2B.lispbeautifier
     - sjhuangx.vscode-scheme
     - slevesque.shader
     - stayfool.vscode-asciidoc
     - stiansivertsen.visualclojure
+    - svelte.svelte-vscode
+    - svsool.markdown-memo
     - Swellaby.vscode-rust-test-adapter
+    - systemticks.c4-dsl-extension
+    - tiehuis.zig
+    - timonwong.shellcheck
     - UCL.haskelly
     - VisualStudioExptTeam.vscodeintellicode
     - vknabel.vscode-swift-development-environment
+    - vlanguage.vscode-vlang
     - vscjava.vscode-java-debug
     - vscjava.vscode-java-dependency
     - vscjava.vscode-java-pack
     - vscjava.vscode-java-test
     - vscjava.vscode-maven
+    - vscode-org-mode.org-mode
     - vstirbu.vscode-mermaid-preview
+    - wayou.vscode-todo-highlight
+    - wholroyd.jinja
+    - XadillaX.viml
     - yzhang.markdown-all-in-one
-    - richie5um2.vscode-sort-json
