@@ -1,0 +1,10 @@
+- name: Install AwesomeWM
+  become: "{{ linux }}"
+  ansible.builtin.package:
+    name: awesome
+    state: present
+
+- name: Copy AwesomeWM config
+  ansible.builtin.copy:
+    src: "{{role_path}}/files/awesome"
+    dest: "~/.config/awesome"
