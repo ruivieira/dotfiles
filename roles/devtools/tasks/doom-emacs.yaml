@@ -5,6 +5,13 @@
     state: present
   when: ansible_distribution == 'MacOSX'
 
+- name: Install ripgrep (Linux)
+  package:
+    name: ripgrep
+    state: present
+  when: "{{ is_linux }}"
+  become: "{{ linux }}"
+
 - name: Install fd
   package:
     name: fd
@@ -24,13 +31,6 @@
     name: libvterm-dev
     state: present
   when: ansible_distribution == 'Ubuntu'
-
-- name: Install ripgrep (Linux)
-  become: "{{linux}}"
-  package:
-    name: ripgrep
-    state: present
-  when: ansible_distribution == 'Fedora'
 
 - name: Install Emacs (Ubuntu)
   become: "{{linux}}"
@@ -68,8 +68,7 @@
 
 - name: Run DOOM Emacs install
   ansible.builtin.shell:
-    cmd: ./doom -yC install
-    chdir: ~/.emacs.d/bin
+    cmd: ~/.emacs.d/bin/doom -y install
 
 - name: Copy Emacs daemon launcher (macOS)
   ansible.builtin.copy:
@@ -80,3 +79,4 @@
 
 - name: Start Emacs daemon launcher (macOS)
   shell: "launchctl load -w ~/Library/LaunchAgents/gnu.emacs.daemon.plist"
+  when: ansible_distribution == 'MacOSX'
