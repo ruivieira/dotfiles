@@ -36,8 +36,10 @@
   ;(set-face-attribute 'solaire-fringe-face nil :background (face-background 'solaire-hl-line-face))
   (set-face-attribute 'fringe nil :background (face-background 'solaire-default-face)))
 
-(let ((alternatives '("doom-emacs-color.png" "doom-emacs-color2.png"
-                      "doom-emacs-slant-out-bw.png" "doom-emacs-slant-out-color.png")))
+(let ((alternatives
+       ;; '("doom-emacs-color.png" "doom-emacs-color2.png" "doom-emacs-slant-out-bw.png" "doom-emacs-slant-out-color.png")
+       '("spock.jpg")
+       ))
   (setq fancy-splash-image
         (concat doom-private-dir "splash/"
                 (nth (random (length alternatives)) alternatives))))
