@@ -156,6 +156,7 @@
     (python . t)
     (deno . t)
     (go . t)
+    (crystal . t)
     (jupyter . t)))
 
  (setq org-roam-directory "~/Sync/notes/pages/"))
