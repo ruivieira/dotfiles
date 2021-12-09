@@ -41,6 +41,8 @@
   :recipe (:host github :repo "ruivieira/elisp"
            :files ("org-extras.el")))
 
+;; org-babel special modes
+(package! ob-crystal)
 
 (package! humble
   :recipe (:host github :repo "ruivieira/elisp"
