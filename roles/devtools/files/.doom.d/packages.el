@@ -47,6 +47,11 @@
 (package! humble
   :recipe (:host github :repo "ruivieira/elisp"
            :files ("humble.el")))
+
+;; tree-sitter support
+(package! tree-sitter)
+(package! tree-sitter-langs)
+
 ;; If you'd like to disable a package included with Doom, you can do so here
 ;; with the `:disable' property:
 ;(package! builtin-package :disable t)

@@ -32,6 +32,13 @@
 ;; (setq doom-theme 'doom-solarized-light)
 ;; (setq doom-theme 'doom-acario-dark)
 
+;; tree-sitter
+(use-package! tree-sitter
+  :config
+  (require 'tree-sitter-langs)
+  (global-tree-sitter-mode)
+  (add-hook 'tree-sitter-after-on-hook #'tree-sitter-hl-mode))
+
 (add-hook! 'solaire-mode-hook
   ;(set-face-attribute 'solaire-fringe-face nil :background (face-background 'solaire-hl-line-face))
   (set-face-attribute 'fringe nil :background (face-background 'solaire-default-face)))
