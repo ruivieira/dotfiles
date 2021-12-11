@@ -7,6 +7,7 @@
   become: "{{ linux }}"
   tags:
     - zsh
+
 - name: Install bash-completion
   package:
     name: bash-completion
@@ -14,12 +15,14 @@
   become: "{{ linux }}"
   tags:
     - zsh
+
 - name: Check if oh-my-zsh is installed
   stat:
     path: ~/.oh-my-zsh/
   register: ohmyzsh_result  
   tags:
     - zsh
+
 - name: Delete oh-my-zsh if installed
   file:
     path: ~/.oh-my-zsh/
@@ -27,16 +30,19 @@
   when: ohmyzsh_result.stat.exists == True
   tags:
     - zsh
+
 - name: Install oh-my-zsh
   git:
     repo: https://github.com/robbyrussell/oh-my-zsh.git
     dest: ~/.oh-my-zsh
   tags:
     - zsh
+
 - name: Install oh-my-zsh auto-completions
   command: git clone https://github.com/zsh-users/zsh-autosuggestions ~/.oh-my-zsh/custom/plugins/zsh-autosuggestions
   tags:
     - zsh
+
 - name: Install oh-my-zsh syntax highlighting
   command: git clone https://github.com/zsh-users/zsh-syntax-highlighting.git ~/.oh-my-zsh/custom/plugins/zsh-syntax-highlighting
   tags:
@@ -46,3 +52,14 @@
   template:
     src: "{{role_path}}/files/.zshrc.j2"
     dest: ~/.zshrc
+  tags:
+    - zsh
+
+- name: Copy zsh gruvbox theme
+  ansible.builtin.copy:
+    src: "{{role_path}}/files/{{item}}"
+    dest: "~/.oh-my-zsh/custom/themes/{{item}}"
+  with_items:
+    - "gruvbox.zsh-theme"
+  tags:
+    - zsh

@@ -10,9 +10,11 @@
     path: ~/.config/kitty
     state: directory
 
-- name: Copy Kitty config
+- name: Copy Kitty configs
   ansible.builtin.copy:
-    src: "{{role_path}}/files/{{item}}"
+    src: "{{role_path}}/files/kitty/{{item}}"
     dest: "~/.config/kitty/{{item}}"
   with_items:
     - "kitty.conf"
+    - "gruvbox_dark.conf"
+    - "gruvbox_dark_hard.conf"
