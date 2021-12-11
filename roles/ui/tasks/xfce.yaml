@@ -1,0 +1,35 @@
+- name: Create icons folder
+  file:
+    path: ~/.local/share/icons
+    state: directory
+
+- name: Install icons
+  ansible.builtin.copy:
+    src: "{{role_path}}/files/icons/{{item}}"
+    dest: "~/.local/share/icons/{{item}}"
+  with_items:
+    - "doom-emacs.png"
+    - "gitkraken.png"
+    - "vscode.png"
+
+- name: Copy desktop launchers
+  ansible.builtin.copy:
+    src: "{{role_path}}/files/xfce/launchers/{{item}}"
+    dest: "~/Desktop/{{item}}"
+  with_items:
+    - "Emacs.desktop"
+    - "Gitkraken.desktop"
+    - "Signal.desktop"
+    - "Sourcetrail.desktop"
+    - "VSCode.desktop"
+
+- name: Copy themes
+  ansible.builtin.copy:
+    src: "{{role_path}}/files/xfce/themes/{{item}}"
+    dest: "~/.local/share/themes/{{item}}"
+  with_items:
+    - "Gruvbox-Material-Dark"
+    - "Gruvbox-Material-Dark-HIDPI"
+
+- name: Set theme
+  ansible.builtin.shell: "xfconf-query -c xfwm4 -p /general/theme -s Gruvbox-Material-Dark-HIDPI"

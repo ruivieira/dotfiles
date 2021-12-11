@@ -16,7 +16,7 @@
     - { role: config, tags: [config] }
     - { role: fonts, tags: [fonts] }
     - { role: rust, tags: [rust] }
-    - { role: ui, tags: [ui] }
+    - { role: ui, tags: [ui, xfce] }
     - { role: comms, tags: [comms, irc]}
 
   # Core dependencies

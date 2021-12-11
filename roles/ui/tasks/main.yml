@@ -16,3 +16,10 @@
     - ui
     - ubuntu  
   when: ansible_distribution == 'Ubuntu'
+
+- name: Setup Xfce UI
+  import_tasks: "{{ role_path }}/tasks/xfce.yaml"
+  tags:
+    - ui
+    - xfce
+  when: ansible_distribution == 'Ubuntu'

@@ -1,0 +1,10 @@
+[Desktop Entry]
+Version=1.0
+Type=Application
+Name=Emacs
+Comment=
+Exec=/snap/bin/emacs
+Icon=/home/rui/.local/share/icons/doom-emacs.png
+Path=
+Terminal=false
+StartupNotify=false
