@@ -1,0 +1,10 @@
+[Desktop Entry]
+Version=1.0
+Type=Application
+Name=Sourcetrail
+Comment=
+Exec=/opt/Applications/Sourcetrail_2021_4_19_Linux_64bit.AppImage
+Icon=
+Path=
+Terminal=false
+StartupNotify=false
