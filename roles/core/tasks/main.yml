@@ -20,6 +20,7 @@
     state: directory
   tags:
     - core
+
 - name: Install neofetch
   package:
     name: neofetch
@@ -27,6 +28,15 @@
   become: "{{ linux }}"
   tags:
     - core
+
+- name: Install ImageMagick
+  package:
+    name: imagemagick
+    state: present
+  become: "{{ linux }}"
+  tags:
+    - core
+
 - name: Install chezmoi (macOS)
   package:
     name: chezmoi
