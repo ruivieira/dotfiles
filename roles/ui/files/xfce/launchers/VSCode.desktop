@@ -1,0 +1,10 @@
+[Desktop Entry]
+Version=1.0
+Type=Application
+Name=VSCode
+Comment=
+Exec=/snap/bin/code
+Icon=/home/rui/.local/share/icons/vscode.png
+Path=
+Terminal=false
+StartupNotify=false
