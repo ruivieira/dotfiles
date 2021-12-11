@@ -1,0 +1,18 @@
+- name: Install Kitty
+  become: "{{ linux }}"
+  ansible.builtin.package:
+    name: kitty
+    state: present
+  when: "{{ is_linux }}"
+
+- name: Create Kitty config dir
+  file:
+    path: ~/.config/kitty
+    state: directory
+
+- name: Copy Kitty config
+  ansible.builtin.copy:
+    src: "{{role_path}}/files/{{item}}"
+    dest: "~/.config/kitty/{{item}}"
+  with_items:
+    - "kitty.conf"

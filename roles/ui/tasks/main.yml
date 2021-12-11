@@ -5,6 +5,12 @@
     - ui
     - ubuntu
 
+- name: Install images
+  import_tasks: "{{ role_path }}/tasks/images.yaml"
+  tags:
+    - ui
+    - images
+    
 - name: Setup Alacritty
   import_tasks: "{{ role_path }}/tasks/alacritty.yaml"
   tags:
@@ -23,3 +29,10 @@
     - ui
     - xfce
   when: ansible_distribution == 'Ubuntu'
+
+- name: Setup Kitty
+  import_tasks: "{{ role_path }}/tasks/kitty.yaml"
+  tags:
+    - ui
+    - kitty
+  when: "{{ is_linux }}"
