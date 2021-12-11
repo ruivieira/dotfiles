@@ -5,27 +5,10 @@
     settings_dir_linux: "{{ansible_env.HOME}}/.config/Code/User/"
 
 - name: Install VSCode (Linux)
-  block:
-    - name: Import RPM keys
-      shell: "rpm --import https://packages.microsoft.com/keys/microsoft.asc"
-      become: yes
-    - name: Create VSCode RPM repo file
-      copy:
-        dest: "/etc/yum.repos.d/vscode.repo"
-        content: |
-          [code]
-          name=Visual Studio Code
-          baseurl=https://packages.microsoft.com/yumrepos/vscode
-          enabled=1
-          gpgcheck=1
-          gpgkey=https://packages.microsoft.com/keys/microsoft.asc
-      become: yes
-    - name: Install VSCode package
-      package:
-        name: code
-        state: present
-      become: yes
-  when: ansible_distribution == 'Fedora'
+  community.general.snap:
+    name: code
+    classic: yes
+  when: "{{ is_linux }}"
 
 - name: Install VSCode (macOS)
   community.general.homebrew_cask:
@@ -35,17 +18,17 @@
 
 - name: Install vscode settings (macOS)
   ansible.builtin.copy:
-    src: "{{role_path}}/files/settings.json"
+    src: "{{role_path}}/files/vscode/settings.json"
     dest: "{{settings_dir_mac}}"
     follow: yes
   when: ansible_distribution == 'MacOSX'
 
 - name: Install vscode settings (Linux)
   ansible.builtin.copy:
-    src: "{{role_path}}/files/settings.json"
+    src: "{{role_path}}/files/vscode/settings.json"
     dest: "{{settings_dir_linux}}"
     follow: yes
-  when: ansible_distribution == 'Fedora'
+  when: "{{ is_linux }}"
 
 - name: Install VSCode extensions
   shell: "code --install-extension {{item}}"
