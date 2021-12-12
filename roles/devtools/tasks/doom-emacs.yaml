@@ -66,17 +66,11 @@
     repo: https://github.com/hlissner/doom-emacs
     dest: "{{ansible_env.HOME}}/.emacs.d"
 
+- name: Clone personal DOOM Emacs config
+  ansible.builtin.git:
+    repo: https://github.com/ruivieira/.doom.d
+    dest: "{{ansible_env.HOME}}/.doom.d"
+
 - name: Run DOOM Emacs install
   ansible.builtin.shell:
     cmd: ~/.emacs.d/bin/doom -y install
-
-- name: Copy Emacs daemon launcher (macOS)
-  ansible.builtin.copy:
-    src: "{{role_path}}/files/LaunchAgents/gnu.emacs.daemon.plist"
-    dest: "~/Library/LaunchAgents"
-    follow: yes
-  when: ansible_distribution == 'MacOSX'
-
-- name: Start Emacs daemon launcher (macOS)
-  shell: "launchctl load -w ~/Library/LaunchAgents/gnu.emacs.daemon.plist"
-  when: ansible_distribution == 'MacOSX'
