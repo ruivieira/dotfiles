@@ -25,8 +25,8 @@
 
 - name: Copy themes
   ansible.builtin.copy:
-    src: "{{role_path}}/files/xfce/themes/{{item}}"
-    dest: "~/.local/share/themes/{{item}}"
+    src: "{{role_path}}/files/xfce/themes/{{item}}/"
+    dest: "~/.local/share/themes/{{item}}/"
   with_items:
     - "Gruvbox-Material-Dark"
     - "Gruvbox-Material-Dark-HIDPI"
