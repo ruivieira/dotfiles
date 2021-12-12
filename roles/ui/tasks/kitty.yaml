@@ -3,7 +3,6 @@
   ansible.builtin.package:
     name: kitty
     state: present
-  when: "{{ is_linux }}"
 
 - name: Create Kitty config dir
   file:
