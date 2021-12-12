@@ -259,5 +259,26 @@
       org-hugo-section "posts"
       org-hugo-suppress-lastmod-period 43200.0
       org-hugo-export-creator-string "Emacs 28.0 (Org mode 9.4 + ox-hugo)"
-)
-  )
+))
+
+;; Special glyphs for org-babel blocks
+(defun my/pretty-symbols ()
+  (setq prettify-symbols-alist
+          '(("lambda" . 955)
+            ("->" . 8594)
+            ("=>" . 8658)
+            ("map" . 8614)
+            ("<=" . 8804)
+            (">=" . 8805)
+            ("<-" . 8592)
+            ("#+begin_src python" . "🐍")
+            ("#+begin_src jupyter-python" . "🐍")
+            ("#+end_src" . "―")
+            ("#+results:" . "🔨")
+            ("#+RESULTS:" . "🔨")
+            ("!=" . 8800))))
+(add-hook 'clojure-mode-hook 'my/pretty-symbols)
+(add-hook 'racket-mode-hook 'my/pretty-symbols)
+(add-hook 'ess-mode-hook 'my/pretty-symbols)
+(add-hook 'org-mode-hook 'my/pretty-symbols)
+(global-prettify-symbols-mode +1)
