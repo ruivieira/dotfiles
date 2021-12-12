@@ -36,3 +36,9 @@
     - ui
     - kitty
   when: "{{ is_linux }}"
+
+- name: Setup Xmodmap to be macOS-like
+  ansible.builtin.copy:
+    src: "{{role_path}}/files/.Xmodmap"
+    dest: "~/.Xmodmap"
+  when: "{{ is_linux }}"

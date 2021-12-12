@@ -31,5 +31,10 @@
     - "Gruvbox-Material-Dark"
     - "Gruvbox-Material-Dark-HIDPI"
 
+- name: Copy Xfce keyboard shortcuts
+  ansible.builtin.copy:
+    src: "{{role_path}}/files/xfce/conf/xfce4-keyboard-shortcuts.xml"
+    dest: "~/.config/xfce4/xfconf/xfce-perchannel-xml/xfce4-keyboard-shortcuts.xml"
+
 - name: Set theme
   ansible.builtin.shell: "xfconf-query -c xfwm4 -p /general/theme -s Gruvbox-Material-Dark-HIDPI"
