@@ -21,6 +21,9 @@ local ipairs, string, os, table, tostring, tonumber, type = ipairs, string, os, 
 local gears         = require("gears") --Utilities such as color parsing and objects
 local awful         = require("awful") --Everything related to window managment
 
+-- local switcher = require("awesome-switcher") -- Load awesome-switcher
+local revelation=require("revelation")
+
 require("awful.autofocus")
 --require("collision")()
 -- Widget and layout library
@@ -101,6 +104,8 @@ local chosen_theme = themes[4]
 local theme_path = string.format("%s/.config/awesome/themes/%s/theme.lua", os.getenv("HOME"), chosen_theme)
 beautiful.init(theme_path)
 
+revelation.init()
+
 -- modkey or mod4 = super key
 local modkey       = "Mod4"
 local altkey       = "Mod1"
@@ -109,14 +114,14 @@ local modkey1      = "Control"
 -- personal variables
 --change these variables if you want
 local browser           = "/usr/bin/firefox"
-local editor            = "/snap/bin/emacs"
+local editor            = os.getenv("EDITOR") or "nano"
 local editorgui         = "/snap/bin/code"
 local filemanager       = "thunar"
 local mailclient        = "geary"
 local mediaplayer       = "vlc"
 local scrlocker         = "i3lock-fancy"
 -- local terminal          = "st -f consolas"
-local terminal          = "/usr/bin/kitty"
+local terminal          = "/usr/bin/wezterm"
 local virtualmachine    = "virtualbox"
 
 -- awesome variables
@@ -217,7 +222,7 @@ beautiful.init(string.format(gears.filesystem.get_configuration_dir() .. "/theme
 local myawesomemenu = {
     { "hotkeys", function() return false, hotkeys_popup.show_help end },
     { "manual", terminal .. " -e 'man awesome'" },
-    { "edit config", string.format("/snap/bin/emacs -nw %s/.config/awesome/rc.lua", os.getenv("HOME")) },
+    { "edit config", terminal.." nano /home/dt/.config/awesome/rc.lua" },
     { "arandr", "arandr" },
     { "restart", awesome.restart },
 }
@@ -269,6 +274,24 @@ root.buttons(my_table.join(
 ))
 -- }}}
 
+-- {{{ awesome-switcher config
+-- switcher.settings.preview_box = true                                 -- display preview-box
+-- switcher.settings.preview_box_bg = "#ddddddaa"                       -- background color
+-- switcher.settings.preview_box_border = "#22222200"                   -- border-color
+-- switcher.settings.preview_box_fps = 30                               -- refresh framerate
+-- switcher.settings.preview_box_delay = 150                             -- delay in ms
+-- switcher.settings.preview_box_title_font = {"sans","italic","normal"} -- the font for cairo
+-- switcher.settings.preview_box_title_font_size_factor = 0.8            -- the font sizing factor
+-- switcher.settings.preview_box_title_color = {0,0,0,1}                 -- the font color
+
+-- switcher.settings.client_opacity = false                              -- opacity for unselected clients
+-- switcher.settings.client_opacity_value = 0.5                          -- alpha-value for any client
+-- switcher.settings.client_opacity_value_in_focus = 0.5                 -- alpha-value for the client currently in focus
+-- switcher.settings.client_opacity_value_selected = 1                   -- alpha-value for the selected client
+
+-- switcher.settings.cycle_raise_client = true                           -- raise clients on cycle
+-- }}}
+
 
 
 -- {{{ Key bindings
@@ -310,7 +333,8 @@ globalkeys = my_table.join(
                     {description = 'Lock the screen', group = 'awesome'}
                 ),
     
-    
+    -- revelation
+    awful.key({ modkey1,           }, "e",      revelation),
     
     
     -- My dmenu scripts (Alt+Ctrl+Key)
@@ -367,7 +391,21 @@ globalkeys = my_table.join(
         {description = "go back", group = "tag"}),
 
      -- Tag browsing alt + tab
-    awful.key({ modkey1,           }, "Tab",   function() awful.util.spawn('rofi -show window') end, {description='run rofi task switcher', group='launcher'}),
+
+     -- Using rofi
+     awful.key({ modkey1,           }, "Tab",   function() awful.util.spawn('rofi -show window') end, {description='run rofi task switcher', group='launcher'}),
+
+     -- Using awesome-switcher
+    --  awful.key({ modkey1, }, "Tab", 
+    --  function ()
+    --     switcher.switch( 1, modkey1, "Enter", "Shift", "Tab")
+    --  end),
+     
+    --  awful.key({ modkey1, "Shift"   }, "Tab",
+    --  function ()
+    --     switcher.switch(-1, "Mod1", "Alt_L", "Shift", "Tab")
+    --  end),
+
     -- awful.key({ altkey, "Shift"   }, "Tab",  awful.tag.viewprev,
     --     {description = "view previous", group = "tag"}),
 
