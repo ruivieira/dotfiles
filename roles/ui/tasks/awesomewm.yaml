@@ -6,5 +6,22 @@
 
 - name: Copy AwesomeWM config
   ansible.builtin.copy:
-    src: "{{role_path}}/files/awesome"
-    dest: "~/.config/awesome"
+    src: "{{role_path}}/files/awesome/"
+    dest: "~/.config/awesome/"
+
+- name: Install rofi
+  become: "{{ linux }}"
+  ansible.builtin.package:
+    name: rofi
+    state: present
+
+- name: Copy rofi config
+  ansible.builtin.copy:
+    src: "{{role_path}}/files/rofi/"
+    dest: "~/.config/rofi/"
+
+- name: Install lxappearance
+  become: "{{ linux }}"
+  ansible.builtin.package:
+    name: lxappearance
+    state: present
