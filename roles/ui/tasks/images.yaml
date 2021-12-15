@@ -9,3 +9,4 @@
     dest: "~/.images/{{item}}"
   with_items:
     - "up.png"
+    - "mars-sunset.jpg"
