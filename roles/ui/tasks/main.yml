@@ -30,6 +30,13 @@
     - xfce
   when: ansible_distribution == 'Ubuntu'
 
+- name: Setup AwesomeWM UI
+  import_tasks: "{{ role_path }}/tasks/awesomewm.yaml"
+  tags:
+    - ui
+    - awesomewm
+  when: "{{ is_linux }}"
+
 - name: Setup Kitty
   import_tasks: "{{ role_path }}/tasks/kitty.yaml"
   tags:
