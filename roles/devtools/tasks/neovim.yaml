@@ -17,8 +17,8 @@
     state: directory
 - name: Link init.vim
   file:
-    src: "{{playbook_dir}}/.config/nvim/init.vim"
-    dest: ~/.config/nvim/init.vim
+    src: "{{ role_path }}/files/nvim/init.vim"
+    dest: "{{ansible_env.HOME}}/.config/nvim/init.vim"
     force: yes
     state: link
 - name: Check if NeoVim bundle folder exists
