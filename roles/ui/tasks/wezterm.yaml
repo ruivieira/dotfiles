@@ -1,0 +1,30 @@
+- name: Add Wezterm tap
+  community.general.homebrew_tap:
+    name: wez/wezterm
+    state: present
+  when: ansible_distribution == 'MacOSX'
+
+- name: Install Wezterm (macOS)
+  become: "{{ linux }}"
+  community.general.homebrew_cask:
+    name: wez/wezterm/wezterm
+    state: present
+  when: ansible_distribution == 'MacOSX'
+
+- name: Install Wezterm (Ubuntu)
+  become: "{{ linux }}"
+  apt:
+    deb: https://github.com/wez/wezterm/releases/download/20211205-192649-672c1cc1/wezterm-20211205-192649-672c1cc1.Ubuntu20.04.deb
+  when: ansible_distribution == 'Ubuntu'
+
+- name: Create Wezterm config dir
+  file:
+    path: ~/.config/wezterm
+    state: directory
+
+- name: Copy Wezterm configs
+  ansible.builtin.copy:
+    src: "{{role_path}}/files/wezterm/{{item}}"
+    dest: "~/.config/wezterm/{{item}}"
+  with_items:
+    - "wezterm.lua"
