@@ -1,0 +1,24 @@
+- name: Add Wezterm tap
+  community.general.homebrew_tap:
+    name: wez/wezterm
+    state: present
+  when: ansible_distribution == 'MacOSX'
+
+- name: Install Wezterm
+  become: "{{ linux }}"
+  community.general.homebrew_cask:
+    name: wez/wezterm/wezterm
+    state: present
+  when: ansible_distribution == 'MacOSX'
+
+- name: Create Wezterm config dir
+  file:
+    path: ~/.config/wezterm
+    state: directory
+
+- name: Copy Wezterm configs
+  ansible.builtin.copy:
+    src: "{{role_path}}/files/wezterm/{{item}}"
+    dest: "~/.config/wezterm/{{item}}"
+  with_items:
+    - "wezterm.lua"

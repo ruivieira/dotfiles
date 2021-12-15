@@ -16,6 +16,12 @@
   tags:
     - ui
 
+- name: Setup Wezterm
+  import_tasks: "{{ role_path }}/tasks/wezterm.yaml"
+  tags:
+    - ui
+    - wezterm
+
 - name: Setup Ubuntu UI
   import_tasks: "{{ role_path }}/tasks/ubuntu.yaml"
   tags:
