@@ -4,12 +4,18 @@
     state: present
   when: ansible_distribution == 'MacOSX'
 
-- name: Install Wezterm
+- name: Install Wezterm (macOS)
   become: "{{ linux }}"
   community.general.homebrew_cask:
     name: wez/wezterm/wezterm
     state: present
   when: ansible_distribution == 'MacOSX'
+
+- name: Install Wezterm (Ubuntu)
+  become: "{{ linux }}"
+  apt:
+    deb: https://github.com/wez/wezterm/releases/download/20211205-192649-672c1cc1/wezterm-20211205-192649-672c1cc1.Ubuntu20.04.deb
+  when: ansible_distribution == 'Ubuntu'
 
 - name: Create Wezterm config dir
   file:
