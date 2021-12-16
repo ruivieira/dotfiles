@@ -1,0 +1,10 @@
+alias 'ls'='ls -a -1 -G -F -h -l'
+alias 'cd..'='cd ..'
+alias 'dir'='exa -l --icons'
+alias 'tree'="find . -print | sed -e 's;[^/]*/;|____;g;s;____|; |;g'"
+alias '..'='cd ..'
+
+{% if not is_linux %}
+alias 'del'="mv -t ~/.Trash/"
+alias bu="brew update && brew upgrade && brew cleanup"
+{% endif %}
