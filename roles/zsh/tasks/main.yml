@@ -55,6 +55,13 @@
   tags:
     - zsh
 
+- name: Generate .aliasrc
+  template:
+    src: "{{role_path}}/files/.aliasrc.j2"
+    dest: ~/.aliasrc
+  tags:
+    - zsh
+
 - name: Copy zsh gruvbox theme
   ansible.builtin.copy:
     src: "{{role_path}}/files/{{item}}"
