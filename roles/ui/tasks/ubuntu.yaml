@@ -22,3 +22,14 @@
     src: "{{role_path}}/files/AccountServices/users/rui"
     dest: "/var/lib/AccountsService/users/rui"
     
+- name: Install Pop! theme
+  become: "{{ linux }}"
+  ansible.builtin.package:
+    name: pop-gtk-theme
+    state: present
+
+- name: Install Pop! icons
+  become: "{{ linux }}"
+  ansible.builtin.package:
+    name: pop-icon-theme
+    state: present
