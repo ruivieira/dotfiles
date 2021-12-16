@@ -19,6 +19,17 @@
   tags:
     - fonts
 
+- name: Install (patched) JetBrains Mono font (Linux)
+  copy:
+    src: "{{ item }}"
+    dest: "~/.local/share/fonts/"
+  with_fileglob:
+    - "{{ role_path }}/files/jetbrains/*.ttf"
+  when: ansible_distribution == 'Fedora' or ansible_distribution == 'Ubuntu'
+  tags:
+    - fonts
+
 - name: Refresh font cache
+  become: "{{ is_linux }}"
   shell: fc-cache -fv
   when: ansible_distribution == 'Fedora' or ansible_distribution == 'Ubuntu'
