@@ -55,3 +55,9 @@
     src: "{{role_path}}/files/.Xmodmap"
     dest: "~/.Xmodmap"
   when: "{{ is_linux }}"
+
+- name: Setup Sublime Text
+  import_tasks: "{{ role_path }}/tasks/sublime.yaml"
+  tags:
+    - ui
+    - sublime
