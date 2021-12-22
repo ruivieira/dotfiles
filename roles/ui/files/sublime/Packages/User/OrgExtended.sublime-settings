@@ -1,0 +1,373 @@
+{
+  // The color scheme to use for the capture buffer
+    // Right now I only have a light and dark scheme. In the future
+    // I hope to allow your color scheme to impact the scheme and to provide
+    // a means of extending your scheme with the org colors
+  "color_scheme": "Packages/OrgExtended/OrgExtended.sublime-color-scheme",
+
+    // Turn on TableEditor for orgmode
+    "enable_table_editor": true,
+    "table_editor_syntax": "EmacsOrgMode",
+
+    // We turn on the autocompletions feature
+    // So we can show filenames in links
+    "auto_complete": true,
+    "auto_complete_selector": "text.orgmode",
+    //"auto_complete_commit_on_tab": true,
+    "auto_complete_use_index": true,
+
+    // ============================================================
+    // ORG DIRS:
+    // Where are your org files?
+    "orgDirs": [
+        "~/Sync/notes/pages"
+    ],
+
+    // Specific files to add vs whole directories
+    //"orgFiles": [
+    //],
+
+    // Directories to exclude from parsing org files
+    "orgExcludeDirs": [
+        "~/Sync/notes/pages/pages/backlog"
+    ],
+
+    // Files to be excluded from org parsing
+    //"orgExcludeFiles": [],
+
+    // The Org DB will not load a file without one of these file extensions.
+    // It assumes we are somehow erroneously trying to load something wrong.
+    // If you create your own #+ARCHIVE: entries make sure the extensions are in here.
+    "validOrgExtensions": [ ".org", ".org_archive"],
+
+    // Startup is equivalent to #+STARTUP: showall in a file
+    // but has an effect on all org files. This controls what mode
+    // the org files show as globally. Valid values are:
+    // - showall - everything but drawers is shown
+    // - showeverything - even drawers are shown.
+    // - contents - like a table of contents, contents of headings is hidden but all headings shown
+    // - overview - only top level headings are shown. 
+    // - noinlineimages - do not show images inline
+    // - inlineimages - show inline images in file
+    //    #+STARTUP: inlineimages
+    //    #+STARTUP: noinlineimages
+    "startup": ["showall", "inlineimages"],
+
+    // override for logdone. Will force CLOSED: entries even if it is not in your startup.
+    //"logdone": true,
+
+    // Used in the tag selector for the font to use in the popup
+    //"input_font_face": "Arial",
+
+    // List of priorities we can insert / change to
+    // NOTE: only the letters (below) can be highlighted at the moment
+    //       I haven't found a good way to modify the grammer dynamically.
+    //"priorities": ["A","B","C","D","E"]
+    
+    // Globally where should things be archived?
+    // So the following will expand to myfile.org_archive
+    // NOTE: org allows for datetree/ and a few other options
+    //       we probably only support a subset of those
+    //       properly
+    "archive": "%s_archive::* Archive",
+
+
+    // When looking for images in org files, where might those images be located?
+    // The first path in this list is where generated images will be placed.
+    // If this list is empty a subdir of images under the first entry in orgDirs will be used.
+    "imageSearchPath": [],
+
+
+    "resolver.jira.url":"http://sandbox.onjira.com/browse/%s",
+    "resolver.jira.pattern":"^(jira|j):(?P<issue>.+)$",
+
+    //email
+    "resolver.email.url":"mailto:%s",
+    "resolver.email.pattern":"^(?P<type>email|mailto):(?P<email>[^/]+)(/(?P<subject>.+))?$",
+
+    //prompt
+    "resolver.prompt.pattern":"^(cmd:|prompt:)(?P<path>.+)$",
+
+    //file: Only these extensions will be opened in sublime when in a link others will be opened externally.
+    "resolver.local_file.force_into_sublime":"'*.txt', '*.org', '*.py', '*.rb', '*.html', '*.css', '*.js', '*.php', '*.c', '*.cpp', '*.h', '*.png', '*.jpg', '*.gif', '*.cs'",
+    //"resolver.local_file.pattern":"^(file:)?(?P<filepath>.+?)(?::(?P<row>\\d+)(?::(?P<col>\\d+))?)?$",
+
+    // ============================================================
+    // CAPTURE
+    // The quick capture buffer gets this name
+    "captureBufferName": "*capture*",
+
+    // Captures go into this file for refiling later.
+    "refile": "D:\\Build\\notes\\refile.org",
+
+    // Org Capture templates $0 is where the cursor ends up.
+    "captureTemplates":
+    [
+        // OLD DO NOTE USE TEMPLATE TYPE
+        //{
+        //  "name": "Todo",
+        //  "template": 
+        //      "* TODO $0\n  :PROPERTIES:\n:CREATED: [{datetime}]\n:END:\n  "
+        //},
+        // PREFER THE SNIPPET TYPE
+        {
+            "name":    "Todo",
+            "type":    "entry",
+            "snippet": "todo_heading",
+            "target": ["file","{refile}"],
+        },
+        {
+            "name":    "Note",
+            "type":    "entry",
+            "snippet": "note_heading",
+            "target": ["file","{refile}"],
+        },
+        {
+            "name":    "Capture",
+            "type":    "entry",
+            "snippet": "capture_heading",
+            "target": ["file","{refile}"],
+        },
+        {
+            "name": "Meeting",
+            // types:
+            // entry      - An Org mode node, with a headline. Will be filed as the child of the target entry or as a top-level entry
+            // item       - A plain list item, placed in the first plain list at the target location
+            // checkitem  - A checkbox item. This only differs from the plain list item by the default template
+            // table-line - A new line in the first table at the target location. Where exactly the line will be inserted depends on the properties :prepend and :table-line-pos (see below)
+            // plain      - Text to be inserted as it is.
+            "type": "entry",
+            // targets: 
+            // -------------
+            // SUPPORTED:
+            // file           - text appened at end of file.
+            // id             - text appened to existing org id in db
+            // file+headline  - unique headline in file ["file+headline","filename","headline"]
+            // file+olp       - full path to headline
+            // file+regexp    - heading is a match to the regexp
+            // clock          - insert under current item being clocked.
+            // file+datetree  - NOT YET SUPPORTED This target creates a heading in a date tree for today’s date. If the optional outline path is given, the tree will be built under the node it is pointing to
+            // function <name>- NOT YET SUPPORTED generic function to find location for you
+            // BUILD IN SYMBOLS:
+            // {date}         - current date
+            // {time}         - current time
+            // {file}         - current filename
+            // {daypage}.     - todays daypage (if setup)
+
+            "target": ["file","{refile}"],
+            // "target": ["file+headline","{daypage}","Headline Text"],
+            // "target": ["file+olp"     ,"{refile}" ,"Heading 1", "Heading 2", ...],
+
+            // We have:
+            // - todo_heading     - make a todo heading at target
+            // - note_heading     - make a note heading at target
+            // - meeting_heading  - make a meeting heading at target
+            // - plain_template   - just put cursor at target
+            // You can add your own in the orgsnippets folder in Users.
+            "snippet": "meeting_heading",
+
+            // This can be panel or direct
+            // Panel will open up a panel that copies its contents to your target when
+            // the panel loses focus. Direct will open up the actual file at your traget
+            // during the capture
+            "openas": "panel",
+
+            // NONE OF THESE ARE CURRENTLY SUPPORTED
+            // HOPEFULLY IN THE FUTURE WE WILL SUPPORT THEM
+            //"template": "* MEETING $0\n  :PROPERTIES:\n:CREATED: [{datetime}]\n:END:\n  "
+            // prepend - Normally new captured information will be appended at the target location (last child, last table line, last list item, …). Setting this property changes that.
+            // immediate-finish - When set, do not offer to edit the information, just file it away immediately. This makes sense if the template only needs information that can be added automatically.
+            // empty-lines - Set this to the number of lines to insert before and after the new item. Default 0, and the only other common value is 1.
+            // clock-in - Start the clock in this item.
+            // clock-keep - Keep the clock running when filing the captured entry.
+            // clock-resume - If starting the capture interrupted a clock, restart that clock when finished with the capture. Note that clock-keep has precedence over clock-resume. When setting both to non-nil, the current clock will run and the previous one will not be resumed.
+            // time-prompt - Prompt for a date/time to be used for date/week trees and when filling the template. Without this property, capture uses the current date and time. Even if this property has not been set, you can force the same behavior by calling org-capture with a C-1 prefix argument.
+            // tree-type - When week, make a week tree instead of the month tree, i.e., place the headings for each day under a heading with the current ISO week.
+            // unnarrowed - Do not narrow the target buffer, simply show the full buffer. Default is to narrow it so that you only see the new material.
+            // table-line-pos - Specification of the location in the table where the new line should be inserted. It should be a string like ‘II-3’ meaning that the new line should become the third line before the second horizontal separator line.
+            // kill-buffer - If the target file was not yet visited when capture was invoked, kill the buffer again after capture is completed.
+            // no-save - Do not save the target file after finishing the capture.
+
+            // THESE ARE IMPLEMENTED:
+
+            // These are python date strings and allow you to control the header
+            // format of your datetree
+            // "year-format":  "%Y",          - The root of your datetree * 2021
+            // "month-format": "%Y-%m %B",    - The month section         ** 2021-11 November
+            // "day-format",   "%Y-%m-%d %A", - The day section           *** 2021-11-27 Saturday
+            "properties": [],
+        }       
+    ],
+
+    // ============================================================   
+    // AGENDA
+    // What does the composite agenda view show?
+    // You can add your own views but that is done through code.
+    // Right now I ONLY have this one composite view.
+    "AgendaCustomViews": 
+    {
+        "Default": ["Calendar", "Week", "Day", "Blocked Projects", "Next Tasks", "Loose Tasks"],
+        "Todos":   ["Todos"],
+        "Notes":   ["Notes"],
+        "Flags":   ["Todos : tagfilter |TAG1 |OTHERTAGS", "Todos : tagfilter OTHERTAGS"],
+    },
+
+    // By default our first day of the week is Sunday
+    // But some people prefer the first day to be monday
+    // Set first day to Monday
+    "firstDayOfWeek": "Sunday",
+
+    // Configure the agenda header format
+    //"agendaHeaderFormat": "%A \t%d %B %Y",
+
+    // Include files outside of orgDirs in the agenda
+    // (open files etc)
+    "agendaIncludeFilesOutsideOrgDir": false,
+
+    // Day view starts at 6am and ends at 7pm
+    "agendaDayStartTime": 6,
+    "agendaDayEndTime": 19,  
+
+    // What defines a project?
+    // nested_todo TODO with sub TODO's.
+    // tag         Heading with a :PROJECT: tag
+    // property    Heading with a :PROJECT: True property
+    "agendaProjectIs": "nested_todo",
+
+    // If you would like to only see the work week
+    // set num days to 5 and the firstDayOfWeek above
+    // to Monday
+    "agendaWeekViewNumDays": 7,
+
+    // Do you want the system to delete clocking entries smaller than 1 minute
+    // or keep them?
+    "clockingSubMinuteClocks": true,
+    
+    // We follow the same sort of syntax as the normal orgmode for todos.
+    // Right now I don't support logging tags on these, but that will come.
+    // I don't have smart syntax highlighting on these. The grammar file gives
+    // me some basic highlighting.
+    "todoStates": ["TODO","NEXT", "BLOCKED","WAITING", "WORK", "INPROGRESS", "IDEA", "|", "CANCELLED", "DONE","MEETING","PHONE","NOTE"],
+
+    // ============================================================   
+    // NOTIFICATION THREAD
+    // This is the template used to notify outside of sublime on org notifications 
+    //"ExternalNotificationCommand": ["C:\\Windows\\SysWOW64\\WindowsPowerShell\\v1.0\\powershell.exe", "-ExecutionPolicy", "Unrestricted", ".\\balloontip.ps1", "\"{todo}\"" , "\"{time}\""]
+
+    // When notice thread is polling, how far off does event need to be?
+    "notifyHoursBefore": 0,
+    "notifyMinsBefore": 15,
+
+    // How often to check if an event is up? (in minutes)
+    "noticePeriod": 1,
+
+    // ============================================================   
+    // Pandoc export uses these to determine the style and the location of pandoc executable
+    // "PandocPath": "C:\Program Files\Pandoc\pandoc.exe",
+    // "PandocStyle": "blocky",
+
+    // Turning this on allows you to write table functions and symbol
+    // extensions in: Packages/User/orgtable/myfunction.py 
+    //
+    // These can be used in the TBLFM expressions on tables.
+    // These are turned OFF by default and can be enabled
+    // by you when you want to add your own extensions.
+    //"enableTableExtensions": true,
+
+    // By default extensions are lazy loaded the first time you encounter a table
+    // when writing an extension this can become tedious fast as it means you have to
+    // reload sublime to test your changes. Turn this on and sublime will forcibly reload
+    // extensions every time it goes to execute them.
+    //"forceLoadExternalExtensions": true,
+
+    // Turning this on will turn on a lot of additional logging to help diagnose problems
+    // during debugging. Do not enable unless you really want that.
+    // You will need to restart sublime to get this.
+    // "enableDebugLogging": true, 
+
+    // This will cause org extended to aggressively re-fold a buffer marked as #+STARTUP: content when you refocus the buffer
+    // Some people may find this jarring so it is hidden behind an option for now.
+    //"onFocusRespectStartupFolds": true,
+
+    // ============================================================
+    // DAY PAGE
+    // Path where we would like day pages created
+    //"dayPagePath": "PATH",
+    //
+    // The name of your new day page snippet (without the file extention!)
+    //"dayPageSnippet": "filename",
+    //
+    // How should we name day pages? NOTE: This format is how we find old day pages
+    // This means if you change this we may not be able to find old content.
+    //"dayPageNameFormat": "%a_%Y_%m_%d",
+    //
+    // Do you want to use one page per day or one page per week?
+    // This only impacts the creation of a page not existing pages.
+    // set to "week" if you would like one page per week.
+    //"dayPageMode": "day",
+    //
+    // When in week mode what day should be the official day for your
+    // logs?
+    //"dayPageModeWeekDay": "Monday",
+    //
+    // Close out the previous day with a #+FILETAGS: ARCHIVE tag when
+    // a new day page is created 
+    //"dayPageArchiveOld": true,
+    //
+    // Copy tasks in a TODO state from the previous day to a new day page.
+    //"dayPageCopyOpenTasks": true,
+    // ============================================================
+    // Source Block Handler Paths
+    // We do not automatically locate these at the moment.
+    //"nodejsPath": "C:\\Program Files\\nodejs\\node.exe",
+    //"bashPath":   "C:\\Windows\\System32\\wsl.exe",
+    //"graphviz":   "C:\\Path\\To\GraphvizExes",
+    //"plantuml":   "C:\\Path\\To\\Plantuml.jar",
+    //"ditaa":      "C:\\Path\\To\\Ditaa.jar",
+    //"mermaid":      "C:\\Path\\To\\mmdc",
+    //"gnuplot":    "C:\Program Files\gnuplot\bin\gnuplot.exe"
+    //"perlPath":   "<pathtoperlexe>",
+    // For the plantuml source blocks, where is planuml found?
+    "plantuml": "D:\\Build\\.imacs\\plantuml.jar",
+
+    "mermaid":      "C:/Users/ihdav/node_modules/.bin/mmdc",
+    // These source block handlers are built in to org mode. If you want to replace them with your own
+    // version:
+    // 1. write a handler in Packages/User/orgsrc folder
+    // 2. remove them from your list in your settings file.
+    "builtinSourceBlockHandlers": ["plantuml", "graphviz", "ditaa", "mermaid", "powershell", "python", "gnuplot", "cmd", "sh", "javascript", "perl"],
+    // These are source block aliases for languages listed in the builtinSourceBlockHandlers
+    "builtinSourceBlockAliases": {
+        "bash":  "sh",
+        "bat":   "cmd",
+        "js":    "javascript"
+    },
+
+    // These are the default state for all source execution. You can change the defaults by changing this plist
+    "orgBabelDefaultHeaderArgs": ":session none :results replace :exports code :cache no :noweb no",
+
+    // During Html export some language types we skip exporting source by default unless the user
+    // has explicitly overriden the export. This option lets you control which languages we do that for.
+    "htmlDefaultSkipSrc": ["plantuml","graphviz","ditaa","gnuplot"], 
+
+    // Should we execute our source blocks on export?
+    "htmlExecuteSourceOnExport": true,
+
+    // Include roam tag in description when inserting file link
+    "insertRoamTagToFileLink": true,
+
+    // LaTeX path for Org Export File As Pdf
+    // "latex2Pdf": "C:\\texlive\\2021\\bin\\win32\\pdflatex.exe",
+    // LateX SRC_BLOC - LaTex Listing package language matching
+    // "latexListingPackageLang": {
+    //     "python":  "Python",
+    //     "lua":   "[5.2]Lua",
+    // },
+
+    // ============================================================
+    // BACKLINKS
+    //
+    // Turn this off if you do not want the system to try to auto
+    // update backlinks for you in the backlinks display
+    "backlinksUpdate": true,
+}
