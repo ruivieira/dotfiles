@@ -1,0 +1,7 @@
+- name: Copy Joplin config
+  ansible.builtin.copy:
+    src: "{{role_path}}/files/joplin/{{item}}"
+    dest: "~/.config/joplin-desktop/{{item}}"
+  with_items:
+    - "userchrome.css"
+    - "userstyle.css"
