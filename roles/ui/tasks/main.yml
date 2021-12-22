@@ -36,6 +36,12 @@
     - xfce
   when: ansible_distribution == 'Ubuntu'
 
+- name: Setup Joplin
+  import_tasks: "{{ role_path }}/tasks/joplin.yaml"
+  tags:
+    - ui
+    - joplin
+
 - name: Setup AwesomeWM UI
   import_tasks: "{{ role_path }}/tasks/awesomewm.yaml"
   tags:
