@@ -9,6 +9,16 @@
   tags:
     - fonts
 
+- name: Install Hera Mono font (Linux)
+  copy:
+    src: "{{ item }}"
+    dest: "~/.local/share/fonts/"
+  with_fileglob:
+    - "{{ role_path }}/files/Hera.otf"
+  when: "{{ is_linux}}"
+  tags:
+    - fonts
+
 - name: Install Julia Mono font (Linux)
   copy:
     src: "{{ item }}"
