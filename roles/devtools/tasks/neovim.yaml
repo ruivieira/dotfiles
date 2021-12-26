@@ -15,42 +15,51 @@
   file:
     path: ~/.config/nvim
     state: directory
-- name: Link init.vim
-  file:
+
+- name: Copy init.vim
+  ansible.builtin.copy:
     src: "{{ role_path }}/files/nvim/init.vim"
     dest: "{{ansible_env.HOME}}/.config/nvim/init.vim"
-    force: yes
-    state: link
+    follow: yes
+
 - name: Check if NeoVim bundle folder exists
   stat:
     path: "{{ansible_env.HOME}}/.config/nvim/bundle"
   register: neovim_bundle_dir_result
+
 - name: Delete current NeoVim bundle folder
   shell: "rm -Rf {{ansible_env.HOME}}/.config/nvim/bundle"
   when: neovim_bundle_dir_result.stat.exists == True 
+
 - name: Create NeoVim bundle folder
   file:
     path: "{{ansible_env.HOME}}/.config/nvim/bundle"
     state: directory
+
 - name: Install NeoVim Bundles
   git:
     repo: "git://github.com/{{item.url}}"
     dest: "{{ansible_env.HOME}}/.config/nvim/bundle/{{item.name}}"
   with_items:
     - { url: "zah/nim.vim.git", name: "nim.vim" }
+
 - name: Install pathogen
   shell: "{{item}}"
   with_items:
     - rm -Rf ~/.config/nvim/autoload
     - mkdir -p ~/.config/nvim/autoload
     - curl -LSso ~/.config/nvim/autoload/pathogen.vim https://tpo.pe/pathogen.vim
+
 - name: Install vimplug
   shell: "{{item}}"
   with_items:
     - curl -fLo ~/.config/nvim/autoload/plug.vim --create-dirs https://raw.githubusercontent.com/junegunn/vim-plug/master/plug.vim
 
 - name: Run vimplug plugin install
-  shell: "{{item}}"
-  with_items:
-    - nvim --headless +PlugInstall +UpdateRemotePlugins +qall
+  shell: "/usr/bin/nvim --headless +PlugInstall +UpdateRemotePlugins +qall"
   
+- name: Instaleovide (Ubuntu)
+  become: "{{linux}}"
+  community.general.snap:
+    name: neovide
+  when: ansible_distribution == 'Ubuntu'

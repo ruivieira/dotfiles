@@ -97,7 +97,7 @@ nnoremap <C-LeftMouse> :ALEGoToDefinition<CR>
 " Configuring fixers
 let g:ale_fixers = { 'rust': ['rustfmt', 'trim_whitespace', 'remove_trailing_lines'] }
 
-colorscheme gruvbox
+" colorscheme gruvbox
 set background=dark " use dark mode
 
 " Extra extensions
