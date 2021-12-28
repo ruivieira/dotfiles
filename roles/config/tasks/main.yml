@@ -71,16 +71,6 @@
   tags:
     - core
 
-### Install navi snippet completion
-
-- name: Install navi (macOS)
-  package:
-    name: denisidoro/tools/navi
-    state: present
-  when: ansible_distribution == 'MacOSX'
-  tags:
-    - navi
-
 - name: Setup macOS security
   import_tasks: "{{ role_path }}/tasks/security-mac.yaml"
   tags:
