@@ -1,3 +1,9 @@
+- name: Install navi
+  import_tasks: "{{ role_path }}/tasks/navi.yaml"
+  tags:
+    - cli
+    - navi
+
 # - name: Install lsd
 #   package:
 #     name: lsd

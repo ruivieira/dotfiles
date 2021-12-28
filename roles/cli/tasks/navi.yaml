@@ -1,0 +1,17 @@
+### Install navi snippet completion
+- name: Install navi (macOS)
+  package:
+    name: denisidoro/tools/navi
+    state: present
+  when: ansible_distribution == 'MacOSX'
+
+- name: Install navi (Linux)
+  become: "{{ is_linux }}"
+  ansible.builtin.unarchive:
+    src: https://github.com/denisidoro/navi/releases/download/v2.18.0/navi-v2.18.0-x86_64-unknown-linux-musl.tar.gz
+    dest: /usr/local/bin
+    remote_src: yes
+  when: "{{ is_linux }}"
+
+# - name: Navi add main cheatsheet
+#   ansible.builtin.command: navi repo add https://github.com/ruivieira/cheatsheets
