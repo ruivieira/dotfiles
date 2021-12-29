@@ -47,8 +47,10 @@ ZSH_THEME_GIT_PROMPT_CLEAN=" ✔"
 # git editor
 EDITOR=/usr/local/bin/code
 
+{% if is_linux %}
 # Go language variables
 export PATH=$PATH:/usr/local/go/bin
+{% endif %}
 
 # Deno variables
 export DENO_INSTALL=$HOME/.deno
