@@ -1,0 +1,21 @@
+---
+- name: Install Go (macOS)
+  package:
+    name: go
+    state: present
+  when: ansible_distribution == 'MacOSX'
+
+- name: Remove Go directory (Linux)
+  become: "{{ is_linux }}"
+  file:
+    path: /usr/local/go
+    state: absent
+  when: "{{ is_linux }}"
+
+- name: Install Go (Linux)
+  become: "{{ is_linux }}"
+  ansible.builtin.unarchive:
+    src: https://go.dev/dl/go1.17.5.linux-amd64.tar.gz
+    dest: /usr/local
+    remote_src: yes
+  when: "{{ is_linux }}"

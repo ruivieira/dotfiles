@@ -1,0 +1,5 @@
+- name: Install Go
+  import_tasks: "{{ role_path }}/tasks/go.yaml"
+  tags:
+    - golang
+    - languages
