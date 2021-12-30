@@ -1,0 +1,6 @@
+---
+- name: Install Leiningen
+  become: "{{ is_linux }}"
+  package:
+    name: leiningen
+    state: present
