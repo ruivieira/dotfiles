@@ -3,3 +3,9 @@
   tags:
     - golang
     - languages
+
+- name: Install Clojure and tools
+  import_tasks: "{{ role_path }}/tasks/clojure.yaml"
+  tags:
+    - clojure
+    - languages
