@@ -9,7 +9,7 @@
     - { role: core, tags: [core] }
     - { role: backup, tags: [backup] }
     - { role: cli, tags: [cli] }
-    - { role: language, tags: [language] }
+    - { role: languages, tags: [languages] }
     - { role: devtools, tags: [devtools] }
     - { role: zsh, tags: [zsh] }
 
