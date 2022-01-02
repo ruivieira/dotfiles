@@ -62,6 +62,13 @@
   tags:
     - zsh
 
+- name: Copy zsh functions
+  ansible.builtin.copy:
+    src: "{{role_path}}/files/.functions.zsh"
+    dest: "~/.functions.zsh"
+  tags:
+    - zsh
+
 - name: Copy zsh gruvbox theme
   ansible.builtin.copy:
     src: "{{role_path}}/files/{{item}}"
