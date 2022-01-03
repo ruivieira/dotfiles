@@ -88,7 +88,7 @@ function kopia_backup() {
 	local CURRENT_REPO=$(kopia repository status | awk 'NR==3' | cut -c 36-)
 
     echo -e "${GREEN}[kopia]${NOCOLOR} Backing up code to ${YELLOW}$CURRENT_REPO${NOCOLOR}"
-	kopia snapshot create ~/Dropbox/code/backup/code
+	kopia snapshot create ~/Sync/code
 
     echo -e "${GREEN}[kopia]${NOCOLOR} Backing up docs to ${YELLOW}$CURRENT_REPO${NOCOLOR}"
 	kopia snapshot create ~/Sync/documents

@@ -1,9 +1,9 @@
-- name: Install Kopia for Fedora
+- name: Install Kopia
   become: "{{linux}}"
-  import_tasks: "{{ role_path }}/tasks/kopia-fedora.yaml"
-  when: ansible_distribution == 'Fedora'
+  import_tasks: "{{ role_path }}/tasks/kopia.yaml"
   tags:
     - backup
+    - kopia
 
 - name: Install Syncthing
   package:

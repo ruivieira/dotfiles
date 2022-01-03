@@ -2,6 +2,7 @@
   ansible.builtin.rpm_key:
     state: present
     key: https://kopia.io/signing-key
+  when: "{{ is_linux }}"
  
 - name: Add Kopia Yum repository
   copy:
@@ -13,8 +14,15 @@
       gpgcheck=1
       enabled=1
       gpgkey=https://kopia.io/signing-key
+  when: "{{ is_linux }}"
 
 - name: Install Kopia
+  become: "{{ is_linux }}"
   ansible.builtin.package:
     name: kopia
     state: present
+
+- name: Copy Kopia ignore settings
+  ansible.builtin.copy:
+    src: "{{role_path}}/files/.kopiaignore"
+    dest: "~/Sync/code/.kopiaignore"
