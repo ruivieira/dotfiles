@@ -1,4 +1,8 @@
 ---
+- name: Define Java variables
+  set_fact:
+    jdk_version: "11"
+
 - name: define OpenJDK variables
   set_fact:
     download_url: https://download.java.net/java/GA/jdk11/9/GPL
