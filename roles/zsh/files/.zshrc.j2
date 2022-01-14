@@ -50,6 +50,14 @@ EDITOR=/usr/local/bin/code
 {% if is_linux %}
 # Go language variables
 export PATH=$PATH:/usr/local/go/bin
+
+# Java home
+export JAVA_HOME=/usr/lib/jvm/java-{{jdk_version}}-openjdk-amd64
+{% endif %}
+
+{% if not is_linux %}
+# Java home
+export JAVA_HOME="~/Library/Java/JavaVirtualMachines/openjdk-17/"
 {% endif %}
 
 # Deno variables
