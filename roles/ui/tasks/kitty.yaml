@@ -3,6 +3,7 @@
   ansible.builtin.package:
     name: kitty
     state: present
+  ignore_errors: true
 
 - name: Create Kitty config dir
   file:
@@ -17,3 +18,4 @@
     - "kitty.conf"
     - "gruvbox_dark.conf"
     - "gruvbox_dark_hard.conf"
+    - "sketch.conf"

@@ -54,7 +54,6 @@
   tags:
     - ui
     - kitty
-  when: "{{ is_linux }}"
 
 - name: Setup Xmodmap to be macOS-like
   ansible.builtin.copy:
