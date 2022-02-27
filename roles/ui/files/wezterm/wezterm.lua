@@ -1,7 +1,7 @@
 local wezterm = require 'wezterm';
 
 return {
-    color_scheme = "Spring",
+    color_scheme = "Hybrid",
     font = wezterm.font("Comic Mono"),
     font_size = 14,
     warn_about_missing_glyphs = false,
@@ -12,6 +12,7 @@ return {
     keys = {
       {key="q", mods="CTRL", action="QuitApplication"},
       -- This will create a new split and run the `top` program inside it
-      {key="d", mods="CTRL", action=wezterm.action{SplitHorizontal={domain="CurrentPaneDomain"}}}
+      {key="d", mods="CTRL", action=wezterm.action{SplitHorizontal={domain="CurrentPaneDomain"}}},
+      {key="/", mods="CTRL", action=wezterm.action{SplitVertical={domain="CurrentPaneDomain"}}}
     }
 }
