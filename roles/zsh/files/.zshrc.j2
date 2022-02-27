@@ -50,9 +50,6 @@ EDITOR=/usr/local/bin/code
 {% if is_linux %}
 # Go language variables
 export PATH=$PATH:/usr/local/go/bin
-
-# Java home
-export JAVA_HOME=/usr/lib/jvm/java-{{jdk_version}}-openjdk-amd64
 {% endif %}
 
 {% if not is_linux %}
@@ -65,3 +62,4 @@ export DENO_INSTALL=$HOME/.deno
 export PATH="$DENO_INSTALL/bin:$PATH"
 
 eval "$(starship init zsh)"
+eval "$(navi widget zsh)"
