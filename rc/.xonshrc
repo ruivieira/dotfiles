@@ -1,5 +1,9 @@
+from pathlib import Path
+import xontrib.kopia as kopia
+
 $PATH.append("/usr/local/bin")
 $PATH.append("~/.cargo/bin")
+$PATH.append("~/crc")
 
 xontrib load vox
 xontrib load robby
@@ -24,3 +28,29 @@ git config --global diff.external difft
 
 # Set prompt
 $PROMPT='{BLUE}{cwd}{DEFAULT} {#333}[{gitstatus}{#333}]{DEFAULT}\n{PURPLE}❱{DEFAULT}'
+
+def get_standup():
+    values = $(todoist --csv l -f "@standup").strip().split("\n")
+    msg = [row.split(",")[-1] for row in values]
+    print(msg)
+    return "☝️" + "|".join(msg)
+
+# $BOTTOM_TOOLBAR=get_standup()
+
+source-bash ~/.env
+
+def kopia_wasabi_connect():
+    kopia.connect_s3(bucket=$WASABI_KOPIA_BUCKET,
+                   access_key=$WASABI_KOPIA_ACCESS_KEY,
+                   secret_key=$WASABI_KOPIA_SECRET_KEY,
+                   endpoint=$WASABI_KOPIA_ENDPOINT,
+                   password=$KOPIA_PASSWORD)
+
+def kopia_b2_connect():
+    print_color("{GREEN}[kopia]{RESET} connecting to repository {YELLOW}B2:" + $B2_KOPIA_BUCKET + "{RESET}")
+    result = $(kopia repository connect b2 --bucket=$B2_KOPIA_BUCKET --key-id=$B2_KOPIA_ACCESS_KEY --key=$B2_KOPIA_SECRET_KEY --password=$KOPIA_PASSWORD)
+
+def kopia_backup():
+    areas = ["/Sync/code", "/Sync/documents", "/Sync/sites", "/Sync/notes", "/Documents/Rack2", "/Maildir"]
+    for area in areas:
+        kopia.create_snapshot($HOME + area)
