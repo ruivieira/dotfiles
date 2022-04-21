@@ -20,17 +20,6 @@ function pyenvdelete () {
 	pyenv virtualenv-delete $PROJ_DIR
 }
 
-{{- if eq .chezmoi.os "darwin" }}
-function jvm_exists() {
-	/usr/libexec/java_home -v$1 >& /dev/null
-	if [ $? -eq 0 ]; then
-		return 0
-	else
-		return 1
-	fi
-}
-{{- end }}
-
 function prepare_backup() {
 	cd ~/Sync/
 	echo -e "${GREEN}Sync code folders${NOCOLOR}"
@@ -98,6 +87,9 @@ function kopia_backup() {
 
     echo -e "${GREEN}[kopia]${NOCOLOR} Backing up notes to ${YELLOW}$CURRENT_REPO${NOCOLOR}"
 	kopia snapshot create ~/Sync/notes
+
+	echo -e "${GREEN}[kopia]${NOCOLOR} Backing up VCV Rack 2 plugins to ${YELLOW}$CURRENT_REPO${NOCOLOR}"
+	kopia snapshot create ~/Documents/Rack2
 }
 
 function rsync_net_backup() {

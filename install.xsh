@@ -179,11 +179,41 @@ export SOURCEHUT_PAGES_OAUTH="{get_b2_attribute($ARG1, $ARG2, "Sourcehut", "oaut
 
 # Todoist token
 export TODOIST_TOKEN="{get_b2_attribute($ARG1, $ARG2, "Todoist", "token")}"
+
+# IRC
+export IRC_NICK="{get_b2_attribute($ARG1, $ARG2, "IRC", "sasl_username")}"
+export IRC_HOST="{get_b2_attribute($ARG1, $ARG2, "IRC", "host")}"
+export IRC_PORT="{get_b2_attribute($ARG1, $ARG2, "IRC", "port")}"
+export IRC_SASL_USERNAME="{get_b2_attribute($ARG1, $ARG2, "IRC", "sasl_username")}"
+export IRC_SASL_PASSWORD="{get_b2_attribute($ARG1, $ARG2, "IRC", "sasl_password")}"
 """ 
-        echo @(data) > ~/.env
+        echo @(data) > ~/.bash_profile
 
     def _info(self):
         return "environment variables"
+
+class EmacsSecrets(Item):
+    def _darwin(self):
+        self._linux()
+
+    def _linux(self):
+        data = f"""
+(use-package! circe
+  :config
+  (setq circe-network-options
+        '(("Libera"
+           :tls t
+           :nick "{get_b2_attribute($ARG1, $ARG2, "IRC", "sasl_username")}"
+           :host "{get_b2_attribute($ARG1, $ARG2, "IRC", "host")}"
+           :port "{get_b2_attribute($ARG1, $ARG2, "IRC", "port")}"
+           :sasl-username "{get_b2_attribute($ARG1, $ARG2, "IRC", "sasl_username")}"
+           :sasl-password "{get_b2_attribute($ARG1, $ARG2, "IRC", "sasl_password")}"))
+        circe-reduce-lurker-spam t))
+""" 
+        echo @(data) > ~/.emacs-secrets.el
+
+    def _info(self):
+        return "Emacs secrets"
 
 class Mu(Item):
     def _darwin(self):
@@ -212,7 +242,7 @@ class Mu(Item):
         echo @(AUTH_INFO) > ~/.authinfo
 
 items = [XonshRc(), Todoist(), Fonts(), Kitty(), DevTools(), NeoVim(),
-         KeepassXC(), EnvFile(), Mu()]
+         KeepassXC(), EnvFile(), EmacsSecrets(), Mu()]
 
 for item in items:
     
