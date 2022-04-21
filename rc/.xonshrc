@@ -37,10 +37,10 @@ def get_standup():
 
 # $BOTTOM_TOOLBAR=get_standup()
 
-source-bash ~/.env
+source-bash ~/.bash_profile
 
-def kopia_wasabi_connect():
-    kopia.connect_s3(bucket=$WASABI_KOPIA_BUCKET,
+def kopia_wasabi_connect(bucket=$WASABI_KOPIA_BUCKET):
+    kopia.connect_s3(bucket=bucket,
                    access_key=$WASABI_KOPIA_ACCESS_KEY,
                    secret_key=$WASABI_KOPIA_SECRET_KEY,
                    endpoint=$WASABI_KOPIA_ENDPOINT,

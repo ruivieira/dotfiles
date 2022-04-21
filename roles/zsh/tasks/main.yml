@@ -19,7 +19,7 @@
 - name: Check if oh-my-zsh is installed
   stat:
     path: ~/.oh-my-zsh/
-  register: ohmyzsh_result  
+  register: ohmyzsh_result
   tags:
     - zsh
 
