@@ -2,8 +2,8 @@ from pathlib import Path
 import xontrib.kopia as kopia
 
 $PATH.append("/usr/local/bin")
-$PATH.append("~/.cargo/bin")
-$PATH.append("~/crc")
+$PATH.append("~/.cargo/bin") # Rust path
+$PATH.append("~/crc") # CodeReady Containers
 
 xontrib load vox
 xontrib load robby
