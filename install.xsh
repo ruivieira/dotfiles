@@ -241,8 +241,29 @@ class Mu(Item):
         AUTH_INFO = f"machine smtp.fastmail.com login {EMAIL} password {MBSYNC_PWD} port 465"
         echo @(AUTH_INFO) > ~/.authinfo
 
+class Rust(Item):
+    def _darwin(self):
+        self._common()
+
+    def _linux(self):
+        self._common()
+
+    def _common(self):
+        curl --proto '=https' --tlsv1.2 -sSf https://sh.rustup.rs | sh
+        # Rust analyzer (LSP)
+        l.info("Installing rust-analyzer (LSP)")
+        cd /tmp
+        if p"rust-analyzer".exists():
+            rm -Rf rust-analyzer
+        git clone https://github.com/rust-analyzer/rust-analyzer.git
+        cd rust-analyzer
+        cargo xtask install
+
+    def _info(self):
+        return "Rust"
+
 items = [XonshRc(), Todoist(), Fonts(), Kitty(), DevTools(), NeoVim(),
-         KeepassXC(), EnvFile(), EmacsSecrets(), Mu()]
+         KeepassXC(), EnvFile(), EmacsSecrets(), Mu(), Rust()]
 
 for item in items:
     
