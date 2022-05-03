@@ -126,6 +126,20 @@ class NeoVim(Item):
     def _info(self):
         return "NeoVim"
 
+class Nim(Item):
+    def _darwin(self):
+        self._common()
+    def _linux(self):
+        self._common()
+    def _common(self):
+        if !(which choosenim).returncode==0:
+            choosenim update self
+            choosenim update stable
+        else:
+            curl https://nim-lang.org/choosenim/init.sh -sSf | sh
+    def _info(self):
+        return "Nim"
+
 class KeepassXC(Item):
     def _darwin(self):
         brew install --cask keepassxc
@@ -249,21 +263,28 @@ class Rust(Item):
         self._common()
 
     def _common(self):
-        curl --proto '=https' --tlsv1.2 -sSf https://sh.rustup.rs | sh
-        # Rust analyzer (LSP)
-        l.info("Installing rust-analyzer (LSP)")
-        cd /tmp
-        if p"rust-analyzer".exists():
-            rm -Rf rust-analyzer
-        git clone https://github.com/rust-analyzer/rust-analyzer.git
-        cd rust-analyzer
-        cargo xtask install
+        if !(which rustup).returncode!=0:
+            curl --proto '=https' --tlsv1.2 -sSf https://sh.rustup.rs | sh
+        else:
+            l.info("Rustup already installed. Updating.")
+            rustup update stable
+        if !(which rust-analyzer).returncode!=0:
+            # Rust analyzer (LSP)
+            l.info("Installing rust-analyzer (LSP)")
+            cd /tmp
+            if p"rust-analyzer".exists():
+                rm -Rf rust-analyzer
+            git clone https://github.com/rust-analyzer/rust-analyzer.git
+            cd rust-analyzer
+            cargo xtask install
+        else:
+            l.info("Rust Analyzer already installed")
 
     def _info(self):
         return "Rust"
 
 items = [XonshRc(), Todoist(), Fonts(), Kitty(), DevTools(), NeoVim(),
-         KeepassXC(), EnvFile(), EmacsSecrets(), Mu(), Rust()]
+         KeepassXC(), EnvFile(), EmacsSecrets(), Mu(), Rust(), Nim()]
 
 for item in items:
     
