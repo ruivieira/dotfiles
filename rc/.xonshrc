@@ -4,7 +4,7 @@ import xontrib.kopia as kopia
 $PATH.append("/usr/local/bin")
 $PATH.append("~/.cargo/bin") # Rust path
 $PATH.append("~/crc") # CodeReady Containers
-
+$PATH.append("~/.nimble/bin") # Nim/Nimble
 xontrib load vox
 xontrib load robby
 
