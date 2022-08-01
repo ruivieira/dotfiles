@@ -14,6 +14,11 @@ FEDORA=p"/etc/fedora-release".exists()
 UBUNTU=p"/etc/lsb-release".exists()
 EMAIL="rui@fastmail.org"
 
+# General macOS behaviour
+if OS=="Darwin":
+    $HOMEBREW_NO_INSTALL_CLEANUP=1 
+    $HOMEBREW_NO_ENV_HINTS=1
+
 class Item(ABC):
     def install(self):
         if OS=="Darwin":
@@ -283,8 +288,30 @@ class Rust(Item):
     def _info(self):
         return "Rust"
 
-items = [XonshRc(), Todoist(), Fonts(), Kitty(), DevTools(), NeoVim(),
-         KeepassXC(), EnvFile(), EmacsSecrets(), Mu(), Rust(), Nim()]
+class Zsh(Item):
+    def _darwin(self):
+        pass
+
+    def _linux(self):
+        l.info("Installing .zshrc")
+        # cp ./rc/.zshrc ~/.zshrc
+
+    def _info(self):
+        return "zsh"
+
+items = [XonshRc(), 
+         Todoist(), 
+         Fonts(), 
+         Kitty(), 
+         DevTools(), 
+         NeoVim(),
+         KeepassXC(), 
+         EnvFile(), 
+         EmacsSecrets(), 
+         Mu(), 
+         Rust(), 
+         Nim(),
+         Zsh()]
 
 for item in items:
     

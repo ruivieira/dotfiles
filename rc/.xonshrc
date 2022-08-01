@@ -5,8 +5,10 @@ $PATH.append("/usr/local/bin")
 $PATH.append("~/.cargo/bin") # Rust path
 $PATH.append("~/crc") # CodeReady Containers
 $PATH.append("~/.nimble/bin") # Nim/Nimble
+$PATH.append("/opt/local/bin/") # MacPorts
 xontrib load vox
 xontrib load robby
+xontrib load powerline2
 
 aliases['l']='exa -l --icons -a'
 aliases['robby-rebuild']='xpip install ~/Sync/code/robby/robby/ -U --force'
@@ -27,7 +29,7 @@ source ~/Sync/code/robby/virtualenvs.xsh
 git config --global diff.external difft
 
 # Set prompt
-$PROMPT='{BLUE}{cwd}{DEFAULT} {#333}[{gitstatus}{#333}]{DEFAULT}\n{PURPLE}❱{DEFAULT}'
+$PROMPT='{#333}[{gitstatus}{#333}]{DEFAULT}{PURPLE}❱{DEFAULT} '
 
 def get_standup():
     values = $(todoist --csv l -f "@standup").strip().split("\n")
@@ -51,6 +53,6 @@ def kopia_b2_connect():
     result = $(kopia repository connect b2 --bucket=$B2_KOPIA_BUCKET --key-id=$B2_KOPIA_ACCESS_KEY --key=$B2_KOPIA_SECRET_KEY --password=$KOPIA_PASSWORD)
 
 def kopia_backup():
-    areas = ["/Sync/code", "/Sync/documents", "/Sync/sites", "/Sync/notes", "/Documents/Rack2", "/Maildir"]
+    areas = ["/Sync/code", "/Sync/documents", "/Sync/sites", "/Documents/Rack2", "/Maildir", "/notes"]
     for area in areas:
         kopia.create_snapshot($HOME + area)
