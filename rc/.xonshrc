@@ -13,6 +13,11 @@ xontrib load powerline2
 aliases['l']='exa -l --icons -a'
 aliases['robby-rebuild']='xpip install ~/Sync/code/robby/robby/ -U --force'
 
+_robby_scripts = ['notes', 'humble']
+for s in _robby_scripts:
+    aliases[s] = f"~/Sync/code/robby/robby/xontrib/{s}.xsh"
+
+
 # Enable showing MOTD, etc for certain dirs
 $SHOW_CHANGE_DIR=1
 
