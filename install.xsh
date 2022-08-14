@@ -2,9 +2,27 @@
 from abc import ABC, abstractmethod
 from pathlib import Path
 import os
+import click
 
-# Install robby xontrib
-xpip install ~/Sync/code/robby/robby -U --force
+@click.group()
+def setup():
+    """
+    Manage setup
+    """
+    pass
+
+@setup.group()
+def install():
+    """
+    Install software
+    """
+    pass
+
+
+@install.command("robby")
+def install_robby():
+    """Install robby xontrib"""
+    xpip install ~/Sync/code/robby/robby -U --force
 
 import xontrib.xlog as l
 
@@ -21,6 +39,11 @@ if OS=="Darwin":
 
 class Item(ABC):
     def install(self):
+        if not self.installed():
+            print_color("[🐚] {GREEN}Installing " + self._info() + "{RESET}")
+        else:
+            print_color("[🐚] {YELLOW}" + self._info() + " already installed{RESET}")
+
         if OS=="Darwin":
             self._darwin()
         else:
@@ -294,29 +317,36 @@ class Zsh(Item):
 
     def _linux(self):
         l.info("Installing .zshrc")
-        # cp ./rc/.zshrc ~/.zshrc
+        cp ./rc/.zshrc ~/.zshrc
 
     def _info(self):
         return "zsh"
 
-items = [XonshRc(), 
-         Todoist(), 
-         Fonts(), 
-         Kitty(), 
-         DevTools(), 
-         NeoVim(),
-         KeepassXC(), 
-         EnvFile(), 
-         EmacsSecrets(), 
-         Mu(), 
-         Rust(), 
-         Nim(),
-         Zsh()]
+@install.command("zsh")
+def install_zsh():
+    """Install zsh and configuration"""
+    Zsh().install()
 
-for item in items:
+# items = [XonshRc(), 
+#          Todoist(), 
+#          Fonts(), 
+#          Kitty(), 
+#          DevTools(), 
+#          NeoVim(),
+#          KeepassXC(), 
+#          EnvFile(), 
+#          EmacsSecrets(), 
+#          Mu(), 
+#          Rust(), 
+#          Nim(),
+#          Zsh()]
+
+# for item in items:
     
-    if not item.installed():
-        print_color("[🐚] {GREEN}Installing " + item._info() + "{RESET}")
-        item.install()
-    else:
-        print_color("[🐚] {YELLOW}" + item._info() + " already installed{RESET}")
+#     if not item.installed():
+#         print_color("[🐚] {GREEN}Installing " + item._info() + "{RESET}")
+#         item.install()
+#     else:
+#         print_color("[🐚] {YELLOW}" + item._info() + " already installed{RESET}")
+if __name__ == "__main__":
+    setup()
