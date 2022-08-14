@@ -313,11 +313,14 @@ class Rust(Item):
 
 class Zsh(Item):
     def _darwin(self):
-        pass
+        self._linux()
 
     def _linux(self):
         l.info("Installing .zshrc")
         cp ./rc/.zshrc ~/.zshrc
+        if not p'~/.oh-my-zsh/custom/plugins/zsh-z'.exists():
+            l.info("Installing Z")
+            git clone https://github.com/agkozak/zsh-z ~/.oh-my-zsh/custom/plugins/zsh-z
 
     def _info(self):
         return "zsh"
