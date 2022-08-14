@@ -65,5 +65,6 @@ EDITOR=/usr/local/bin/code
 export DENO_INSTALL=$HOME/.deno
 export PATH="$DENO_INSTALL/bin:$PATH"
 
+eval "$(zellij setup --generate-auto-start zsh)"
 # eval "$(starship init zsh)"
 # eval "$(navi widget zsh)"

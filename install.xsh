@@ -119,8 +119,8 @@ class DevTools(Item):
         sudo apt install -y cmake
 
     def _linux(self):
-        if "Ubuntu" in RELEASE:
-            self._ubuntu()
+        if UBUNTU:
+            self._ubuntu()        
 
     def _info(self):
         return "common development tools"
@@ -139,9 +139,14 @@ class NeoVim(Item):
         else:
           sudo snap install --beta nvim --classic
 
+    def _fedora(self):
+        sudo dnf -y install neovim
+
     def _linux(self):
-        if "Ubuntu" in RELEASE:
+        if UBUNTU:
             self._ubuntu()
+        elif FEDORA:
+            self._fedora()
         self._common()
 
     def _common(self):
@@ -150,9 +155,17 @@ class NeoVim(Item):
             rm -Rf @(self.config)
         l.info("(NeoVim) copying configuration")
         cp -R rc/.config/nvim/ ~/.config
+        l.info("Install Vim-Plug")
+        curl -fLo ~/.local/share/nvim/site/autoload/plug.vim --create-dirs https://raw.githubusercontent.com/junegunn/vim-plug/master/plug.vim
+
 
     def _info(self):
         return "NeoVim"
+
+@install.command("neovim")
+def install_neovim():
+    """Install NeoVim"""
+    NeoVim().install()
 
 class Nim(Item):
     def _darwin(self):
@@ -321,6 +334,14 @@ class Zsh(Item):
         if not p'~/.oh-my-zsh/custom/plugins/zsh-z'.exists():
             l.info("Installing Z")
             git clone https://github.com/agkozak/zsh-z ~/.oh-my-zsh/custom/plugins/zsh-z
+        if not p'~/.oh-my-zsh/custom/plugins/zsh-autosuggestions'.exists():
+            l.info("Installing zsh-autosuggestions")
+            git clone https://github.com/zsh-users/zsh-autosuggestions ~/.oh-my-zsh/custom/plugins/zsh-autosuggestions
+        if not p'~/.oh-my-zsh/custom/plugins/zsh-syntax-highlighting'.exists():
+            l.info("Installing zsh-syntax-highlighting")
+            git clone https://github.com/zsh-users/zsh-syntax-highlighting.git ~/.oh-my-zsh/custom/plugins/zsh-syntax-highlighting
+        l.info("Installing zsh Gruvbox theme")
+        curl -L https://raw.githubusercontent.com/sbugzu/gruvbox-zsh/master/gruvbox.zsh-theme > ~/.oh-my-zsh/custom/themes/gruvbox.zsh-theme
 
     def _info(self):
         return "zsh"
@@ -346,6 +367,10 @@ class Zellij(Item):
         chmod +x zellij
         sudo mv zellij /usr/local/bin
         rm @(FILENAME)
+        l.info("Copying Zellij config")
+        ZELLIJ_CONFIG="~/.config/zellij"
+        mkdir -p @(ZELLIJ_CONFIG)
+        cp ~/Sync/code/dotfiles/rc/zellij/config.yaml @(ZELLIJ_CONFIG)
 
     def _info(self):
         return "Zellij"
