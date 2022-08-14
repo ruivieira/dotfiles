@@ -111,6 +111,11 @@ class Kitty(Item):
     def _info(self):
         return "Kitty"
 
+@install.command("kitty")
+def install_kitty():
+    """Install the Kitty terminal emulator"""
+    Kitty().install()
+
 class DevTools(Item):
     def _darwin(self):
         pass
