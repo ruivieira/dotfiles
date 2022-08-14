@@ -327,26 +327,30 @@ def install_zsh():
     """Install zsh and configuration"""
     Zsh().install()
 
-# items = [XonshRc(), 
-#          Todoist(), 
-#          Fonts(), 
-#          Kitty(), 
-#          DevTools(), 
-#          NeoVim(),
-#          KeepassXC(), 
-#          EnvFile(), 
-#          EmacsSecrets(), 
-#          Mu(), 
-#          Rust(), 
-#          Nim(),
-#          Zsh()]
+class Zellij(Item):
+    def _darwin(self):
+        self._common("apple-darwin")
 
-# for item in items:
-    
-#     if not item.installed():
-#         print_color("[🐚] {GREEN}Installing " + item._info() + "{RESET}")
-#         item.install()
-#     else:
-#         print_color("[🐚] {YELLOW}" + item._info() + " already installed{RESET}")
+    def _linux(self):
+        self._common("unknown-linux-musl")
+
+    def _common(self, prefix : str):
+        VERSION="0.31.1"
+        FILENAME=f"zellij-x86_64-{prefix}.tar.gz"
+        cd /tmp
+        wget https://github.com/zellij-org/zellij/releases/download/v@(VERSION)/@(FILENAME)
+        tar -xvf @(FILENAME)
+        chmod +x zellij
+        sudo mv zellij /usr/local/bin
+        rm @(FILENAME)
+
+    def _info(self):
+        return "Zellij"
+
+@install.command("zellij")
+def install_zellij():
+    """Install Zellij"""
+    Zellij().install()
+
 if __name__ == "__main__":
     setup()
