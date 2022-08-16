@@ -186,6 +186,11 @@ class Nim(Item):
     def _info(self):
         return "Nim"
 
+@install.command("nim")
+def install_nim():
+    """Install the Nim toolchain"""
+    Nim().install()
+
 class KeepassXC(Item):
     def _darwin(self):
         brew install --cask keepassxc
@@ -331,9 +336,13 @@ class Rust(Item):
 
 class Zsh(Item):
     def _darwin(self):
-        self._linux()
+        self._common()
+        echo "export LIB_PYTHON=/usr/local/Cellar/python@3.9/3.9.13_2/Frameworks/Python.framework/Versions/3.9/Python" >> ~/.zshrc
 
     def _linux(self):
+        self._common()
+
+    def _common(self):
         l.info("Installing .zshrc")
         cp ./rc/.zshrc ~/.zshrc
         if not p'~/.oh-my-zsh/custom/plugins/zsh-z'.exists():

@@ -63,8 +63,6 @@ EDITOR=/usr/local/bin/code
 
 # Deno variables
 export DENO_INSTALL=$HOME/.deno
-export PATH="$DENO_INSTALL/bin:$PATH"
+export PATH="$HOME/.nimble/bin:$DENO_INSTALL/bin:$PATH"
 
 eval "$(zellij setup --generate-auto-start zsh)"
-# eval "$(starship init zsh)"
-# eval "$(navi widget zsh)"
