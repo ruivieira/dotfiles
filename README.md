@@ -1,15 +1,15 @@
 # dotfiles
 
-A collection of configuration and setup files I am currently using across several machines. This will also install software I frequently use on macOS and Linux.
+A collection of configuration and setup files I am currently using across several machines. This will also install software I frequently use on macOS and Linux (mainly Ubuntu and Fedora).
 
-## setup
+## Setup
 
-There are two approaches to install these configurations, with [Ansible](https://www.ansible.com/) or [pyinfra](https://pyinfra.com/).
+There are two approaches to install these configurations, with [xonsh](https://xon.sh/) or [Ansible](https://www.ansible.com/).
 
 > **⚠️ WARNING ⚠️** running either of these methods locally _will delete_ some of you current configurations,
 if they exist, (`./config/nvim`, `.bashrc`, `.zshrc`, `.emacs.d/`, _etc._)
 
-To prepare a macOS machine, make sure you have `brew` and `ansible` installed.
+To prepare a macOS machine, make sure you have either `brew` and `ansible` installed.
 After installing `brew`, you can install `ansible` with:
 
 ```shell
@@ -21,6 +21,14 @@ On Fedora just run
 ```shell
 dnf install ansible
 ```
+
+Alternatively install `xonsh` using
+
+```shell
+python -m pip install 'xonsh[full]'
+```
+
+`xonsh` is [also available](https://xon.sh/) for other package manager such as `apt` or `dnf`.
 
 ### Vagrant
 
@@ -62,6 +70,14 @@ Alternatively, run each tag separately, _e.g._ running the tasks tagged `core`
 ```shell
 ansible-playbook --connection=local --inventory 127.0.0.1, playbook.yml --tags "core" -K
 ```
+
+Using it with `xonsh` is simply a case of running 
+
+```shell
+./install.xsh install <component>
+```
+
+Where component can be `zsh`, `nim`, etc...
 
 ## Tags
 
