@@ -306,6 +306,15 @@ class Mu(Item):
         AUTH_INFO = f"machine smtp.fastmail.com login {EMAIL} password {MBSYNC_PWD} port 465"
         echo @(AUTH_INFO) > ~/.authinfo
 
+
+class Emacs(Item):
+    pass
+
+@install.command("emacs")
+def install_emacs():
+    """Install Emacs and config"""
+    pass
+
 class Rust(Item):
     def _darwin(self):
         self._common()
@@ -334,12 +343,18 @@ class Rust(Item):
     def _info(self):
         return "Rust"
 
+@install.command("rust")
+def install_rust():
+    """Install the Rust toolchain"""
+    Rust().install()
+
 class Zsh(Item):
     def _darwin(self):
         self._common()
         echo "export LIB_PYTHON=/usr/local/Cellar/python@3.9/3.9.13_2/Frameworks/Python.framework/Versions/3.9/Python" >> ~/.zshrc
 
     def _linux(self):
+        sudo apt -y install cargo
         self._common()
 
     def _common(self):
@@ -393,6 +408,27 @@ class Zellij(Item):
 def install_zellij():
     """Install Zellij"""
     Zellij().install()
+
+class Hugo(Item):
+    def __init__(self):
+        self.VERSION = "0.101.0"
+    def _darwin(self):
+        pass
+    def _linux(self):
+        FILENAME=f"hugo_extended_{self.VERSION}_Linux-64bit.tar.gz"
+        cd /tmp
+        wget https://github.com/gohugoio/hugo/releases/download/v0.101.0/@(FILENAME)
+        tar zxvf @(FILENAME)
+        sudo mv hugo /usr/local/bin
+        rm @(FILENAME)
+
+    def _info(self):
+        return "Hugo"
+
+@install.command("hugo")
+def install_hugo():
+    """Install Hugo"""
+    Hugo().install()
 
 if __name__ == "__main__":
     setup()
