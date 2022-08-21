@@ -64,5 +64,3 @@ EDITOR=/usr/local/bin/code
 # Deno variables
 export DENO_INSTALL=$HOME/.deno
 export PATH="$HOME/.nimble/bin:$DENO_INSTALL/bin:$PATH"
-
-eval "$(zellij setup --generate-auto-start zsh)"
