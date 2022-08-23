@@ -417,7 +417,7 @@ class Hugo(Item):
     def _linux(self):
         FILENAME=f"hugo_extended_{self.VERSION}_Linux-64bit.tar.gz"
         cd /tmp
-        wget https://github.com/gohugoio/hugo/releases/download/v0.101.0/@(FILENAME)
+        wget https://github.com/gohugoio/hugo/releases/download/v@(VERSION)/@(FILENAME)
         tar zxvf @(FILENAME)
         sudo mv hugo /usr/local/bin
         rm @(FILENAME)
@@ -429,6 +429,23 @@ class Hugo(Item):
 def install_hugo():
     """Install Hugo"""
     Hugo().install()
+
+
+class SublimeMerge(Item):
+    def _linux(self):
+        if FEDORA:
+            sudo rpm -v --import https://download.sublimetext.com/sublimehq-rpm-pub.gpg
+            sudo dnf config-manager --add-repo https://download.sublimetext.com/rpm/stable/x86_64/sublime-text.repo
+            sudo dnf install -y sublime-merge
+    def _darwin(self):
+        pass
+    def _info(self):
+        return "Sublime Merge"
+
+@install.command("sublime-merge")
+def install_sublime_merge():
+    """Install Sublime Merge"""
+    SublimeMerge().install()
 
 if __name__ == "__main__":
     setup()
