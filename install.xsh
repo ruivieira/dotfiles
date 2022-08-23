@@ -434,8 +434,10 @@ def install_hugo():
 class SublimeMerge(Item):
     def _linux(self):
         if FEDORA:
+            l.info("Add repositories")
             sudo rpm -v --import https://download.sublimetext.com/sublimehq-rpm-pub.gpg
             sudo dnf config-manager --add-repo https://download.sublimetext.com/rpm/stable/x86_64/sublime-text.repo
+            l.info("Installing")
             sudo dnf install -y sublime-merge
         elif UBUNTU:
             l.error("Ubuntu not supported, yet.")
