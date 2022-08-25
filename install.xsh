@@ -440,7 +440,12 @@ class SublimeMerge(Item):
             l.info("Installing")
             sudo dnf install -y sublime-merge
         elif UBUNTU:
-            l.error("Ubuntu not supported, yet.")
+            wget -qO - https://download.sublimetext.com/sublimehq-pub.gpg | sudo apt-key add -
+            sudo apt-get install apt-transport-https
+            l.info("Add repositories")
+            echo "deb https://download.sublimetext.com/ apt/stable/" | sudo tee /etc/apt/sources.list.d/sublime-text.list
+            sudo apt-get install sublime-merge
+            l.info("Installing")
     def _darwin(self):
         pass
     def _info(self):
