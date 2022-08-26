@@ -308,12 +308,30 @@ class Mu(Item):
 
 
 class Emacs(Item):
-    pass
+    def _linux(self):
+        l.info("Installing Emacs")
+        sudo snap install emacs --edge --classic
+        self._doom()
+    def _darwin(self):
+        pass
+    def _doom(self):
+        l.info("Removing previous .emacs.d")
+        rm -Rf ~/.emacs.d
+        l.info("Cloning base Doom Emacs")
+        git clone --depth 1 https://github.com/doomemacs/doomemacs ~/.emacs.d
+        l.info("Delete existing custom Doom Emacs")
+        rm -Rf ~/.doom.d
+        l.info("Copy custom Doom Emacs")
+        cp -r ~/Sync/code/.doom.d ~/.doom.d
+        l.info("Install Doom Emacs")
+        ~/.emacs.d/bin/doom install
+    def _info(self):
+        return "Emacs"
 
 @install.command("emacs")
 def install_emacs():
     """Install Emacs and config"""
-    pass
+    Emacs().install()
 
 class Rust(Item):
     def _darwin(self):
