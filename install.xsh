@@ -456,5 +456,25 @@ def install_sublime_merge():
     """Install Sublime Merge"""
     SublimeMerge().install()
 
+class Rofi(Item):
+    def _linux(self):
+        if UBUNTU:
+            sudo apt install rofi
+        self._common()
+    def _darwin(self):
+        self._common()
+    def _common(self):
+        l.info("Copy Rofi config")
+        CONFIG="~/.config/rofi"
+        mkdir -p @(CONFIG)
+        cp rc/rofi/config.rasi @(CONFIG)
+    def _info(self):
+        return "Rofi"
+
+@install.command("rofi")
+def install_rofi():
+    """Install the Rofi launcher"""
+    Rofi().install()
+
 if __name__ == "__main__":
     setup()
