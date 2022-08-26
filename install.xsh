@@ -460,14 +460,12 @@ class Rofi(Item):
     def _linux(self):
         if UBUNTU:
             sudo apt install rofi
-        self._common()
-    def _darwin(self):
-        self._common()
-    def _common(self):
         l.info("Copy Rofi config")
         CONFIG="~/.config/rofi"
         mkdir -p @(CONFIG)
         cp rc/rofi/config.rasi @(CONFIG)
+    def _darwin(self):
+        l.error("Rofi is not supported in macOS")
     def _info(self):
         return "Rofi"
 
