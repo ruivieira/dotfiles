@@ -308,30 +308,12 @@ class Mu(Item):
 
 
 class Emacs(Item):
-    def _linux(self):
-        l.info("Installing Emacs")
-        sudo snap install emacs --edge --classic
-        self._doom()
-    def _darwin(self):
-        pass
-    def _doom(self):
-        l.info("Removing previous .emacs.d")
-        rm -Rf ~/.emacs.d
-        l.info("Cloning base Doom Emacs")
-        git clone --depth 1 https://github.com/doomemacs/doomemacs ~/.emacs.d
-        l.info("Delete existing custom Doom Emacs")
-        rm -Rf ~/.doom.d
-        l.info("Copy custom Doom Emacs")
-        cp -r ~/Sync/code/.doom.d ~/.doom.d
-        l.info("Install Doom Emacs")
-        ~/.emacs.d/bin/doom install
-    def _info(self):
-        return "Emacs"
+    pass
 
 @install.command("emacs")
 def install_emacs():
     """Install Emacs and config"""
-    Emacs().install()
+    pass
 
 class Rust(Item):
     def _darwin(self):
@@ -473,24 +455,6 @@ class SublimeMerge(Item):
 def install_sublime_merge():
     """Install Sublime Merge"""
     SublimeMerge().install()
-
-class Rofi(Item):
-    def _linux(self):
-        if UBUNTU:
-            sudo apt install rofi
-        l.info("Copy Rofi config")
-        CONFIG="~/.config/rofi"
-        mkdir -p @(CONFIG)
-        cp rc/rofi/config.rasi @(CONFIG)
-    def _darwin(self):
-        l.error("Rofi is not supported in macOS")
-    def _info(self):
-        return "Rofi"
-
-@install.command("rofi")
-def install_rofi():
-    """Install the Rofi launcher"""
-    Rofi().install()
 
 if __name__ == "__main__":
     setup()
