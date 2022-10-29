@@ -97,8 +97,4 @@ function syncthing_conflicts_delete {
 	find "$1" -name "*.sync-conflict*" -delete
 }
 
-function notes_move {
-	mv ~/Downloads/obsidian/*.md ~/notes/pages/backlog
-	trimage -d ~/Downloads/obsidian/images
-	mv ~/Downloads/obsidian/images/* ~/notes/pages/backlog/images
-}
+

@@ -16,7 +16,7 @@ ROBBY_DIR=${HOME}/Sync/code/robby
 alias notes=${ROBBY_DIR}/robby/xontrib/notes.xsh
 alias humble=${ROBBY_DIR}/robby/xontrib/humble.xsh
 
-plugins=(emoji git macos mvn rust zsh-autosuggestions history-substring-search zsh-syntax-highlighting zsh-z)
+plugins=(emoji git macos mvn rust zsh-autosuggestions history-substring-search zsh-syntax-highlighting zsh-z robby artisan)
 
 source $ZSH/oh-my-zsh.sh
 
@@ -39,7 +39,7 @@ TIMEFMT='%J   %U  user %S system %P cpu %*E total'$'\n'\
 'page faults from disk:     %F'$'\n'\
 'other page faults:         %R'
 
-PROMPT='$(random_emoji animals)':$PROMPT
+export PROMPT='$(random_emoji animals)':$PROMPT
 
 ZSH_THEME_GIT_PROMPT_PREFIX="("
 ZSH_THEME_GIT_PROMPT_SUFFIX=")"

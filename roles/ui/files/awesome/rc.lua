@@ -121,7 +121,7 @@ local mailclient        = "geary"
 local mediaplayer       = "vlc"
 local scrlocker         = "i3lock-fancy"
 -- local terminal          = "st -f consolas"
-local terminal          = "/usr/bin/wezterm"
+local terminal          = "/usr/bin/kitty"
 local virtualmachine    = "virtualbox"
 
 -- awesome variables

@@ -1,10 +1,23 @@
 # dotfiles
 
 A collection of configuration and setup files I am currently using across several machines. This will also install software I frequently use on macOS and Linux (mainly Ubuntu and Fedora).
+The entirety of this configuration was created to fit _my_ personal workflow, so it might not necessarily fit your work.
 
 ## Setup
 
-There are two approaches to install these configurations, with [xonsh](https://xon.sh/) or [Ansible](https://www.ansible.com/).
+There are several approaches to install these configurations, _e.g._ with [xonsh](https://xon.sh/) or [Ansible](https://www.ansible.com/). Parts of this configuration can also be installed using [GNU's Stow](https://www.gnu.org/software/stow/).
+
+### GNU Stow
+
+The Stow files are available under `$ROOT/stow`. As an example, to install the `zsh` configuration use
+
+```zsh
+$ cd stow
+$ stow zsh -t ~
+```
+
+Stow will not install symlinks over existing files, so it's up to you to manually delete the ones you want to replace.
+
 
 > **⚠️ WARNING ⚠️** running either of these methods locally _will delete_ some of you current configurations,
 if they exist, (`./config/nvim`, `.bashrc`, `.zshrc`, `.emacs.d/`, _etc._)
