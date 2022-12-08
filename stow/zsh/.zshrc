@@ -13,9 +13,6 @@ CASE_SENSITIVE="false"
 
 ROBBY_DIR=${HOME}/Sync/code/robby
 
-alias notes=${ROBBY_DIR}/robby/xontrib/notes.xsh
-alias humble=${ROBBY_DIR}/robby/xontrib/humble.xsh
-
 plugins=(emoji git macos mvn rust zsh-autosuggestions history-substring-search zsh-syntax-highlighting zsh-z robby artisan)
 
 source $ZSH/oh-my-zsh.sh
@@ -55,3 +52,5 @@ export PATH="$HOME/.nimble/bin:$DENO_INSTALL/bin:$PATH"
 #THIS MUST BE AT THE END OF THE FILE FOR SDKMAN TO WORK!!!
 export SDKMAN_DIR="$HOME/.sdkman"
 [[ -s "$HOME/.sdkman/bin/sdkman-init.sh" ]] && source "$HOME/.sdkman/bin/sdkman-init.sh"
+
+export PATH="/usr/local/opt/ruby/bin:$PATH"
