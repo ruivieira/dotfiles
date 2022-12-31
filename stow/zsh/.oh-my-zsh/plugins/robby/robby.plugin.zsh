@@ -22,8 +22,20 @@ function update_plan() {
     curl -su rui -F "plan=<$T" https://plan.cat/stdin
 }
 
+function quarto_render {
+    echo "Processing $1"
+    quarto render $1
+    local base=$1:r
+    echo "Do replacements on $base.md"
+    sd "<script.*?/script>" "" $base.md
+    sd -s "\\[" "[" $base.md
+    sd -s "\\]" "]" $base.md
+    # sd "<img src=\\"(.*?)\\".*/>" '![[$1]]' $base.md
+    sd -s "%20" " " $base.md
+    sd -s "\\|" "|" $base.md
+}
+
 local DENO_RUN="deno run -A --unstable ~/Sync/code/deno/deno-experiments"
 
 alias agile="${DENO_RUN}/agile/agile.ts"
 alias humble="${DENO_RUN}/humble/humble.ts"
-alias robby="python3 -m robby"

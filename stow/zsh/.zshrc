@@ -13,9 +13,10 @@ CASE_SENSITIVE="false"
 
 ROBBY_DIR=${HOME}/Sync/code/robby
 
-plugins=(emoji git macos mvn rust zsh-autosuggestions history-substring-search zsh-syntax-highlighting zsh-z robby artisan)
+plugins=(emoji git macos mvn rust zsh-autosuggestions history-substring-search zsh-syntax-highlighting zsh-z git-prompt robby)
 
 source $ZSH/oh-my-zsh.sh
+source $HOME/.bash_profile
 
 # load aliases
 if [ -f $HOME/.aliasrc ]; then
@@ -36,7 +37,7 @@ TIMEFMT='%J   %U  user %S system %P cpu %*E total'$'\n'\
 'page faults from disk:     %F'$'\n'\
 'other page faults:         %R'
 
-export PROMPT='$(random_emoji animals)':$PROMPT
+export PROMPT='$(random_emoji animals) %{$fg[cyan]%}%~%{$reset_color%} $(git_super_status) '
 
 ZSH_THEME_GIT_PROMPT_PREFIX="("
 ZSH_THEME_GIT_PROMPT_SUFFIX=")"
@@ -53,4 +54,4 @@ export PATH="$HOME/.nimble/bin:$DENO_INSTALL/bin:$PATH"
 export SDKMAN_DIR="$HOME/.sdkman"
 [[ -s "$HOME/.sdkman/bin/sdkman-init.sh" ]] && source "$HOME/.sdkman/bin/sdkman-init.sh"
 
-export PATH="/usr/local/opt/ruby/bin:$PATH"
+export PATH="/opt/local/bin:$PATH"
