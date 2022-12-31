@@ -37,7 +37,8 @@ TIMEFMT='%J   %U  user %S system %P cpu %*E total'$'\n'\
 'page faults from disk:     %F'$'\n'\
 'other page faults:         %R'
 
-export PROMPT='$(random_emoji animals) %{$fg[cyan]%}%~%{$reset_color%} $(git_super_status) '
+CURRENT_ANIMAL=$(random_emoji animals)
+export PROMPT='$CURRENT_ANIMAL %{$fg[cyan]%}%~%{$reset_color%} $(git_super_status) '
 
 ZSH_THEME_GIT_PROMPT_PREFIX="("
 ZSH_THEME_GIT_PROMPT_SUFFIX=")"
