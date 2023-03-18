@@ -55,4 +55,22 @@ export PATH="$HOME/.nimble/bin:$DENO_INSTALL/bin:$PATH"
 export SDKMAN_DIR="$HOME/.sdkman"
 [[ -s "$HOME/.sdkman/bin/sdkman-init.sh" ]] && source "$HOME/.sdkman/bin/sdkman-init.sh"
 
-export PATH="/opt/local/bin:$PATH"
+# Add MacPorts to path
+export PATH=/opt/local/bin:$PATH
+
+# Stop Kopia checking for updates
+export KOPIA_CHECK_FOR_UPDATES=false
+
+# Add CRC to path
+export PATH=$HOME/crc:$PATH
+
+[[ $commands[kubectl] ]] && source <(kubectl completion zsh)
+
+# Add JBang to environment
+alias j!=jbang
+export PATH="$HOME/.jbang/bin:$PATH"
+export PATH="/usr/local/sbin:$PATH"
+
+# Python configurations
+
+export WORKON_HOME=$HOME/.virtualenvs
