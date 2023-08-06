@@ -1,7 +1,6 @@
 # Path to your oh-my-zsh configuration.
 ZSH=$HOME/.oh-my-zsh
 
-ZSH_THEME="gruvbox"
 SOLARIZED_THEME="dark"
 
 # Set to this to use case-sensitive completion
@@ -13,7 +12,7 @@ CASE_SENSITIVE="false"
 
 ROBBY_DIR=${HOME}/Sync/code/robby
 
-plugins=(emoji git macos mvn rust zsh-autosuggestions history-substring-search zsh-syntax-highlighting zsh-z git-prompt robby)
+plugins=(emoji git macos mvn rust zsh-autosuggestions history-substring-search zsh-syntax-highlighting zsh-z robot)
 
 source $ZSH/oh-my-zsh.sh
 source $HOME/.bash_profile
@@ -38,7 +37,7 @@ TIMEFMT='%J   %U  user %S system %P cpu %*E total'$'\n'\
 'other page faults:         %R'
 
 CURRENT_ANIMAL=$(random_emoji animals)
-export PROMPT='$CURRENT_ANIMAL %{$fg[cyan]%}%~%{$reset_color%} $(git_super_status) '
+# export PROMPT='$CURRENT_ANIMAL %{$fg[cyan]%}%~%{$reset_color%} $(git_super_status) '
 
 ZSH_THEME_GIT_PROMPT_PREFIX="("
 ZSH_THEME_GIT_PROMPT_SUFFIX=")"
@@ -55,16 +54,14 @@ export PATH="$HOME/.nimble/bin:$DENO_INSTALL/bin:$PATH"
 export SDKMAN_DIR="$HOME/.sdkman"
 [[ -s "$HOME/.sdkman/bin/sdkman-init.sh" ]] && source "$HOME/.sdkman/bin/sdkman-init.sh"
 
-# Add MacPorts to path
-export PATH=/opt/local/bin:$PATH
+# Add Brew to path
+export PATH=/usr/local/bin:$PATH
 
 # Stop Kopia checking for updates
 export KOPIA_CHECK_FOR_UPDATES=false
 
 # Add CRC to path
 export PATH=$HOME/crc:$PATH
-
-[[ $commands[kubectl] ]] && source <(kubectl completion zsh)
 
 # Add JBang to environment
 alias j!=jbang
@@ -74,3 +71,12 @@ export PATH="/usr/local/sbin:$PATH"
 # Python configurations
 
 export WORKON_HOME=$HOME/.virtualenvs
+
+eval "$(starship init zsh)"
+export PATH="/usr/local/opt/ruby/bin:$PATH"
+
+PATH="/Users/rui/perl5/bin${PATH:+:${PATH}}"; export PATH;
+PERL5LIB="/Users/rui/perl5/lib/perl5${PERL5LIB:+:${PERL5LIB}}"; export PERL5LIB;
+PERL_LOCAL_LIB_ROOT="/Users/rui/perl5${PERL_LOCAL_LIB_ROOT:+:${PERL_LOCAL_LIB_ROOT}}"; export PERL_LOCAL_LIB_ROOT;
+PERL_MB_OPT="--install_base \"/Users/rui/perl5\""; export PERL_MB_OPT;
+
